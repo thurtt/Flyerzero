@@ -2,7 +2,7 @@
 # There may be a better way to do this, but here is the site I referenced: http://www.simonecarletti.com/blog/2009/06/capistrano-and-database-yml/
 require "./config/capistrano_database"
 
-set :application, "www.flyerzero.com"
+set :application, "flyerzero"
 set :repository,  "git://github.com/thurtt/Flyerzero.git"
 set(:user) { Capistrano::CLI.ui.ask("User name: ") }
 set :appuser, "fzu"
