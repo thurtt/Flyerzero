@@ -10,6 +10,9 @@ gem 'json'
 gem 'mysql2'
 gem "paperclip"
 gem 'kaminari'
+gem 'geokit-rails3'
+gem 'foursquare2'
+gem 'oauth2'
 
 # Gems used only for assets and not required
 # in production environments by default.
