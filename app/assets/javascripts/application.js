@@ -12,7 +12,7 @@ $(document).ready(function() {
 		
    $('.slideshow').cycle({
 		fx: 'fade',
-		timeout: 5000
+		timeout: 4000
 	});
   
 	  
