@@ -2,10 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.box {
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+}
+
+
 /* prototype stuff */
 body{
 	background:black;
-	color: #dddddd;
+	color: #888888;
+	//background-image: url('/assets/rr0213_web_thumb.jpg');
+	//background-image: url('/assets/umlaut0313_web_thumb.jpg');
 }
 
 div#logo {
@@ -15,10 +23,13 @@ div#logo {
 
 div#content {
 	text-align:center;
-	height:500px;
+	padding:20px;
+	height:520px;
 	vertical-align: middle;
-	width:900px;
+	width:1020px;
 	margin: 0 auto;
+	border:1px solid #555555;
+	background-image: url('/assets/transparent.png');
 }
 
 div#footer {
@@ -30,25 +41,23 @@ div#footer {
 
 
 div#content div.container{
-	width:450px;
 	float:left;
+	padding:10px;
 }
 
 div#flyer {
-	color:red;
+	width:400px;
+	text-align:right;
 }
-#flyer img {
-	padding:4px;
-}
-
 div#kickstarter {
-	color:green;
+	width:550px;
+	text-align:left;
 }
 .slideshow img { display: none }
 .slideshow img.first { display: block }
 
 div#kicktitle {
-	font-size: 1.4em;
+	font-size: 1.8em;
 	color: #fcfcfc;
 }
 
