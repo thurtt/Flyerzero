@@ -47,4 +47,14 @@ div#kickstarter {
 .slideshow img { display: none }
 .slideshow img.first { display: block }
 
+div#kicktitle {
+	font-size: 1.4em;
+	color: #fcfcfc;
+}
+
+div.kickdesc {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: left;
+}
 /* end of prototype stuff */
