@@ -11,8 +11,9 @@
 $(document).ready(function() {
 		
    $('.slideshow').cycle({
-		fx: 'fade',
-		timeout: 4000
+		fx: 'shuffle',
+		timeout: 3000,
+		speedIn:  500
 	});
   
 	  
