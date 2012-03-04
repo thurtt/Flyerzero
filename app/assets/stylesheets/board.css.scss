@@ -10,7 +10,7 @@
 
 /* prototype stuff */
 body{
-	background:black;
+	background:#222222;
 	color: #888888;
 	//background-image: url('/assets/rr0213_web_thumb.jpg');
 	//background-image: url('/assets/umlaut0313_web_thumb.jpg');
@@ -28,8 +28,14 @@ div#content {
 	vertical-align: middle;
 	width:1020px;
 	margin: 0 auto;
-	border:1px solid #555555;
+	//border:1px solid #555555;
 	background-image: url('/assets/transparent.png');
+}
+div#corner_spot{
+	position:absolute;
+	left:0px;
+	top:0px;
+	z-index:2000;
 }
 
 div#footer {
