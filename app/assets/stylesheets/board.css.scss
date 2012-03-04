@@ -16,7 +16,6 @@ div#logo {
 div#content {
 	text-align:center;
 	height:500px;
-	border:1px solid gray;
 	vertical-align: middle;
 	width:900px;
 	margin: 0 auto;
@@ -25,7 +24,7 @@ div#content {
 div#footer {
 	font-size:0.8em;
 	text-align:center;
-	padding:20px;
+	padding:40px;
 	color:#cccccc;
 }
 
@@ -38,8 +37,14 @@ div#content div.container{
 div#flyer {
 	color:red;
 }
+#flyer img {
+	padding:4px;
+}
+
 div#kickstarter {
 	color:green;
 }
+.slideshow img { display: none }
+.slideshow img.first { display: block }
 
 /* end of prototype stuff */
