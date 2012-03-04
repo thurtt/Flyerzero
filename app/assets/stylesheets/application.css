@@ -5,3 +5,14 @@
  *= require_self
  *= require_tree . 
 */
+
+.box {
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+}
+body{
+	background:#222222;
+	color: #888888;
+	//background-image: url('/assets/rr0213_web_thumb.jpg');
+	//background-image: url('/assets/umlaut0313_web_thumb.jpg');
+}
