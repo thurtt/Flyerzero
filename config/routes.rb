@@ -48,7 +48,10 @@ Flyerzero::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'board#index'
+    root :to => 'mobile#index', :constraints=> {:user_agent => /mobile.+?safari/i }
+
+    root :to => 'board#index'
+
 
   # See how all your routes lay out with "rake routes"
 
