@@ -11,6 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120310181840) do
+
+  create_table "events", :force => true do |t|
+    t.string   "email"
+    t.date     "expiry"
+    t.decimal  "lat",                :precision => 15, :scale => 10
+    t.decimal  "lng",                :precision => 15, :scale => 10
+    t.string   "valdiation_hash"
+    t.integer  "validated"
+    t.integer  "event_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -5,12 +5,9 @@
 	<div id="nearby" class="content box">
 		<div class="header textual">Nearby, Right Now</div>
 		<div class="flyers">
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "rr0213_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "rr0213_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
+			<%for flyer in @now%>
+				<%=image_tag flyer.thumb, :size=>"130x163", :class=>"first"%>
+			<%end%>
 		</div>
 		
 		<div class="header textual">More</div>
@@ -19,12 +16,9 @@
 	<div id="soon" class="content box">
 		<div class="header textual">Nearby, Soon</div>
 		<div class="flyers">
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "rr0213_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "umlaut0313_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "rr0213_web_thumb.jpg", :size=>"130x163"%>
-			<%=image_tag "rr0213_web_thumb.jpg", :size=>"130x163"%>
+			<%for flyer in @soon%>
+				<%=image_tag flyer.thumb, :size=>"130x163", :class=>"first"%>
+			<%end%>
 		</div>
 		
 		<div class="header textual">More</div>
