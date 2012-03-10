@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
 	before_filter :findme
 	
 	def findme
-		@origin = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+		if session[:origin] 
+			@origin = session[:origin] 
+		else
+			@origin = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+		end
 	end
 end
