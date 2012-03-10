@@ -21,4 +21,8 @@ $(document).ready(function() {
 		$('#add_panel').toggle('blind');
 	});
 
+	$('#add_panel input[name|="date"]').click( function(){
+		$('#add_panel input[name|="date"]').datepicker();
+	});
+
 });
