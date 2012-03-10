@@ -10,12 +10,15 @@
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
-	
+
 	$('.slideshow').cycle({
 		fx: 'shuffle',
 		timeout: 3000,
 		speedIn:  500
 	});
-  
-	  
+
+	$('#add_link').click( function(){
+		$('#add_panel').toggle('blind');
+	});
+
 });

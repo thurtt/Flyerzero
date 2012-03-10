@@ -63,34 +63,47 @@ div.kickdesc {
 	text-align: left;
 }
 /* end of prototype stuff */
-div#links {
-	margin-left: auto;
-	margin-right: auto;
-	width: 1020px;
+
+div#add_widget{
+    width: 450px;
+    position: absolute;
+    right: 30px;
 }
 
-div#add_event {
-	float: right;
-	width: 180px;
-	padding: 5px;
+div#add_link {
+	width: 155px;
+	padding: 10px;
 	color: #eeeeee;
 	font-family: sans-serif;
 	font-weight: 700;
 	font-size: 1.1em;
+	position: relative;
+	right: 0px;
+	float: right;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-image: url('/assets/transparent.png');
 }
 
-div#add_event:hover {
+div#add_link:hover {
     cursor: pointer;
 }
 
-#add_event .dot{
-    width: 10px;
-    height: 10px;
-    background: #87e621;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    float: left;
-    margin-right: 5px;
-    margin-top: 3px;
+div#add_panel {
+	position: relative;
+	padding:20px;
+	width:400px;
+	top: -3px;
+	background-image: url('/assets/transparent.png');
+	float: right;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
