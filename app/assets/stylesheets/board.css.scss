@@ -63,3 +63,34 @@ div.kickdesc {
 	text-align: left;
 }
 /* end of prototype stuff */
+div#links {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1020px;
+}
+
+div#add_event {
+	float: right;
+	width: 180px;
+	padding: 5px;
+	color: #eeeeee;
+	font-family: sans-serif;
+	font-weight: 700;
+	font-size: 1.1em;
+}
+
+div#add_event:hover {
+    cursor: pointer;
+}
+
+#add_event .dot{
+    width: 10px;
+    height: 10px;
+    background: #87e621;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 3px;
+}
