@@ -4,4 +4,10 @@ class BoardController < ApplicationController
 		@flyers = Event.within(5, :origin => @orgin).page(params[:page]).per(10)
 	end
 	
+	def authenticate
+		flyer = Event.find_by_verification_hash(params[:v]) if params[:v] 
+		session[:email] = flyer.email if flyer != nil
+		redirect_to :action=>"index"
+	end
+	
 end
