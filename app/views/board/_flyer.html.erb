@@ -1,4 +1,5 @@
 <div class="slideshow">
-	<%=image_tag "rr0213_web_medium.jpg", :size=>"400x500", :class=>"first"%>
-	<%=image_tag "umlaut0313_web_medium.jpg", :size=>"400x500"%>
+	<%for flyer in @flyers%>
+	<%=image_tag flyer.medium, :size=>"400x500", :class=>"first"%>
+	<%end%>
 </div>
