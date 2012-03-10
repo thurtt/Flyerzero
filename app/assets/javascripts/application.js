@@ -9,8 +9,9 @@
 //= require_tree .
 
 $(document).ready(function() {
-		
-   $('.slideshow').cycle({
+	$('div.slideshow img:first').addClass('first');
+	
+	$('.slideshow').cycle({
 		fx: 'shuffle',
 		timeout: 3000,
 		speedIn:  500
