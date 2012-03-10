@@ -1,7 +1,8 @@
 class BoardController < ApplicationController
 
 	def index
-		@flyers = Event.all
+		#@origin = '1119 Page St, Charlottesville, VA'
+		@flyers = Event.within(5, :origin => @orgin)
 	end
 	
 end
