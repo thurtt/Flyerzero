@@ -1,0 +1,41 @@
+<div id="add_widget">
+	<div id="add_link">Submit Your Flyer</div>
+	<div id="add_panel">
+	
+	
+	<% if @event.errors.any? %>
+		<div id="error_explanation">
+		<h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+		
+		<ul>
+			<% @event.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+		</div>
+	<%end%>
+		
+		<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }) do |f| %>
+			<table>
+				<tr>
+					<td><%=f.email_field :email, :placeholder=>"Your email address"%></td>
+				</tr>
+				<tr>
+					<td><%= f.file_field :photo, :accept => 'image/png,image/gif,image/jpeg'%></td>
+				</tr>
+				<tr>
+					<td><%=f.text_field :expiry, :placeholder=>"End date"%></td>
+				</tr>
+				<tr>
+					<td><%=f.text_field :lat, :placeholder=>"Latitutde"%></td>
+				</tr>
+				<tr>
+					<td><%=f.text_field :lng, :placeholder=>"Longitude"%></td>
+				</tr>
+				<tr>
+					<td><%=f.submit :value=>"Create"%></td>
+				</tr>
+			</table>
+		<%end%>
+	</div>
+</div>

@@ -1,5 +1,5 @@
 <div class="slideshow">
 	<%for flyer in @flyers%>
-	<%=image_tag flyer.medium, :size=>"400x500", :class=>"first"%>
+	<%=image_tag flyer.photo.url(:medium), :size=>"400x500", :class=>"first"%>
 	<%end%>
 </div>
