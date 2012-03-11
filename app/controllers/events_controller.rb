@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 		#@event.expiry = Time._load( params[:event][:expiry] )
 		@event.validation_hash = rand(36**16).to_s(36)
 		if @event.save
-			render :parital=>"created"
+			render :partial=>"created"
 		else
 			render :partial=>"submit"
 		end
