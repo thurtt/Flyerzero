@@ -32,6 +32,14 @@ $(document).ready(function() {
 		$('#submit').fadeOut(function(){$('#kickstarter').fadeIn();});
 		$('#dragdrop').fadeOut(function(){$('#flyer').fadeIn();});
 	});
+
+	// check for the correct html5 support
+	// Check for the various File API support.
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+	  // Great success! All the File APIs are supported.
+	} else {
+	  $('dragdrop_text').html( 'Drag and Drop upload is not supported by your browser :(');
+	}
 });
 
 function loadFlyerData(position) {
@@ -44,10 +52,11 @@ function foundLocation(position) {
   var lat = position.coords.latitude;
   var long = position.coords.longitude;
   loadFlyerData(position);
-  //alert('Found location: ' + lat + ', ' + long);
+  alert('Found location: ' + lat + ', ' + long);
 }
 
 function noLocation() {
+  alert('Could not find location');
   loadFlyerData(position);
-  //alert('Could not find location');
+
 }
