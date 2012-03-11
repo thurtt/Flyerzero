@@ -73,7 +73,7 @@ div#add_widget{
 div#add_link {
 	width: 155px;
 	padding: 10px;
-	color: #eeeeee;
+	color: #cc0000;
 	font-family: sans-serif;
 	font-weight: 700;
 	font-size: 1.1em;
@@ -85,7 +85,15 @@ div#add_link {
 	border-radius: 5px;
 	background-image: url('/assets/transparent.png');
 }
-
+#add_link span{
+	position:absolute;
+	display:block;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background: url('/assets/text_grunge.png');
+}
 div#add_link:hover {
     cursor: pointer;
 }
@@ -106,4 +114,5 @@ div#add_panel {
 	-moz-border-radius-bottomright: 5px;
 	-webkit-border-bottom-right-radius: 5px;
 	border-bottom-right-radius: 5px;
+	display: none;
 }
