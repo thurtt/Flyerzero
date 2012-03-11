@@ -1,40 +1,51 @@
-<div id="add_widget">
-	<div id="add_panel">
+
+<div id="add_panel">
 
 
-	<% if @event.errors.any? %>
-		<div id="error_explanation">
-		<h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<% if @event.errors.any? %>
+	<div id="error_explanation">
+	<h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-		<ul>
-			<% @event.errors.full_messages.each do |msg| %>
-				<li><%= msg %></li>
-			<% end %>
-		</ul>
-		</div>
-	<%end%>
-
-		<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }) do |f| %>
-			<table>
-				<tr>
-					<td><%=f.email_field :email, :placeholder=>"Your email address"%></td>
-				</tr>
-				<tr>
-					<td><%= f.file_field :photo, :accept => 'image/png,image/gif,image/jpeg'%></td>
-				</tr>
-				<tr>
-					<td><%=f.text_field :expiry, :placeholder=>"End date"%></td>
-				</tr>
-				<tr>
-					<td><%=f.text_field :lat, :placeholder=>"Latitutde"%></td>
-				</tr>
-				<tr>
-					<td><%=f.text_field :lng, :placeholder=>"Longitude"%></td>
-				</tr>
-				<tr>
-					<td><%=f.submit :value=>"Create"%></td>
-				</tr>
-			</table>
-		<%end%>
+	<ul>
+		<% @event.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+	</ul>
 	</div>
+<%end%>
+
+	<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }) do |f| %>
+		<table>
+			<tr>
+				<td><h1>Who's Shindig?</h1></td>
+			</tr>
+			<tr>
+				<td><%=f.email_field :email, :placeholder=>"Your email address", :class=>"input_text" %></td>
+			</tr>
+			<tr>
+				<td><h1>When?</h1></td>
+			</tr>
+			<tr>
+				<td><%=f.text_field :expiry, :placeholder=>"End date", :class=>"input_text"%></td>
+			</tr>
+			<tr>
+				<td><h1>Where is it?</h1></td>
+			</tr>
+			<tr>
+				<td><%=f.text_field :lat, :placeholder=>"Latitutde", :class=>"input_text"%></td>
+			</tr>
+			<tr>
+				<td><%=f.text_field :lng, :placeholder=>"Longitude", :class=>"input_text"%></td>
+			</tr>
+			<tr>
+				<td><h1>Flyer Image</h1></td>
+			</tr>
+			<tr>
+				<td><%= f.file_field :photo, :accept => 'image/png,image/gif,image/jpeg'%></td>
+			</tr>
+			<tr>
+				<td><%=f.submit :value=>"Create"%><input type="button" value="Nevermind" id="cancel"></td>
+			</tr>
+		</table>
+	<%end%>
 </div>

@@ -25,4 +25,9 @@ $(document).ready(function() {
 
 	$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy' });
 
+	$('#add_panel input#cancel').click( function(){
+		$('#submit').fadeOut(function(){$('#kickstarter').fadeIn();});
+		$('#dragdrop').fadeOut(function(){$('#flyer').fadeIn();});
+	});
+
 });

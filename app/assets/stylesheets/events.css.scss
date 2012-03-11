@@ -1,3 +1,31 @@
-// Place all the styles related to the Events controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+div#add_panel {
+	/*position: relative;*/
+	padding:20px;
+	width:400px;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: sans-serif;
+}
+
+#add_panel .input_text {
+    font-size: 1.1em;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+#add_panel h1 {
+    font-size: 1.2em;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+div#dragdrop_content {
+    border: 2px dashed #777777;
+    height: inherit;
+    text-align: center;
+    line-height: 500px;
+}
+
+
+div#dragdrop_text {
+}
