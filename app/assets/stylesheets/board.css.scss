@@ -52,6 +52,20 @@ div#kickstarter {
 .slideshow img { display: none }
 .slideshow img.first { display: block }
 
+div#submit {
+    width: 550px;
+    text-align: left;
+    display: none;
+    border: 1px solid green;
+}
+
+div#dragdrop {
+    display:none;
+    height: 100%;
+    width: 400px;
+    padding: 10px;
+}
+
 div#kicktitle {
 	font-size: 2em;
 	color: #fcfcfc;
@@ -103,10 +117,10 @@ div#add_link:hover {
 }
 
 div#add_panel {
-	position: relative;
+	/*position: relative;*/
 	padding:20px;
 	width:400px;
-	top: -3px;
+	/*top: -3px;
 	background-image: url('/assets/transparent.png');
 	float: right;
 	-moz-border-radius-topleft: 5px;
@@ -118,5 +132,13 @@ div#add_panel {
 	-moz-border-radius-bottomright: 5px;
 	-webkit-border-bottom-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	display: none;
+	/*display: none;*/
+}
+
+div#dragdrop_content {
+    border: 2px dashed #999999;
+    padding-top: auto;
+    padding-bottom: auto;
+    text-align: center;
+    height: 100%;
 }
