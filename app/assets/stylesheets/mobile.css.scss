@@ -1,6 +1,7 @@
 // Place all the styles related to the mobile controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body.mobile {
 
 div#page {
 }
@@ -69,4 +70,4 @@ div#controls div.fzbutton {
 	background: -webkit-gradient(linear, left top, left bottom, from(#bb0000), to(#440000)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  #bb0000,  #440000); /* for firefox 3.6+ */ 
 }
-
+}
