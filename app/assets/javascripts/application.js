@@ -24,3 +24,4 @@ $(document).ready(function() {
 	$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy' });
 
 });
+

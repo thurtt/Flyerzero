@@ -71,7 +71,7 @@ div#add_widget{
 }
 
 div#add_link {
-	width: 155px;
+	width: 205px;
 	padding: 10px;
 	color: #cc0000;
 	font-family: sans-serif;
@@ -94,6 +94,10 @@ div#add_link {
 	width:100%;
 	background: url('/assets/text_grunge.png');
 }
+div#add_link table{
+	margin:auto;
+}
+
 div#add_link:hover {
     cursor: pointer;
 }
