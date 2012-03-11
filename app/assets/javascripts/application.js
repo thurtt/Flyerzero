@@ -8,6 +8,8 @@
 //= require jquery_ujs
 //= require_tree .
 
+navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 
@@ -22,6 +24,24 @@ $(document).ready(function() {
 	});
 
 	$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy' });
+	
 
 });
 
+function loadFlyerData(position) {
+	$.get('flyers/?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude,function(data) {
+		$('#content').html(data);
+	});
+}
+
+function foundLocation(position) {
+  var lat = position.coords.latitude;
+  var long = position.coords.longitude;
+  loadFlyerData(position);
+  //alert('Found location: ' + lat + ', ' + long);
+}
+
+function noLocation() {
+  loadFlyerData(position);
+  //alert('Could not find location');
+}

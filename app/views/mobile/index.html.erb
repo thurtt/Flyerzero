@@ -1,28 +1,16 @@
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 <div id="page">
+	<div id="controls">
+		<div id="location" class="fzbutton">
+			<table><tr><td valign='middle'>Where are you?</td><td valign='middle'> <%=image_tag "arrow-right.png", :size=>"24x24"%></td></tr></table>
+		</div>
+	</div>
 	
-	<div id="nearby" class="content box">
-		<div class="header textual">Nearby, Right Now</div>
-		<div class="flyers">
-			<%for flyer in @now%>
-				<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
-			<%end%>
-		</div>
-		
-		<div class="header textual">More</div>
+	<div id="content">
+		<%=image_tag "cycle.gif", :size=>"128x128", :style=>"height:128px; width: 128px; margin:auto;display:block;"%>
 	</div>
-	<br />
-	<div id="soon" class="content box">
-		<div class="header textual">Nearby, Soon</div>
-		<div class="flyers">
-			<%for flyer in @soon%>
-				<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
-			<%end%>
-		</div>
-		
-		<div class="header textual">More</div>
-	</div>
+	
 	<br />
 	
 	<div id="footer"><strong>Flyer Zero</strong> is a kickass <strong>Open Form Foundation</strong> joint.</div>
