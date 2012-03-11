@@ -14,9 +14,11 @@ class ApplicationController < ActionController::Base
 		if session[:origin] 
 			@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
 		else
-			#@origin = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
-			@origin = Geokit::Geocoders::MultiGeocoder.geocode('1119 Page st, Charlottesville, VA')
-			#@origin = '1119 Page st, Charlottesville, VA'
+			@origin = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode @origin
+			session[:origin] = res.full_address
+			
+			#@origin = Geokit::Geocoders::MultiGeocoder.geocode('YOUR ADDRESS HERE')
 		end
 	end
 end
