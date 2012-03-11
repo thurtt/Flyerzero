@@ -1,7 +1,6 @@
 class BoardController < ApplicationController
 
 	def index
-		@flyers = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page]).per(10)
 		@event = Event.new()
 	end
 	
@@ -15,6 +14,12 @@ class BoardController < ApplicationController
 		@origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
 		session[:origin] = params[:location] if @origin
 		render :text=>'loc set'
+	end
+	
+	def flyers
+		
+		@flyers = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page]).per(10)
+		render :partial=>"flyers"
 	end
 	
 end
