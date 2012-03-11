@@ -34,8 +34,8 @@ $(document).ready(function() {
 	});
 });
 
-function loadFlyerData(position) {
-	$.get('flyers/?lat=' + position.coords.latitude + '&lng=' + position.coords.longitude,function(data) {
+function loadFlyerData(lat, lng) {
+	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
 		$('#content').html(data);
 	});
 }
@@ -43,11 +43,11 @@ function loadFlyerData(position) {
 function foundLocation(position) {
   var lat = position.coords.latitude;
   var long = position.coords.longitude;
-  loadFlyerData(position);
+  loadFlyerData(lat, long);
   //alert('Found location: ' + lat + ', ' + long);
 }
 
 function noLocation() {
-  loadFlyerData(position);
+  loadFlyerData(null,null);
   //alert('Could not find location');
 }
