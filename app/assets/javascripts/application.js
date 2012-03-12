@@ -26,14 +26,33 @@ $(document).ready(function() {
 	});
 });
 
+// disable the default drag and drop behavior
+$(document).bind('drop dragover', function (e) {
+    e.preventDefault();
+});
+
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
 		$('#content').html(data);
-		html5Test();
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy' });
 		$('#add_panel input#cancel').click( function(){
 			$('#submit').fadeOut(function(){$('#kickstarter').fadeIn();});
 			$('#dragdrop').fadeOut(function(){$('#flyer').fadeIn();});
+		});
+
+		// used for drag and drop file uploads
+		$(function () {
+			$('#image_upload').fileupload({
+			    dataType: 'json',
+			    url: '/events/upload',
+			    dropZone: $('#dragdrop_content'),
+			    add: function( e, data ) {
+				$.each(data.files, function (index, file) {
+				    $('#image_file').html(file.name);
+				    createImagePreview( file );
+				});
+			    }
+			});
 		});
 	});
 
@@ -50,11 +69,15 @@ function noLocation() {
   loadFlyerData(null,null);
   //alert('Could not find location');
 }
-function html5Test(){
-    // check for the correct html5 support
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-	// all good
-    } else {
-	$('#dragdrop_text').html( 'Drag and Drop upload is not supported by your browser :(');
-    }
+
+function createImagePreview( fileObj ){
+      $('#dragdrop_content').html('');
+      $('#dragdrop_content').removeClass('drapdrop_area');
+      window.loadImage(
+	    fileObj,
+	    function (img) {
+		$('#dragdrop_content').append(img);
+	    },
+	    {maxWidth: 400, maxHeight: 500}
+      );
 }
