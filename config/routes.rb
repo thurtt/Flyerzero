@@ -53,6 +53,7 @@ Flyerzero::Application.routes.draw do
     root :to => 'mobile#index', :constraints=> {:user_agent => /mobile.+?safari/i }
 
     root :to => 'board#index'
+    match "flyers" => "mobile#flyers", :constraints=> {:user_agent => /mobile.+?safari/i }
     match "flyers" => "board#flyers"
 
 
