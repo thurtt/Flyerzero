@@ -41,7 +41,7 @@
 				<td><h1>Flyer Image</h1></td>
 			</tr>
 			<tr>
-				<td><%= f.file_field :photo, :accept => 'image/png,image/gif,image/jpeg'%></td>
+				<td><div id="image_file"></div><%= f.file_field :photo, :accept => 'image/png,image/gif,image/jpeg', :id=>"image_upload"%></td>
 			</tr>
 			<tr>
 				<td><%=f.submit :value=>"Create"%><input type="button" value="Nevermind" id="cancel"></td>

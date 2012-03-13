@@ -20,12 +20,17 @@ div#add_panel {
 }
 
 div#dragdrop_content {
-    border: 2px dashed #777777;
     height: inherit;
-    text-align: center;
-    line-height: 500px;
 }
 
+div.drapdrop_area{
+    text-align: center;
+    line-height: 500px;
+    border: 2px dashed #777777;
+}
+input#image_upload{
+    visibility: hidden;
+}
 
 div#dragdrop_text {
 }
