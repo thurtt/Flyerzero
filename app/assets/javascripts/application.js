@@ -98,7 +98,7 @@ function addAddressToMap(lat, lng, image) {
         locationmarker = new RichMarker({
           map: map,
           position: point,
-          draggable: true,
+          draggable: false,
           flat: true,
           anchor: RichMarkerPosition.MIDDLE,
           content: div
