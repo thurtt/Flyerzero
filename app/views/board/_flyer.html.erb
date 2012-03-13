@@ -4,3 +4,4 @@
 		<script>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, '<%=flyer.photo.url( :thumb )%>');</script>
 	<%end%>
 </div>
+<script>$('#address').html('<%=@origin.full_address%>');</script>
