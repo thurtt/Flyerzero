@@ -1,6 +1,7 @@
 class MobileController < ApplicationController
 	
 	def index
+		render :layout=>"mobile"
 	end
 	
 	def flyers

@@ -16,3 +16,15 @@ body{
 	//background-image: url('/assets/rr0213_web_thumb.jpg');
 	//background-image: url('/assets/umlaut0313_web_thumb.jpg');
 }
+
+div.map_flyer{
+	margin:3px;
+	padding:3px;
+	border:1px solid #dddddd;
+	background-color: white;
+	vertical-align:top;
+}
+img.map_flyer{
+	height:50px;
+	width:40px;
+}

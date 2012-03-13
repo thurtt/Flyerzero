@@ -8,7 +8,12 @@
 //= require jquery_ujs
 //= require_tree .
 
-navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+
+
+var map;
+var address;
+var markers = [];
+
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
@@ -22,9 +27,12 @@ $(document).ready(function() {
 	$('#add_link').click( function(){
 		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
 		$('#flyer').fadeOut(function(){$('#dragdrop').fadeIn();});
-		//$('#add_panel').toggle('blind');
 	});
+	
+	initialize_map();
+	
 });
+
 
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
@@ -39,22 +47,70 @@ function loadFlyerData(lat, lng) {
 
 }
 
-function foundLocation(position) {
-  var lat = position.coords.latitude;
-  var long = position.coords.longitude;
-  loadFlyerData(lat, long);
-  //alert('Found location: ' + lat + ', ' + long);
+
+function initialize_map() {
+	map = new google.maps.Map(document.getElementById('map_canvas'), {
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+	map.setCenter(new google.maps.LatLng(41.850033,-87.6500523), 1);
+	
+	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+
+}
+function clearMap() {
+	if (markers) {
+		for (i in markers) {
+			markers[i].setMap(null);
+		}
+		markers.length = 0;
+	}
+}
+function addUser() {
+	addAddressToMap(address.latitude, address.longitude, '');
 }
 
+function addAddressToMap(lat, lng, image) {
+	point = new google.maps.LatLng(lat,lng);
+	
+        var locationmarker;
+	var div = document.createElement('DIV');
+        div.innerHTML = '<div class="map_flyer box"><img src="' + image + '" class="map_flyer"></div>';
+
+        locationmarker = new RichMarker({
+          map: map,
+          position: point,
+          draggable: true,
+          flat: true,
+          anchor: RichMarkerPosition.MIDDLE,
+          content: div
+        });
+        
+	map.setCenter(point, 13);
+	markers.push(locationmarker);
+}
+    
+    
+function foundLocation(position) {
+	var lat = position.coords.latitude;
+	var long = position.coords.longitude;
+	address = position.coords;
+	addUser(); 
+	loadFlyerData(lat, long);
+	
+	//alert('Found location: ' + lat + ', ' + long);
+}
+
+
 function noLocation() {
-  loadFlyerData(null,null);
-  //alert('Could not find location');
+	loadFlyerData(null,null);
+	//alert('Could not find location');
 }
 function html5Test(){
-    // check for the correct html5 support
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-	// all good
-    } else {
-	$('#dragdrop_text').html( 'Drag and Drop upload is not supported by your browser :(');
-    }
+	// check for the correct html5 support
+	if (window.File && window.FileReader && window.FileList && window.Blob) {
+		// all good
+	} else {
+		$('#dragdrop_text').html( 'Drag and Drop upload is not supported by your browser :(');
+	}
 }
