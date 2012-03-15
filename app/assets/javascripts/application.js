@@ -100,7 +100,7 @@ function addAddressToMap(lat, lng, image) {
           position: point,
           draggable: false,
           flat: true,
-          anchor: RichMarkerPosition.MIDDLE,
+          anchor: RichMarkerPosition.BOTTOM,
           content: div
         });
         
