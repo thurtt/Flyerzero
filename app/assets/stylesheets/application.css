@@ -28,6 +28,17 @@ img.map_flyer{
 	height:50px;
 	width:40px;
 }
+div.overlay{
+	position:absolute;
+	margin:3px;
+	padding:3px;
+	top: 2px;
+	left:2px;
+	background-image: url('/assets/glass-overlay.png');
+	height:50px;
+	width:40px;
+}
+
 .arrow-down {
 	width: 0;
 	height: 0;

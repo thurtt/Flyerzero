@@ -85,7 +85,7 @@ function clearMap() {
 	}
 }
 function addUser() {
-	addAddressToMap(address.latitude, address.longitude, '');
+	addAddressToMap(address.latitude, address.longitude, '/assets/user.png');
 }
 
 function addAddressToMap(lat, lng, image) {
@@ -93,7 +93,7 @@ function addAddressToMap(lat, lng, image) {
 	
         var locationmarker;
 	var div = document.createElement('DIV');
-        div.innerHTML = '<div class="map_flyer box"><img src="' + image + '" class="map_flyer"><div class="arrow-down"></div></div>';
+        div.innerHTML = '<div class="map_flyer box"><img src="' + image + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
 
         locationmarker = new RichMarker({
           map: map,
