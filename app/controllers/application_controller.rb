@@ -13,8 +13,10 @@ class ApplicationController < ActionController::Base
 		
 		if session[:origin] 
 			@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
+			#@origin is now a Geoloc object.
 		else
 			@origin = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+			#@origin is now a Geoloc object.
 			
 			#@origin = Geokit::Geocoders::MultiGeocoder.geocode('YOUR ADDRESS HERE')
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode @origin
