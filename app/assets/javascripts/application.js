@@ -18,11 +18,7 @@ var uploadData = {};
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 
-	$('.slideshow').cycle({
-		fx: 'shuffle',
-		timeout: 3000,
-		speedIn:  500
-	});
+	
 
 	$('#add_link').click( function(){
 		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
@@ -52,6 +48,11 @@ function loadFlyerData(lat, lng) {
 			result = uploadData.submit();
 		});
 
+		$('.slideshow').cycle({
+			fx: 'shuffle',
+			timeout: 3000,
+			speedIn:  500
+		});
 		// used for drag and drop file uploads
 		$(function () {
 			$('#image_upload').fileupload({
