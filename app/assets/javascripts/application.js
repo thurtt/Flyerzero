@@ -13,7 +13,7 @@
 var map;
 var address;
 var markers = [];
-
+var uploadData = {};
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
@@ -49,24 +49,25 @@ function loadFlyerData(lat, lng) {
 
 		// submit for new event
 		$('#submit_event').click( function(){
-		    	// convert form data to an array of objects
-			formJSON = $('#event_form').serializeJSON();
-			$.post( '/events/create', formJSON, function( data ){
-			    $('#dragdrop_content').html( data );
-			});
+			result = uploadData.submit();
 		});
 
 		// used for drag and drop file uploads
 		$(function () {
 			$('#image_upload').fileupload({
 			    dataType: 'json',
-			    url: '/events/upload',
+			    url: '/events/create',
 			    dropZone: $('#dragdrop_content'),
 			    add: function( e, data ) {
 				$.each(data.files, function (index, file) {
 				    $('#image_file').html(file.name);
+				    uploadData = data;
 				    createImagePreview( file );
+				    
 				});
+			    },
+			    done: function( e, data ){
+				$('#message_content').html( data.result );
 			    }
 			});
 		});
@@ -77,10 +78,10 @@ function loadFlyerData(lat, lng) {
 
 function initialize_map() {
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
-          zoom: 13,
+          zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-	map.setCenter(new google.maps.LatLng(41.850033,-87.6500523), 1);
+	map.setCenter(new google.maps.LatLng(38.025208, -78.488517), 1);
 
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 
@@ -147,14 +148,3 @@ function createImagePreview( fileObj ){
 	    {maxWidth: 400, maxHeight: 500}
       );
 }
-
-// JSON serialization function (stolen)
-(function( $ ){
-	$.fn.serializeJSON=function() {
-	    var json = {};
-	    jQuery.map($(this).serializeArray(), function(n, i) {
-		json[n['name']] = n['value'];
-	    });
-	return json;
-	};
-})( jQuery );

@@ -6,22 +6,12 @@ class EventsController < ApplicationController
 	# POST /events.json
 	def create
 		partial = "submit"
-		puts "$$$$ #{params.inspect}"
 		@event = Event.new(params[:event])
 		#@event.expiry = Time._load( params[:event][:expiry] )
 		@event.validation_hash = rand(36**16).to_s(36)
-		if @event.save
-			partial = "created"
+		if not @event.save
+			render :partial=>"errors" and return
 		end
-
-		render :partial=>"create.js", :locals=>{ :partial=>partial }
+		render :partial=>"created"
 	end
-
-	def upload
-		puts params.inspect
-		respond_to do |format|
-			format.json{ render :nothing => true }
-		end
-	end
-
 end
