@@ -28,9 +28,9 @@ $(document).ready(function() {
 		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
 		$('#flyer').fadeOut(function(){$('#dragdrop').fadeIn();});
 	});
-	
+
 	initialize_map();
-	
+
 });
 
 // disable the default drag and drop behavior
@@ -45,6 +45,15 @@ function loadFlyerData(lat, lng) {
 		$('#add_panel input#cancel').click( function(){
 			$('#submit').fadeOut(function(){$('#kickstarter').fadeIn();});
 			$('#dragdrop').fadeOut(function(){$('#flyer').fadeIn();});
+		});
+
+		// submit for new event
+		$('#submit_event').click( function(){
+		    	// convert form data to an array of objects
+			formJSON = $('#event_form').serializeJSON();
+			$.post( '/events/create', formJSON, function( data ){
+			    $('#dragdrop_content').html( data );
+			});
 		});
 
 		// used for drag and drop file uploads
@@ -72,7 +81,7 @@ function initialize_map() {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 	map.setCenter(new google.maps.LatLng(41.850033,-87.6500523), 1);
-	
+
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 
 }
@@ -90,7 +99,7 @@ function addUser() {
 
 function addAddressToMap(lat, lng, image) {
 	point = new google.maps.LatLng(lat,lng);
-	
+
         var locationmarker;
 	var div = document.createElement('DIV');
         div.innerHTML = '<div class="map_flyer box"><img src="' + image + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
@@ -103,19 +112,19 @@ function addAddressToMap(lat, lng, image) {
           anchor: RichMarkerPosition.BOTTOM,
           content: div
         });
-        
+
 	map.setCenter(point, 13);
 	markers.push(locationmarker);
 }
-    
-    
+
+
 function foundLocation(position) {
 	var lat = position.coords.latitude;
 	var long = position.coords.longitude;
 	address = position.coords;
-	addUser(); 
+	addUser();
 	loadFlyerData(lat, long);
-	
+
 	//alert('Found location: ' + lat + ', ' + long);
 }
 
@@ -125,7 +134,7 @@ function noLocation() {
 	//alert('Could not find location');
 }
 
-function createImagePreview( fileObj ){	
+function createImagePreview( fileObj ){
       $('#dragdrop_content').css('display', 'none');
       $('#dragdrop_content').html('');
       $('#dragdrop_content').removeClass('drapdrop_area');
@@ -138,3 +147,14 @@ function createImagePreview( fileObj ){
 	    {maxWidth: 400, maxHeight: 500}
       );
 }
+
+// JSON serialization function (stolen)
+(function( $ ){
+	$.fn.serializeJSON=function() {
+	    var json = {};
+	    jQuery.map($(this).serializeArray(), function(n, i) {
+		json[n['name']] = n['value'];
+	    });
+	return json;
+	};
+})( jQuery );
