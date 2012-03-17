@@ -19,7 +19,7 @@ var venueList = {};
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 
-	
+
 
 	$('#add_link').click( function(){
 		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
@@ -62,7 +62,9 @@ function loadFlyerData(lat, lng) {
 				//process response
 				venueList = data;
 				$.each(venueList, function(i, val){
-				    suggestions.push(formatListItem( val.name, val.address, val.cross_street ));
+				    venueName = val.name + ' ' + (val.address ? '' : ( ' ' + val.address ) ) + (val.cross_street ? '' : (' (' + val.cross_street + ')') );
+				    venueLabel = formatListItem( val.name, val.address, val.cross_street );
+				    suggestions.push({ label: venueLabel, value: venueName});
 				});
 
 				//pass array to callback
@@ -71,7 +73,6 @@ function loadFlyerData(lat, lng) {
 			},
 
 			select: function(e, ui) {
-				ui.item.value
 				// whichever item is selected, we need to record lat and lng info for it
 				$.each(venueList, function(i, val){
 					if( formatListItem( val.name, val.address, val.cross_street) == ui.item.value){
@@ -80,8 +81,15 @@ function loadFlyerData(lat, lng) {
 					    $('#event_venue_id').val( val.venue_id );
 					}
 				});
-			}
+			},
 
+			open: function(event, ui){
+				$("ul.ui-autocomplete li a").each(function(){
+					var htmlString = $(this).html().replace(/&lt;/g, '<');
+					htmlString = htmlString.replace(/&gt;/g, '>');
+					$(this).html(htmlString);
+				});
+			}
 		});
 
 		/*$('.slideshow').cycle({
@@ -89,12 +97,12 @@ function loadFlyerData(lat, lng) {
 			timeout: 3000,
 			speedIn:  500
 		});
-		
+
 		*/
-		
+
 		$(function () {
-			$(".anyClass").jCarouselLite({ 
-				btnNext: ".next", 
+			$(".anyClass").jCarouselLite({
+				btnNext: ".next",
 				btnPrev: ".prev",
 				visible: 5,
 				//scroll:5
@@ -102,7 +110,7 @@ function loadFlyerData(lat, lng) {
 				speed: 1000
 			});
 		});
-		
+
 		// used for drag and drop file uploads
 		$(function () {
 			$('#image_upload').fileupload({
@@ -114,7 +122,7 @@ function loadFlyerData(lat, lng) {
 				    $('#image_file').html(file.name);
 				    uploadData = data;
 				    createImagePreview( file );
-				    
+
 				});
 			    },
 			    done: function( e, data ){
@@ -201,9 +209,16 @@ function createImagePreview( fileObj ){
 }
 
 function formatListItem( name, address, crossStreet ){
-    formatStr = name + '\n' + address;
-    if( crossStreet ){
-	formatStr += ' (' + crossStreet + ')';
+    formatStr = '<div class="venue_name">' + name + '</div>';
+    if( address || crossStreet ){
+	formatStr += '<div class="venue_details">'
+	if( address ){
+	    formatStr += address;
+	}
+	if( crossStreet ){
+	    formatStr += ' (' + crossStreet + ')';
+	}
+	formatStr += '</div>';
     }
     return formatStr;
 }

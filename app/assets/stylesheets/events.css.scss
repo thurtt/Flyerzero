@@ -11,6 +11,7 @@ div#add_panel {
     font-size: 1.1em;
     margin-left: 20px;
     margin-top: 5px;
+    width: 350px;
 }
 
 #add_panel h1 {
@@ -36,7 +37,29 @@ div#dragdrop_text {
 }
 
 .ui-autocomplete{
-    background: #cfcfcf;
+    background: #ffffff;
     width: 350px;
     height: 200px;
+    list-style-type: none;
+    overflow:auto;
+    padding: 0px;
+}
+.ui-menu-item{
+    padding: 5px;
+    border-bottom: 1px solid #cccccc;
+    font-family: sans-serif;
+}
+
+.ui-menu-item:hover{
+    background: #cfcfcf;
+}
+
+.venue_details{
+    font-size: .9em;
+    color: black;
+    padding-left: 15px;
+}
+.venue_name{
+    font-size: 1.2em;
+    color: black;
 }
