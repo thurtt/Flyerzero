@@ -23,10 +23,7 @@
 				<td><h1>Where is it?</h1></td>
 			</tr>
 			<tr>
-				<td><%=f.text_field :lat, :placeholder=>"Latitutde", :class=>"input_text"%></td>
-			</tr>
-			<tr>
-				<td><%=f.text_field :lng, :placeholder=>"Longitude", :class=>"input_text"%></td>
+				<td><input class="input_text" id="event_loc" placeholder="Venue name"></td>
 			</tr>
 			<tr>
 				<td><h1>Flyer Image</h1></td>
@@ -38,5 +35,8 @@
 				<td><input value="Create" id="submit_event" type="button" %><input type="button" value="Nevermind" id="cancel"></td>
 			</tr>
 		</table>
+		<%=f.hidden_field :lat %>
+		<%=f.hidden_field :lng %>
+		<%=f.hidden_field :venue_id %>
 	<%end%>
 </div>

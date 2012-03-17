@@ -1,5 +1,5 @@
 class BoardController < ApplicationController
-	skip_before_filter :findme, :only=>[:callback ]
+	skip_before_filter :findme, :only=>[:callback]
 
 	def index
 
@@ -24,10 +24,20 @@ class BoardController < ApplicationController
 	end
 	
 	def venue
-		client = Foursquare2::Client.new(:client_id => 'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G', :client_secret => 'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H')
-		#@venues = client.search_venues(:ll => @origin.ll, :query => 'Starbucks')
-		@venues = client.explore_venues(:ll => @origin.ll, :radius => '500')
-		render :text=>@venues.inspect
+		# ruby 1.9.x on mac needs to know where the certs are
+		client = Foursquare2::Client.new(:client_id => 'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
+						 :client_secret => 'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H',
+						 :ssl => { :verify => OpenSSL::SSL::VERIFY_PEER, :ca_file => '/opt/local/share/curl/curl-ca-bundle.crt' }
+						 )
+		@venues = client.search_venues(:ll => @origin.ll, :query => params[:term])
+		venue_list = @venues.groups[0].items
+		venue_list.map!{ |venue| { :name=>venue.name,
+						    :address=>venue.location.address,
+						    :cross_street=>venue.location.crossStreet,
+						    :lat=>venue.location.lat,
+						    :lng=>venue.location.lng,
+						    :venue_id=>venue.id } }
+		render :json=> venue_list
 	end
 	
 	def callback

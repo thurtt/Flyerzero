@@ -14,11 +14,12 @@ var map;
 var address;
 var markers = [];
 var uploadData = {};
+var venueList = {};
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 
-	
+
 
 	$('#add_link').click( function(){
 		$('#content').fadeToggle("slow", "linear");
@@ -47,17 +48,60 @@ function loadFlyerData(lat, lng) {
 			result = uploadData.submit();
 		});
 
+		// autocomplete for event location
+		$( "#event_loc" ).autocomplete({
+			source: function(req, add){
+
+			    //pass request to server
+			    $.getJSON("/board/venue", req, function(data) {
+
+				//create array for response objects
+				var suggestions = [];
+
+				//process response
+				venueList = data;
+				$.each(venueList, function(i, val){
+				    venueName = val.name + ' ' + (val.address ? '' : ( ' ' + val.address ) ) + (val.cross_street ? '' : (' (' + val.cross_street + ')') );
+				    venueLabel = formatListItem( val.name, val.address, val.cross_street );
+				    suggestions.push({ label: venueLabel, value: venueName});
+				});
+
+				//pass array to callback
+				add(suggestions);
+			    });
+			},
+
+			select: function(e, ui) {
+				// whichever item is selected, we need to record lat and lng info for it
+				$.each(venueList, function(i, val){
+					if( formatListItem( val.name, val.address, val.cross_street) == ui.item.value){
+					    $('#event_lat').val( val.lat );
+					    $('#event_lng').val( val.lng );
+					    $('#event_venue_id').val( val.venue_id );
+					}
+				});
+			},
+
+			open: function(event, ui){
+				$("ul.ui-autocomplete li a").each(function(){
+					var htmlString = $(this).html().replace(/&lt;/g, '<');
+					htmlString = htmlString.replace(/&gt;/g, '>');
+					$(this).html(htmlString);
+				});
+			}
+		});
+
 		/*$('.slideshow').cycle({
 			fx: 'shuffle',
 			timeout: 3000,
 			speedIn:  500
 		});
-		
+
 		*/
-		
+
 		$(function () {
-			$(".anyClass").jCarouselLite({ 
-				btnNext: ".next", 
+			$(".anyClass").jCarouselLite({
+				btnNext: ".next",
 				btnPrev: ".prev",
 				visible: 5,
 				//scroll:5
@@ -65,7 +109,7 @@ function loadFlyerData(lat, lng) {
 				speed: 1000
 			});
 		});
-		
+
 		// used for drag and drop file uploads
 		$(function () {
 			$('#image_upload').fileupload({
@@ -77,7 +121,7 @@ function loadFlyerData(lat, lng) {
 				    $('#image_file').html(file.name);
 				    uploadData = data;
 				    createImagePreview( file );
-				    
+
 				});
 			    },
 			    done: function( e, data ){
@@ -161,4 +205,19 @@ function createImagePreview( fileObj ){
 	    },
 	    {maxWidth: 400, maxHeight: 500}
       );
+}
+
+function formatListItem( name, address, crossStreet ){
+    formatStr = '<div class="venue_name">' + name + '</div>';
+    if( address || crossStreet ){
+	formatStr += '<div class="venue_details">'
+	if( address ){
+	    formatStr += address;
+	}
+	if( crossStreet ){
+	    formatStr += ' (' + crossStreet + ')';
+	}
+	formatStr += '</div>';
+    }
+    return formatStr;
 }
