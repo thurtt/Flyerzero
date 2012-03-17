@@ -19,7 +19,7 @@ var venueList = {};
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 
-
+	
 
 	$('#add_link').click( function(){
 		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
@@ -84,11 +84,25 @@ function loadFlyerData(lat, lng) {
 
 		});
 
-		$('.slideshow').cycle({
+		/*$('.slideshow').cycle({
 			fx: 'shuffle',
 			timeout: 3000,
 			speedIn:  500
 		});
+		
+		*/
+		
+		$(function () {
+			$(".anyClass").jCarouselLite({ 
+				btnNext: ".next", 
+				btnPrev: ".prev",
+				visible: 5,
+				//scroll:5
+				auto: 800,
+				speed: 1000
+			});
+		});
+		
 		// used for drag and drop file uploads
 		$(function () {
 			$('#image_upload').fileupload({
@@ -100,7 +114,7 @@ function loadFlyerData(lat, lng) {
 				    $('#image_file').html(file.name);
 				    uploadData = data;
 				    createImagePreview( file );
-
+				    
 				});
 			    },
 			    done: function( e, data ){
@@ -119,8 +133,8 @@ function initialize_map() {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 	map.setCenter(new google.maps.LatLng(38.025208, -78.488517), 1);
-
-	navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+	var timeoutVal = 10 * 1000 * 1000;
+	navigator.geolocation.getCurrentPosition(foundLocation, noLocation,{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 });
 
 }
 function clearMap() {

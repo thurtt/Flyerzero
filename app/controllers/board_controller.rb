@@ -2,6 +2,7 @@ class BoardController < ApplicationController
 	skip_before_filter :findme, :only=>[:callback]
 
 	def index
+
 	end
 
 	def authenticate
@@ -21,7 +22,7 @@ class BoardController < ApplicationController
 		@flyers = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page]).per(10)
 		render :partial=>"flyers"
 	end
-
+	
 	def venue
 		# ruby 1.9.x on mac needs to know where the certs are
 		client = Foursquare2::Client.new(:client_id => 'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
@@ -38,7 +39,7 @@ class BoardController < ApplicationController
 						    :venue_id=>venue.id } }
 		render :json=> venue_list
 	end
-
+	
 	def callback
 		render :text=>"success"
 	end
