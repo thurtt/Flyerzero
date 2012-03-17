@@ -14,6 +14,7 @@ var map;
 var address;
 var markers = [];
 var uploadData = {};
+var venueList = {};
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
@@ -50,8 +51,39 @@ function loadFlyerData(lat, lng) {
 
 		// autocomplete for event location
 		$( "#event_loc" ).autocomplete({
-			source: '/board/venue'
+			source: function(req, add){
+
+			    //pass request to server
+			    $.getJSON("/board/venue", req, function(data) {
+
+				//create array for response objects
+				var suggestions = [];
+
+				//process response
+				venueList = data;
+				$.each(venueList, function(i, val){
+				    suggestions.push(formatListItem( val.name, val.address, val.cross_street ));
+				});
+
+				//pass array to callback
+				add(suggestions);
+			    });
+			},
+
+			select: function(e, ui) {
+				ui.item.value
+				// whichever item is selected, we need to record lat and lng info for it
+				$.each(venueList, function(i, val){
+					if( formatListItem( val.name, val.address, val.cross_street) == ui.item.value){
+					    $('#event_lat').val( val.lat );
+					    $('#event_lng').val( val.lng );
+					    $('#event_venue_id').val( val.venue_id );
+					}
+				});
+			}
+
 		});
+
 		$('.slideshow').cycle({
 			fx: 'shuffle',
 			timeout: 3000,
@@ -152,4 +184,12 @@ function createImagePreview( fileObj ){
 	    },
 	    {maxWidth: 400, maxHeight: 500}
       );
+}
+
+function formatListItem( name, address, crossStreet ){
+    formatStr = name + '\n' + address;
+    if( crossStreet ){
+	formatStr += ' (' + crossStreet + ')';
+    }
+    return formatStr;
 }
