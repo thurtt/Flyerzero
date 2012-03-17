@@ -18,7 +18,7 @@ var uploadData = {};
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 
-	
+
 
 	$('#add_link').click( function(){
 		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
@@ -48,6 +48,10 @@ function loadFlyerData(lat, lng) {
 			result = uploadData.submit();
 		});
 
+		// autocomplete for event location
+		$( "#event_loc" ).autocomplete({
+			source: '/board/venue'
+		});
 		$('.slideshow').cycle({
 			fx: 'shuffle',
 			timeout: 3000,
@@ -64,7 +68,7 @@ function loadFlyerData(lat, lng) {
 				    $('#image_file').html(file.name);
 				    uploadData = data;
 				    createImagePreview( file );
-				    
+
 				});
 			    },
 			    done: function( e, data ){

@@ -23,10 +23,10 @@
 				<td><h1>Where is it?</h1></td>
 			</tr>
 			<tr>
-				<td><%=f.text_field :lat, :placeholder=>"Latitutde", :class=>"input_text"%></td>
+				<td><input class="input_text" id="event_loc"><%=f.hidden_field :lat, :placeholder=>"Latitutde", :class=>"input_text"%></td>
 			</tr>
 			<tr>
-				<td><%=f.text_field :lng, :placeholder=>"Longitude", :class=>"input_text"%></td>
+				<td><%=f.hidden_field :lng, :placeholder=>"Longitude", :class=>"input_text"%></td>
 			</tr>
 			<tr>
 				<td><h1>Flyer Image</h1></td>
