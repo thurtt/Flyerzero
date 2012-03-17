@@ -10,6 +10,15 @@
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
+.hidden{
+	display:none;
+}
+.sideways{
+	-webkit-transform: rotate(-90deg); 
+	-moz-transform: rotate(-90deg);	
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3)
+}
+
 body{
 	background:#222222;
 	color: #888888;

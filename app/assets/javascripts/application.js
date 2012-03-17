@@ -21,8 +21,7 @@ $(document).ready(function() {
 	
 
 	$('#add_link').click( function(){
-		$('#kickstarter').fadeOut(function(){$('#submit').fadeIn();});
-		$('#flyer').fadeOut(function(){$('#dragdrop').fadeIn();});
+		$('#content').fadeToggle("slow", "linear");
 	});
 
 	initialize_map();

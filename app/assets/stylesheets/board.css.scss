@@ -6,7 +6,28 @@ body.primary {
 
 /* prototype stuff */
 
-
+div#userzero {
+	position: absolute;
+	bottom:0px;
+	left:-10px;
+	padding:3px;
+	padding-left:15px;
+	margin:5px;
+	text-align:left;
+	font-size: 1.1em;
+	z-index:2000;
+	color:black;
+	background-color: white;
+	border:1px solid #444444;
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+}
+img.branding{
+	position:absolute; 
+	bottom:30px; 
+	left:0px;
+	z-index:2000;
+}
 div#logo {
 	text-align:center;
 	height:100px;
@@ -14,15 +35,18 @@ div#logo {
 
 div#content {
 	text-align:center;
-	position:relative;
-	padding:20px;
-	height:520px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	//height:520px;
 	vertical-align: middle;
-	width:1020px;
-	margin: 0 auto;
+	//width:1020px;
 	//border:1px solid #555555;
 	background-image: url('/assets/transparent.png');
-	z-index:100;
+	z-index:1000;
+	display:none;
 }
 div#corner_spot{
 	position:absolute;
@@ -59,11 +83,9 @@ div#submit {
     width: 550px;
     height: 500px;
     text-align: left;
-    display: none;
 }
 
 div#dragdrop {
-    display:none;
     width: 400px;
     height: 500px;
 }
@@ -81,51 +103,21 @@ div.kickdesc {
 /* end of prototype stuff */
 
 div#add_link {
+	position:absolute;
+	right:0px;
+	top:200px;
+	background-color:white;
+	border-left:1px solid #444444;
+	border-top:1px solid #444444;
+	border-bottom:1px solid #444444;
+	border-top-left-radius:7px;
+	border-bottom-left-radius:7px;
+	padding:10px;
+	opacity:0.8;
+	filter:alpha(opacity=80); /* For IE8 and earlier */
+	z-index:2000;
 
 }
-div.fzbutton {
-	width: 205px;
-	padding: 10px;
-	margin: 10px;
-	//color: #cc0000;
-	font-family: sans-serif;
-	font-weight: 700;
-	font-size: 1.1em;
-	position: relative;
-	right: 0px;
-	float: right;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	//background-image: url('/assets/transparent.png');
-}
-.light{
-	color: #777777;
-	text-shadow: -1px -1px #444444, 1px 1px #999999;
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#666666'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#666666)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #ddd,  #666666); /* for firefox 3.6+ */
-}
-
-.dark{
-	color: #eeeeee;
-	//text-shadow: -1px -1px #222222, 1px 1px #ffffff;
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777', endColorstr='#454545'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#777777), to(#454545)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #777777,  #454545); /* for firefox 3.6+ */
-}
-.dark:hover{
-	cursor:pointer;
-	color: #eeeeee;
-	//text-shadow: -1px -1px #440000, 1px 1px #dd0000;
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bb0000', endColorstr='#440000'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#bb0000), to(#440000)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #bb0000,  #440000); /* for firefox 3.6+ */
-}
-
 #add_link span{
 	position:absolute;
 	display:block;
