@@ -11,7 +11,8 @@
 
 
 var map;
-var address;
+var latitude;
+var longitude;
 var markers = [];
 var uploadData = {};
 var venueList = {};
@@ -39,6 +40,21 @@ $(document).ready(function() {
 		$('#submission_page').fadeIn("slow", function() {});
 		$('#board_page').fadeOut("slow", function() {});
 	});
+	$('#address').click( function(){
+		$('#address').fadeOut("fast", function() {
+			$('#change_location').fadeIn("fast", function() {});
+		});
+	});
+	
+	$('button.change_location').click( function(){
+		if ( $('input#new_location').val() != '' ){
+	
+			$.get('/board/change_location/?location=' + $('input#new_location').val(), function(data) {
+				//alert(data);
+				$('#address').html(data);
+			});
+		}
+	});
 
 
 	//initialize_map();
@@ -53,6 +69,11 @@ $(document).bind('drop dragover', function (e) {
 
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
+		
+		$('#change_location').fadeOut("fast", function() {
+			$('#address').fadeIn("fast", function() {}); //make sure it is visible
+		}); // hide this.
+		
 		$('#content').html(data);
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
 		$('#add_panel input#cancel').click( function(){
@@ -176,7 +197,7 @@ function clearMap() {
 	}
 }
 function addUser() {
-	addAddressToMap(address.latitude, address.longitude, '/assets/user.png');
+	addAddressToMap(latitude, longitude, '/assets/user.png');
 }
 
 function addAddressToMap(lat, lng, image) {
@@ -201,11 +222,10 @@ function addAddressToMap(lat, lng, image) {
 
 
 function foundLocation(position) {
-	var lat = position.coords.latitude;
-	var long = position.coords.longitude;
-	address = position.coords;
+	latitude = position.coords.latitude;
+	longitude = position.coords.longitude;
 	addUser();
-	loadFlyerData(lat, long);
+	loadFlyerData(latitude, longitude);
 
 	//alert('Found location: ' + lat + ', ' + long);
 }

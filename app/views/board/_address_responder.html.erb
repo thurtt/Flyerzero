@@ -1,0 +1,5 @@
+<script>
+	latitude = <%=@origin.ll.split(',')[0]%>;
+	longitude = <%=@origin.ll.split(',')[1]%>;
+	loadFlyerData('<%=@origin.ll.split(',')[0]%>', '<%=@origin.ll.split(',')[1]%>');
+</script>

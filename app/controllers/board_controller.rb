@@ -1,5 +1,5 @@
 class BoardController < ApplicationController
-	skip_before_filter :findme, :only=>[:callback, :venue]
+	skip_before_filter :findme, :only=>[:callback, :venue, :change_location]
 
 	def index
 
@@ -19,8 +19,8 @@ class BoardController < ApplicationController
 
 	def flyers
 		@event = Event.new()
-		@now = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page])
-		@soon = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page])
+		@now = Event.within(5, :origin => session[:ll]).where('validated > 0').page(params[:page])
+		@soon = Event.within(5, :origin => session[:ll]).where('validated > 0').page(params[:page])
 		render :partial=>"flyers"
 	end
 
@@ -49,7 +49,15 @@ class BoardController < ApplicationController
 			   }
 		render :json=> venues
 	end
-
+	
+	def change_location
+		#todo here -- get address from submission
+		# geoloc to get long/lat,
+		# give it back to the user to insert into the original process
+		# loadFlyer()
+		@origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
+		render :partial=>"address_responder"
+	end
 
 	def callback
 		render :text=>"success"

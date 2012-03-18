@@ -4,13 +4,16 @@ class ApplicationController < ActionController::Base
 	before_filter :findme
 
 	def findme
-
+		
+		
 		if params[:lat] != nil && params[:lat] != ''
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [params[:lat], params[:lng]]
 			session[:origin] = res.full_address
 
 
 			@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
+			return save_ll
+			
 		end
 
 		if session[:origin]
@@ -24,6 +27,11 @@ class ApplicationController < ActionController::Base
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode @origin
 			session[:origin] = res.full_address
 		end
+		return save_ll
+	end
+	
+	def save_ll
 		session[:ll] = @origin.ll
+		return true
 	end
 end
