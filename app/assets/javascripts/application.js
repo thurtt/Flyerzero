@@ -22,6 +22,7 @@ $(document).ready(function() {
 
 
 	$('#submit_link').click( function(){
+		$('img.branding').animate( { right: '+=50' }, 'swing', null );
 		$('#content').fadeToggle("slow", "linear");
 	});
 
@@ -221,4 +222,8 @@ function formatListItem( name, address, crossStreet ){
 	formatStr += '</div>';
     }
     return formatStr;
+}
+
+function MoveTo( id, x, y, func ){
+    $(id).animate( { left: x, top: y }, 'swing', func );
 }
