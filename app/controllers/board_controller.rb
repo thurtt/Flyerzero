@@ -19,7 +19,8 @@ class BoardController < ApplicationController
 
 	def flyers
 		@event = Event.new()
-		@flyers = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page]).per(10)
+		@now = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page])
+		@soon = Event.within(5, :origin => @orgin).where('validated > 0').page(params[:page])
 		render :partial=>"flyers"
 	end
 

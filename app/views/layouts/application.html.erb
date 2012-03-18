@@ -18,7 +18,11 @@
     <%=image_tag 'mainlogo-text.png', :class=>"branding"%>
     <div id="userzero" class=''>
     	<span style="padding:3px;padding-left:10px; float:left;">Your Zero: <span id="address">Unknown</span>.</span>
-    	<span class="control_links" style="padding:3px; padding-right:10px; float:right;"><span id='submit_link'>Submit a Flyer</span></span> 
+    	<span class="control_links" style="padding:3px; padding-right:10px; float:right;">
+    		<span id='map_link' class="box">The Zero Map</span> | 
+    		<span id='board_link' class="box">The Zero Board</span> | 
+    		<span id='submit_link' class="box">Submit a Flyer</span>
+    	</span> 
     	</div>
     
 <%= yield %>
