@@ -40,10 +40,6 @@ $(document).ready(function() {
 		$('#board_page').fadeOut("slow", function() {});
 	});
 	
-	$('#mini_dragdrop_area').click( function(){
-		$('#submission_page').fadeIn("slow", function() {});
-		$('#board_page').fadeOut("slow", function() {});
-	});
 
 	//initialize_map();
 	setTimeout( "initialize_map();", 3000);
@@ -62,6 +58,11 @@ function loadFlyerData(lat, lng) {
 		$('#add_panel input#cancel').click( function(){
 			$('#board_page').fadeOut("slow", function() {});
 			$('#submission_page').fadeOut("slow", function() {});
+		});
+		
+		$('#mini_dragdrop_area').click( function(){
+			$('#submission_page').fadeIn("slow", function() {});
+			$('#board_page').fadeOut("slow", function() {});
 		});
 
 		// submit for new event
