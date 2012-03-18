@@ -1,12 +1,8 @@
-
-<script>clearMap();</script>
-<div class="slideshow">
-	<%for flyer in @flyers%>
-		<%=image_tag flyer.photo.url(:medium), :size=>"400x500", :class=>"first"%>
-		<script>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, '<%=flyer.photo.url( :thumb )%>');</script>
-	<%end%>
-</div>
 <script>
+	clearMap();
+	<%for flyer in @flyers%>
+		addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, '<%=flyer.photo.url( :thumb )%>');
+	<%end%>
 	addUser();
 	$('#address').html('<%=@origin.full_address%>');
-</script>
+</script><!-- TO DO: billboard goes here. //-->

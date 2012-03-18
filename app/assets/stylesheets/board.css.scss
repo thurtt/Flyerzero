@@ -4,24 +4,31 @@
 
 body.primary {
 
+a:link {color:#f9e101;text-decoration:none;}      /* unvisited link */
+a:visited {color:#f9e101;text-decoration:none;}  /* visited link */
+a:hover {color:#f9e101;text-decoration:underline;}  /* mouse over link */
+a:active {color:#f9e101;text-decoration:underline;}  /* selected link */
+
 /* prototype stuff */
 
 div#userzero {
 	position: absolute;
+	width:100%;
 	bottom:0px;
-	left:-10px;
-	padding:3px;
-	padding-left:15px;
-	margin:5px;
+	left:0px;
 	text-align:left;
 	font-size: 1.1em;
 	z-index:2000;
 	color:black;
-	background-color: white;
-	border:1px solid #444444;
-	opacity:0.7;
-	filter:alpha(opacity=70); /* For IE8 and earlier */
+	border-top:1px solid #444444;
+	//border-bottom:1px solid #444444;
+	//background-image: url('/assets/trans-white.png');
+	background-color:#f9e101;
 }
+span#submit_link{
+	cursor:pointer;
+}
+
 img.branding{
 	position:absolute; 
 	bottom:30px; 
@@ -40,11 +47,9 @@ div#content {
 	left:0px;
 	width:100%;
 	height:100%;
-	//height:520px;
 	vertical-align: middle;
-	//width:1020px;
-	//border:1px solid #555555;
-	background-image: url('/assets/transparent.png');
+	//background-image: url('/assets/transparent.png');
+	background-color:#fcfcfc;
 	z-index:1000;
 	display:none;
 }
@@ -56,10 +61,10 @@ div#corner_spot{
 }
 
 div#footer {
-	font-size:0.8em;
+	font-size:2.0em;
 	text-align:center;
 	padding:40px;
-	color:#cccccc;
+	color:#dddddd;
 }
 
 
@@ -106,15 +111,13 @@ div#add_link {
 	position:absolute;
 	right:0px;
 	top:200px;
-	background-color:white;
 	border-left:1px solid #444444;
 	border-top:1px solid #444444;
 	border-bottom:1px solid #444444;
 	border-top-left-radius:7px;
 	border-bottom-left-radius:7px;
 	padding:10px;
-	opacity:0.8;
-	filter:alpha(opacity=80); /* For IE8 and earlier */
+	background-image: url('/assets/trans-white.png');
 	z-index:2000;
 
 }

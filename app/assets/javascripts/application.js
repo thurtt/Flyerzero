@@ -21,11 +21,12 @@ $(document).ready(function() {
 
 
 
-	$('#add_link').click( function(){
+	$('#submit_link').click( function(){
 		$('#content').fadeToggle("slow", "linear");
 	});
 
-	initialize_map();
+	//initialize_map();
+	setTimeout( "initialize_map();", 3000);
 
 });
 

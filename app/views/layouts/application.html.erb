@@ -16,7 +16,10 @@
 
     <div id="map_canvas" style="width: 100%; height: 100%; position:absolute; top:0; left:0;"></div>
     <%=image_tag 'mainlogo-text.png', :class=>"branding"%>
-    <div id="userzero" class='box'>Your Zero: <span id="address">Unknown</span>.</div>
+    <div id="userzero" class=''>
+    	<span style="padding:3px;padding-left:10px; float:left;">Your Zero: <span id="address">Unknown</span>.</span>
+    	<span class="control_links" style="padding:3px; padding-right:10px; float:right;"><span id='submit_link'>Submit a Flyer</span></span> 
+    	</div>
     
 <%= yield %>
 

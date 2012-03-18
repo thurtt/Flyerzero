@@ -1,11 +1,12 @@
-<div id="add_link">
-	<%=image_tag 'button-small.png'%>
-</div>
 
 <div id="logo"> </div>
 
-<div id="content" class="box">
+<div id="content">
 		<br /><br /><br /><br /><br /><br /><br /><br />
 		<%=image_tag "cycle.gif", :size=>"128x128", :style=>"height:128px; width: 128px; margin:auto;display:block;"%>
 </div>
-<div id="footer"><strong>Flyer Zero</strong> is a kickass <strong>Open Form Foundation</strong> joint.</div>
+<div id="footer">
+<strong>Flyer Zero</strong> is a kickass <%= link_to "Open Form Foundation", "http://www.openformfoundation.org/"%></strong> joint.
+<br /><br /><br />
+<%=image_tag "cycle.gif", :size=>"64x64", :style=>"height:64px; width: 64px; margin:auto;display:block;"%>
+</div>
