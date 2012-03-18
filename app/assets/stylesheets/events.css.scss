@@ -82,3 +82,37 @@ div#dragdrop_text {
     font-size: 1.1em;
     color: black;
 }
+.ui-datepicker-prev{
+    float: left;
+    background-image: url('/assets/prev.png');
+    width: 16px;
+    height: 16px;
+}
+.ui-datepicker-next{
+    float: right;
+    background-image: url('/assets/next.png');
+    width: 16px;
+    height: 16px;
+}
+.ui-datepicker-header{
+    background: #f9e101;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom: 1px solid black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.ui-datepicker{
+    background: #ffffff;
+    border: 1px solid black;
+    margin-top: 2px;
+    border-radius: 5px;
+}
+.ui-datepicker-title
+{
+    text-align: center;
+    color: #000000;
+    font-weight: 700;
+}

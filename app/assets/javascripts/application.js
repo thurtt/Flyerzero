@@ -54,7 +54,7 @@ $(document).bind('drop dragover', function (e) {
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
 		$('#content').html(data);
-		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy' });
+		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
 		$('#add_panel input#cancel').click( function(){
 			$('#board_page').fadeOut("slow", function() {});
 			$('#submission_page').fadeOut("slow", function() {});
