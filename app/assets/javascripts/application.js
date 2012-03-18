@@ -25,7 +25,7 @@ $(document).ready(function() {
 		$('#submission_page').fadeToggle("slow", "linear");
 		$('#board_page').fadeToggle("slow", "linear");
 	});*/
-	
+
 	$('#map_link').click( function(){
 		$('#board_page').fadeOut("slow", function() {});
 		$('#submission_page').fadeOut("slow", function() {});
@@ -34,12 +34,12 @@ $(document).ready(function() {
 		$('#board_page').fadeIn("slow", function() {});
 		$('#submission_page').fadeOut("slow", function() {});
 	});
-	
+
 	$('#submit_link').click( function(){
 		$('#submission_page').fadeIn("slow", function() {});
 		$('#board_page').fadeOut("slow", function() {});
 	});
-	
+
 
 	//initialize_map();
 	setTimeout( "initialize_map();", 3000);
@@ -59,7 +59,7 @@ function loadFlyerData(lat, lng) {
 			$('#board_page').fadeOut("slow", function() {});
 			$('#submission_page').fadeOut("slow", function() {});
 		});
-		
+
 		$('#mini_dragdrop_area').click( function(){
 			$('#submission_page').fadeIn("slow", function() {});
 			$('#board_page').fadeOut("slow", function() {});
@@ -72,6 +72,7 @@ function loadFlyerData(lat, lng) {
 
 		// autocomplete for event location
 		$( "#event_loc" ).autocomplete({
+			minLength: 3,
 			source: function(req, add){
 
 			    //pass request to server
