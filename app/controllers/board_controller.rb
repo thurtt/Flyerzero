@@ -43,7 +43,7 @@ class BoardController < ApplicationController
 				       :address=>venue["location"]["address"],
 				       :lat=>venue["location"]["lat"],
 				       :lng=>venue["location"]["lng"],
-				       :id=>venue["id"],
+				       :venue_id=>venue["id"],
 				       :icon=>venue["category"] ? venue["category"]["icon"] : nil
 				     }
 			   }

@@ -84,7 +84,7 @@ function loadFlyerData(lat, lng) {
 				//process response
 				venueList = data;
 				$.each(venueList, function(i, val){
-				    venueName = val.name + ' ' + (val.address ? '' : ( ' ' + val.address ) ) + (val.cross_street ? '' : (' (' + val.cross_street + ')') );
+				    venueName = formatLocationText( val.name, val.address, val.cross_street );
 				    venueLabel = formatListItem( val.name, val.address, val.cross_street );
 				    suggestions.push({ label: venueLabel, value: venueName});
 				});
@@ -97,7 +97,7 @@ function loadFlyerData(lat, lng) {
 			select: function(e, ui) {
 				// whichever item is selected, we need to record lat and lng info for it
 				$.each(venueList, function(i, val){
-					if( formatListItem( val.name, val.address, val.cross_street) == ui.item.value){
+					if( formatLocationText( val.name, val.address, val.cross_street) == ui.item.value){
 					    $('#event_lat').val( val.lat );
 					    $('#event_lng').val( val.lng );
 					    $('#event_venue_id').val( val.venue_id );
@@ -241,6 +241,16 @@ function formatListItem( name, address, crossStreet ){
 	    formatStr += ' (' + crossStreet + ')';
 	}
 	formatStr += '</div>';
+    }
+    return formatStr;
+}
+function formatLocationText( name, address, crossStreet ){
+    formatStr = name
+    if( address ){
+	formatStr += ' ' + address;
+    }
+    if( crossStreet ){
+	formatStr += ' (' + crossStreet + ')';
     }
     return formatStr;
 }
