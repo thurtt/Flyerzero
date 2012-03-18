@@ -1,5 +1,5 @@
 class BoardController < ApplicationController
-	skip_before_filter :findme, :only=>[:callback]
+	skip_before_filter :findme, :only=>[:callback, :venue]
 
 	def index
 
@@ -31,7 +31,7 @@ class BoardController < ApplicationController
 
 		# foursquare autocomplete endpoint
 		endpoint = 'https://api.foursquare.com/v2/venues/suggestcompletion'
-		response = RestClient.get endpoint, {:params=>{ :ll=>@origin.ll,
+		response = RestClient.get endpoint, {:params=>{ :ll=>session[:ll],
 						      :query=>params[:term],
 						      :limit=>15,
 						      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
