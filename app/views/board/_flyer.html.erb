@@ -1,8 +1,58 @@
 <script>
 	clearMap();
-	<%for flyer in @flyers%>
+	<%for flyer in @now%>
 		addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, '<%=flyer.photo.url( :thumb )%>');
 	<%end%>
 	addUser();
 	$('#address').html('<%=@origin.full_address%>');
 </script><!-- TO DO: billboard goes here. //-->
+
+
+
+<div id="nearby" class="content">
+	<div class="header textual">Nearby, Right Now</div>
+	<div class="flyers">
+			<div id="mini_dragdrop_area">Submit Yours!</div>
+		<%for flyer in @now%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+		<%end%>
+	</div>
+</div>
+
+<div id="soon" class="content box">
+	<div class="header textual">Nearby, Soon</div>
+	<div class="flyers">
+		<%for flyer in @soon%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+		<%end%>
+	</div>
+</div>

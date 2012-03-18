@@ -31,6 +31,23 @@ div.drapdrop_area{
     line-height: 500px;
     border: 2px dashed #777777;
 }
+
+div#mini_dragdrop_area{
+	height:163px;
+	width:130px;
+	text-align: center;
+	line-height: 163px;
+	border: 2px dashed #777777;
+	font-size:0.8;
+	float:left;
+	margin:10px;
+}
+
+div#mini_dragdrop_area:hover{
+	border: 2px dashed #ffffff;
+	cursor:pointer;
+}
+
 input#image_upload{
    visibility: hidden;
 }
