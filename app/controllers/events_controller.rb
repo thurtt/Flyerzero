@@ -16,4 +16,16 @@ class EventsController < ApplicationController
 		EventMailer.verification_email(@event).deliver
 		render :partial=>"created"
 	end
+	
+	def verify
+		@event = Event.find_by_validation_hash(params[:id])
+		if @event != nil
+			@event.validated = true
+			@event.save
+			message = "Your event has been verified!"
+		else
+			message = "Oops! We can't find your event anywhere. Sad day."
+		end
+		redirect_to "/", :notice=>message
+	end
 end

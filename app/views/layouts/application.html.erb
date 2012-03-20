@@ -25,6 +25,14 @@
     		<span id='submit_link' class="box">Submit a Flyer</span>
     	</span> 
     	</div>
+    	<% if notice %>
+		<div id="notice" class='box' style="display:none;"><div class="text"><%=notice%></div></div>
+		
+		<script>
+			$('#notice').slideDown(600);
+			$('#notice').delay( 5000 ).slideUp(600);
+		</script>
+	<%end%>
     
 <%= yield %>
 
