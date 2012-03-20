@@ -47,6 +47,19 @@ Flyerzero::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  	  :address => 'mail.flyerzero.com',
+    :port => 587,
+    :domain => 'flyerzero.com',
+    :authentication => :login,
+    :user_name => 'username@flyerzero.com',
+    :password => 'password'
+  }
+  config.action_mailer.raise_delivery_errors = false # we don't actually want errors yet.
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_charset = 'utf-8'
+
 
   # Enable threaded mode
   # config.threadsafe!

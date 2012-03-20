@@ -12,6 +12,8 @@ class EventsController < ApplicationController
 		if not @event.save
 			render :partial=>"errors" and return
 		end
+		
+		EventMailer.verification_email(@event).deliver
 		render :partial=>"created"
 	end
 end
