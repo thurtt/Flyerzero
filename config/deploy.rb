@@ -1,6 +1,7 @@
 # This is used to make sure the custom databse.yml file gets migrated with each deployment
 # There may be a better way to do this, but here is the site I referenced: http://www.simonecarletti.com/blog/2009/06/capistrano-and-database-yml/
 require "./config/capistrano_database"
+require "./config/capistrano_email"
 
 set :application, "flyerzero"
 set :repository,  "git://github.com/thurtt/Flyerzero.git"
