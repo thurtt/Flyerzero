@@ -1,0 +1,13 @@
+development:
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :user_name: xxx
+  :password: yyy
+  :enable_starttls_auto: true
+production:
+  :address: mail.flyerzero.com
+  :port: 587
+  :authentication: login
+  :user_name: xxx
+  :password: yyy
