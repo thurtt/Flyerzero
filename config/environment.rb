@@ -6,5 +6,5 @@ Flyerzero::Application.initialize!
 
 # configure action_mailer
 ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.raise_delivery_errors = true
+ActionMailer::Base.raise_delivery_errors = false
 ActionMailer::Base.perform_deliveries = true
