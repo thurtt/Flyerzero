@@ -12,11 +12,13 @@ class EventsController < ApplicationController
 		if not @event.save
 			render :partial=>"errors" and return
 		end
-		
+
 		EventMailer.verification_email(@event).deliver
-		render :partial=>"created"
+		respond_to do |format|
+			format.js {render :partial=>"create"}
+		end
 	end
-	
+
 	def verify
 		@event = Event.find_by_validation_hash(params[:id])
 		if @event != nil

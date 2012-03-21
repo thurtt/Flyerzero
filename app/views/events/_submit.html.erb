@@ -1,10 +1,5 @@
 
 <div id="add_panel">
-
-	<div id="message_content">
-
-	</div>
-
 	<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true") do |f| %>
 		<table>
 			<tr>
@@ -23,7 +18,7 @@
 				<td><h1>Where is it?</h1></td>
 			</tr>
 			<tr>
-				<td><input class="input_text" id="event_loc" placeholder="Venue name"></td>
+				<td><input class="input_text" id="event_loc" placeholder="Venue name"></td><td id="venue_wait"><%= image_tag "cycle-small.gif" %></td>
 			</tr>
 			<tr>
 				<td><h1>Flyer Image</h1></td>
@@ -39,4 +34,7 @@
 		<%=f.hidden_field :lng %>
 		<%=f.hidden_field :venue_id %>
 	<%end%>
+	<div id="message_content">
+		<div id="create_wait">Submitting your event, please wait...<%= image_tag "cycle-small.gif" %></div>
+	</div>
 </div>

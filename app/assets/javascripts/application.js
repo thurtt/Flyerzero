@@ -88,6 +88,7 @@ function loadFlyerData(lat, lng) {
 		// submit for new event
 		$('#submit_event').click( function(){
 			result = uploadData.submit();
+			$('#create_wait').fadeIn();
 		});
 
 		// autocomplete for event location
@@ -155,22 +156,7 @@ function loadFlyerData(lat, lng) {
 
 		// used for drag and drop file uploads
 		$(function () {
-			$('#image_upload').fileupload({
-			    dataType: 'html',
-			    url: '/events/create',
-			    dropZone: $('#dragdrop_content'),
-			    add: function( e, data ) {
-				$.each(data.files, function (index, file) {
-				    $('#image_file').html(file.name);
-				    uploadData = data;
-				    createImagePreview( file );
-
-				});
-			    },
-			    always: function( e, data ){
-				$('#message_content').html( data.result );
-			    }
-			});
+			attachFileUploader();
 		});
 	});
 
@@ -276,4 +262,24 @@ function formatLocationText( name, address, crossStreet ){
 
 function MoveTo( id, x, y, func ){
     $(id).animate( { left: x, top: y }, 'swing', func );
+}
+
+function attachFileUploader(){
+    $('#image_upload').fileupload({
+	dataType: 'script',
+	url: '/events/create',
+	dropZone: $('#dragdrop_content'),
+	add: function( e, data ) {
+	    $.each(data.files, function (index, file) {
+		$('#image_file').html(file.name);
+		uploadData = data;
+		createImagePreview( file );
+
+	    });
+	},
+	always: function( e, data ){
+	    eval( data.result );
+	    //$('#message_content').html( data.result );
+	}
+    });
 }
