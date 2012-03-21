@@ -45,10 +45,10 @@ $(document).ready(function() {
 			$('#change_location').fadeIn("fast", function() {});
 		});
 	});
-	
+
 	$('button.change_location').click( function(){
 		if ( $('input#new_location').val() != '' ){
-	
+
 			$.get('/board/change_location/?location=' + $('input#new_location').val(), function(data) {
 				//alert(data);
 				$('#address').html(data);
@@ -56,9 +56,8 @@ $(document).ready(function() {
 		}
 	});
 
-
-	//initialize_map();
-	setTimeout( "initialize_map();", 3000);
+	initialize_map();
+	//setTimeout( "initialize_map();", 3000);
 
 });
 
@@ -69,11 +68,11 @@ $(document).bind('drop dragover', function (e) {
 
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
-		
+
 		$('#change_location').fadeOut("fast", function() {
 			$('#address').fadeIn("fast", function() {}); //make sure it is visible
 		}); // hide this.
-		
+
 		$('#content').html(data);
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
 		$('#add_panel input#cancel').click( function(){
@@ -157,7 +156,7 @@ function loadFlyerData(lat, lng) {
 		// used for drag and drop file uploads
 		$(function () {
 			$('#image_upload').fileupload({
-			    dataType: 'json',
+			    dataType: 'html',
 			    url: '/events/create',
 			    dropZone: $('#dragdrop_content'),
 			    add: function( e, data ) {
@@ -168,7 +167,7 @@ function loadFlyerData(lat, lng) {
 
 				});
 			    },
-			    done: function( e, data ){
+			    always: function( e, data ){
 				$('#message_content').html( data.result );
 			    }
 			});
