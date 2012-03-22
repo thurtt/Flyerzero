@@ -16,7 +16,7 @@ div#add_panel {
     width: 350px;
 }
 
-#add_panel h1 {
+#submission_page h1 {
     font-size: 1.2em;
     margin-top: 25px;
     margin-bottom: 5px;
@@ -28,7 +28,6 @@ div#dragdrop_content {
 
 div.drapdrop_area{
     text-align: center;
-    line-height: 500px;
     border: 2px dashed #777777;
 }
 
@@ -49,10 +48,18 @@ div#mini_dragdrop_area:hover{
 }
 
 input#image_upload{
-   visibility: hidden;
+   /*visibility: hidden;*/
 }
 
 div#dragdrop_text {
+	position: relative;
+	top: 50%;
+	width: 350px;
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -100px; /* half of height to center*/
+	font-family: sans-serif;
 }
 
 .ui-autocomplete{
@@ -131,11 +138,15 @@ div#dragdrop_text {
     background-image: url("/assets/search.png");
     background-repeat:no-repeat;
     padding-left: 25px;
+    width: 328px;
 }
 
 #add_panel .offset{
     padding-left: 25px;
     padding-top: 10px;
+}
+#add_panel #buttons{
+	margin-top: 50px;
 }
 #venue_icon{
     float: left;

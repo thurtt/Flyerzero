@@ -224,7 +224,7 @@ function noLocation() {
 	//alert('Could not find location');
 }
 
-function createImagePreview( fileObj ){
+function createImagePreview( fileObj ) {
       $('#dragdrop_content').css('display', 'none');
       $('#dragdrop_content').html('');
       $('#dragdrop_content').removeClass('drapdrop_area');

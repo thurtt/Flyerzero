@@ -5,8 +5,10 @@
 
 <div id="submission_page">
 	<div style="width:990px; margin:0 auto;">
-		<div class="yellow_text" style="font-size:3.0em;">Submit your flyer.</div>
-		<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>
-		<div id="submit" class="container"><%= render :partial=>"events/submit" %></div>
+		<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true") do |f| %>
+			<div class="yellow_text" style="font-size:3.0em;">Submit your flyer.</div>
+			<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop", :locals=>{ :f=>f } %></div>
+			<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
+		<%end%>
 	</div>
 </div>
