@@ -1,0 +1,11 @@
+$('#event_email').val('');
+$('#event_expiry').val('');
+$('#event_loc').val('');
+$('#image_file').html('');
+$('#dragdrop').fadeOut( function(){
+				    $('#dragdrop').html( '<%= escape_javascript(render(:partial => "dragdrop")) %>' ).fadeIn();
+				    // gotta re-attach the file upload listener
+				    attachFileUploader();
+		    } );
+$('#message_content').html('Event successfully created! Be sure to check your email and click on the activation link to activate your new event.');
+$('#message_content').delay(5000).fadeOut();

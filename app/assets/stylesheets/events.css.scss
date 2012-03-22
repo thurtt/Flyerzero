@@ -127,3 +127,25 @@ div#dragdrop_text {
     display: none;
     width: 16px;
 }
+#add_panel #event_loc{
+    background-image: url("/assets/search.png");
+    background-repeat:no-repeat;
+    padding-left: 25px;
+}
+
+#add_panel .offset{
+    padding-left: 25px;
+    padding-top: 10px;
+}
+#venue_icon{
+    float: left;
+}
+#venue_container{
+    float: left;
+    margin-left: 10px;
+
+}
+#venue_name{
+    font-size: 1.1em;
+    font-weight: 600;
+}
