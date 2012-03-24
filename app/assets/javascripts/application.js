@@ -233,12 +233,13 @@ function noLocation() {
 
 function createImagePreview( fileObj ) {
       $('#dragdrop_content').css('display', 'none');
-      $('#dragdrop_content').html('');
+      //$('#dragdrop_content').html('');
+      $('#dragdrop_text').hide();
       $('#dragdrop_content').removeClass('drapdrop_area');
       window.loadImage(
 	    fileObj,
 	    function (img) {
-		$('#dragdrop_content').append(img);
+		$('#flyer_photo').append(img);
 		$('#dragdrop_content').fadeIn();
 	    },
 	    {maxWidth: 400, maxHeight: 500}
