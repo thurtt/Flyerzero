@@ -35,12 +35,16 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<%= render :partial=>"events/media" %>
-			</td>
+			<td><h1>Have Media?</h1></td>
+		</tr>
+		<tr>
+			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>5%></td>
 		</tr>
 	</table>
-	<div id="buttons"><input value="Create" id="submit_event" type="button" %><input type="button" value="Nevermind" id="cancel"></div>
+	<div id="buttons">
+		<input value="Create" id="submit_event" type="button" %>
+		<input type="button" value="Nevermind" id="cancel">
+	</div>
 	<div id="message_content">
 		<div id="create_wait">Submitting your event, please wait...<%= image_tag "cycle-small.gif" %></div>
 	</div>
