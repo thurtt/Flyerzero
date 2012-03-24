@@ -1,5 +1,5 @@
 class EventMailer < ActionMailer::Base
-	default from: "from@example.com"
+	default from: "activation@flyerzero.com"
 	
 	def verification_email(event)
 		@event = event
