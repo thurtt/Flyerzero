@@ -275,8 +275,14 @@ function MoveTo( id, x, y, func ){
     $(id).animate( { left: x, top: y }, 'swing', func );
 }
 
-function validateSubmission(){
-
+function clearForm(){
+    $('#event_email').val('');
+    $('#event_expiry').val('');
+    $('#event_loc').val('');
+    $('#image_file').html('');
+    $('#venue_icon').attr('src', '');
+    $('#venue_name').html('');
+    $('#venue_location').html('');
 }
 
 function attachFileUploader(){
