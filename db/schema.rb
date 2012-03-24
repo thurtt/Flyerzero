@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120317212435) do
+ActiveRecord::Schema.define(:version => 20120324172949) do
 
   create_table "events", :force => true do |t|
     t.string   "email"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20120317212435) do
     t.datetime "updated_at"
     t.string   "validation_hash"
     t.string   "venue_id"
+    t.text     "media"
   end
 
 end
