@@ -1,4 +1,7 @@
-
+<div id="message_container"><div id="message_content">
+	<div id="create_wait"><%= image_tag "cycle-medium.gif" %><br />Submitting your event, please wait...</div>
+	<div id="message_text"></div>
+</div></div>
 <div id="add_panel">
 	<table>
 		<tr>
@@ -43,9 +46,5 @@
 	</table>
 	<div id="buttons">
 		<input value="Create" id="submit_event" type="button" %>
-		<input type="button" value="Nevermind" id="cancel">
-	</div>
-	<div id="message_content">
-		<div id="create_wait">Submitting your event, please wait...<%= image_tag "cycle-small.gif" %></div>
 	</div>
 </div>

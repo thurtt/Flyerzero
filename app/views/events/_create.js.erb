@@ -4,5 +4,6 @@ $('#dragdrop').fadeOut( function(){
 				    attachFileUploader();
 		    } );
 clearForm();
-$('#message_content').html('Event successfully created! Be sure to check your email and click on the activation link to activate your new event.');
+$('#create_wait').hide();
+$('#message_text').html('Event successfully created! Be sure to check your email and click on the activation link to activate your new event.');
 $('#message_content').delay(5000).fadeOut();

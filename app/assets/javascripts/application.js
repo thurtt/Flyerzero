@@ -75,10 +75,6 @@ function loadFlyerData(lat, lng) {
 
 		$('#content').html(data);
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
-		$('#add_panel input#cancel').click( function(){
-			$('#board_page').fadeOut("slow", function() {});
-			$('#submission_page').fadeOut("slow", function() {});
-		});
 
 		$('#mini_dragdrop_area').click( function(){
 			$('#submission_page').fadeIn("slow", function() {});
@@ -89,13 +85,12 @@ function loadFlyerData(lat, lng) {
 		$('#submit_event').click( function(){
 			if( uploadData.submit ){
 			    uploadData.submit();
-			    $('#create_wait').fadeIn();
+			    $('#message_text').html('');
+			    $('#message_content').fadeIn();
 			} else {
 			    $('#dragdrop_text').addClass( 'error_text' );
 			    $('#message_content').html('You need to select a flyer to create a new event.');
 			}
-
-
 		});
 
 		// autocomplete for event location
@@ -282,7 +277,7 @@ function clearForm(){
     $('#image_file').html('');
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
-    $('#venue_location').html('');
+    $('#venue_location').html('No venue chosen');
 }
 
 function attachFileUploader(){
