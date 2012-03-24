@@ -63,12 +63,15 @@ div#dragdrop_text {
 }
 
 .ui-autocomplete{
-    background: #ffffff;
+    background: #f9f9f9;
     width: 350px;
     height: 200px;
     list-style-type: none;
     overflow:auto;
     padding: 0px;
+    border:1px solid #eee;
+    box-shadow: 1px 1px 1px 1px #888;
+    
 }
 .ui-menu-item{
     padding: 5px;
@@ -77,7 +80,8 @@ div#dragdrop_text {
 }
 
 .ui-menu-item:hover{
-    background: #cfcfcf;
+    background: #d4b6ff;
+    cursor:pointer;
 }
 
 .venue_details{
