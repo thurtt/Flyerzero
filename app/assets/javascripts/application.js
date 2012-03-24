@@ -87,8 +87,15 @@ function loadFlyerData(lat, lng) {
 
 		// submit for new event
 		$('#submit_event').click( function(){
-			result = uploadData.submit();
-			$('#create_wait').fadeIn();
+			if( uploadData.submit ){
+			    uploadData.submit();
+			    $('#create_wait').fadeIn();
+			} else {
+			    $('#dragdrop_text').addClass( 'error_text' );
+			    $('#message_content').html('You need to select a flyer to create a new event.');
+			}
+
+
 		});
 
 		// autocomplete for event location
@@ -268,7 +275,7 @@ function MoveTo( id, x, y, func ){
 }
 
 function validateSubmission(){
-    
+
 }
 
 function attachFileUploader(){

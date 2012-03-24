@@ -20,7 +20,7 @@ div#add_panel {
     border: 2px solid red;
 }
 
-#add_panel .error_text {
+.error_text {
     color: #ff0000;
 }
 
@@ -79,7 +79,7 @@ div#dragdrop_text {
     padding: 0px;
     border:1px solid #eee;
     box-shadow: 1px 1px 1px 1px #888;
-    
+
 }
 .ui-menu-item{
     padding: 5px;
