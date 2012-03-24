@@ -267,6 +267,10 @@ function MoveTo( id, x, y, func ){
     $(id).animate( { left: x, top: y }, 'swing', func );
 }
 
+function validateSubmission(){
+    
+}
+
 function attachFileUploader(){
     $('#image_upload').fileupload({
 	dataType: 'script',
@@ -277,12 +281,10 @@ function attachFileUploader(){
 		$('#image_file').html(file.name);
 		uploadData = data;
 		createImagePreview( file );
-
 	    });
 	},
 	always: function( e, data ){
 	    eval( data.result );
-	    //$('#message_content').html( data.result );
 	}
     });
 }

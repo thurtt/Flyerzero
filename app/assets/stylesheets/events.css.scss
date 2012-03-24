@@ -16,6 +16,14 @@ div#add_panel {
     width: 350px;
 }
 
+#add_panel .error_border {
+    border: 2px solid red;
+}
+
+#add_panel .error_text {
+    color: #ff0000;
+}
+
 #submission_page h1 {
     font-size: 1.2em;
     margin-top: 25px;
@@ -140,10 +148,12 @@ div#dragdrop_text {
     padding-left: 25px;
     width: 328px;
 }
-
 #add_panel .offset{
     padding-left: 25px;
     padding-top: 10px;
+}
+#add_panel .foursquare_image{
+    padding-left: 20px;
 }
 #add_panel #buttons{
 	margin-top: 50px;

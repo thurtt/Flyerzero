@@ -11,13 +11,16 @@
 			<td><h1>When?</h1></td>
 		</tr>
 		<tr>
-			<td><%=f.text_field :expiry, :placeholder=>"End date", :class=>"input_text"%></td>
+			<td><%=f.text_field :expiry, :placeholder=>"Event date", :class=>"input_text"%></td>
 		</tr>
 		<tr>
 			<td><h1>Where is it?</h1></td>
 		</tr>
 		<tr>
-			<td><input class="input_text" id="event_loc" placeholder="Search local venues"></td><td id="venue_wait"><%= image_tag "cycle-small.gif" %></td>
+			<td><input class="input_text" id="event_loc" placeholder="Search local venues"></td>
+		</tr>
+		<tr>
+			<td class="foursquare_image"><%= image_tag "foursquare_small.png" %></td>
 		</tr>
 		<tr>
 			<td class="offset">
