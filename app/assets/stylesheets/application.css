@@ -56,8 +56,9 @@ img.map_flyer{
 	width:40px;
 }
 img.map_flyer_info{
-	height:167px;
-	width:130px;
+	height:250px;
+	width:200px;
+	margin:auto;
 }
 div.overlay{
 	position:absolute;

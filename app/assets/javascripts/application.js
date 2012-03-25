@@ -16,6 +16,7 @@ var longitude;
 var markers = [];
 var uploadData = {};
 var venueList = {};
+var focusFlyer = '';
 var errorList = [];
 
 $(document).ready(function() {
@@ -68,7 +69,7 @@ $(document).bind('drop dragover', function (e) {
 });
 
 function loadFlyerData(lat, lng) {
-	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
+	$.get('flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng ,function(data) {
 
 		// clear out any old form stuff
 		clearForm();
@@ -193,15 +194,15 @@ function clearMap() {
 	}
 }
 function addUser() {
-	addAddressToMap(latitude, longitude, '/assets/user.png');
+	addAddressToMap(latitude, longitude, { small: '/assets/user.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
 }
 
-function addAddressToMap(lat, lng, image) {
+function addAddressToMap(lat, lng, data) {
 	point = new google.maps.LatLng(lat,lng);
 
         var locationmarker;
 	var div = document.createElement('DIV');
-        div.innerHTML = '<div class="map_flyer box"><img src="' + image + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
+        div.innerHTML = '<div class="map_flyer box"><img src="' + data["small"] + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
 
         locationmarker = new RichMarker({
           map: map,
@@ -211,13 +212,17 @@ function addAddressToMap(lat, lng, image) {
           anchor: RichMarkerPosition.BOTTOM,
           content: div
         });
+        info = '<img src="' + data["large"] + '" class="map_flyer_info">';
+        if ( data["text"] != undefined ){
+        	//alert(data["text"]);
+        	info += '<div style="float:right;padding:7px;">' + data["text"] + '</div>';
+        }
         var infowindow = new google.maps.InfoWindow(
-	{
-		content: '<img src="' + image + '" class="map_flyer_info">',
-		size: new google.maps.Size(170,200)
+	{ 
+		content: info
 	});
-
-
+  
+        
         google.maps.event.addListener(locationmarker, 'click', function() {
 		//alert('hi');
 		map.setZoom(16);
@@ -227,6 +232,7 @@ function addAddressToMap(lat, lng, image) {
 
 	map.setCenter(point, 13);
 	markers.push(locationmarker);
+	return locationmarker;
 }
 
 

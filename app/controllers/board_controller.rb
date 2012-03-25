@@ -18,6 +18,11 @@ class BoardController < ApplicationController
 	end
 
 	def flyers
+		
+		if params[:id]
+			@flyer = Event.find(params[:id]) if Event.exists?(params[:id])
+		end
+		
 		@event = Event.new()
 		@now = Event.within(5, :origin => session[:ll]).where('validated > 0').where(['expiry > ? && expiry < ?', Time.now().beginning_of_day - 1.day, Time.now().beginning_of_day + 3.day]).page(params[:page])
 		@soon = Event.within(5, :origin => session[:ll]).where('validated > 0').where(['expiry > ? && expiry < ?', Time.now().beginning_of_day + 2.day, Time.now().beginning_of_day + 1.week]).page(params[:page])
