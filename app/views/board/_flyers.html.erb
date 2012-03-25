@@ -1,14 +1,19 @@
-
 <div id="board_page">
 	<%= render :partial=>"flyer"%>
 </div>
 
 <div id="submission_page">
-	<div style="width:990px; margin:0 auto;">
-		<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true") do |f| %>
-			<div class="yellow_text" style="font-size:3.0em;">Submit your flyer.</div>
-			<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>
-			<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
-		<%end%>
+	<div style="width:990px; margin:0 auto;height: 100%;" id="form_area">
+		<div class="yellow_text" style="font-size:3.0em;">Submit your flyer.</div>
+		<div id="form_content">
+			<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true" ) do |f| %>
+				<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>
+				<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
+			<%end%>
+		</div>
+		<div id="message_content">
+			<div id="create_wait" class="textbox"><%= image_tag "cycle-medium.gif" %><br />Submitting your event, please wait...</div>
+			<div id="message_text" class="textbox"></div>
+		</div>
 	</div>
 </div>

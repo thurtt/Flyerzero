@@ -1,9 +1,17 @@
-$('#dragdrop').fadeOut( function(){
-				    $('#dragdrop').html( '<%= escape_javascript(render(:partial => "dragdrop")) %>' ).fadeIn();
-				    // gotta re-attach the file upload listener
-				    attachFileUploader();
-		    } );
+
+$('#dragdrop').html( '<%= escape_javascript(render(:partial => "dragdrop")) %>' );
+
+// gotta re-attach the file upload listener
+attachFileUploader();
+
 clearForm();
-$('#create_wait').hide();
-$('#message_text').html('Event successfully created! Be sure to check your email and click on the activation link to activate your new event.');
-$('#message_content').delay(5000).fadeOut();
+
+$('#message_text').hide();
+$('#create_wait').fadeOut(function(){
+	$('#message_text').html('<%= raw("<h1>Event successfully created!</h1><p>Be sure to check your email and click on the activation link to activate your new event.</p>") %>');
+	$('#message_text').fadeIn( function(){
+		$('#message_content').delay(8000).fadeOut( function(){
+			$('#form_content').fadeIn();
+		});
+	});
+});

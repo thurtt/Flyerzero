@@ -79,6 +79,7 @@ div#dragdrop_text {
     box-shadow: 1px 1px 1px 1px #888;
 
 }
+
 .ui-menu-item{
     padding: 5px;
     border-bottom: 1px solid #cccccc;
@@ -95,22 +96,26 @@ div#dragdrop_text {
     color: #444444;
     padding-left: 15px;
 }
+
 .venue_name{
     font-size: 1.1em;
     color: black;
 }
+
 .ui-datepicker-prev{
     float: left;
     background-image: url('/assets/prev.png');
     width: 16px;
     height: 16px;
 }
+
 .ui-datepicker-next{
     float: right;
     background-image: url('/assets/next.png');
     width: 16px;
     height: 16px;
 }
+
 .ui-datepicker-header{
     background: #f9e101;
     padding-top: 5px;
@@ -134,8 +139,7 @@ div#dragdrop_text {
     font-weight: 700;
 }
 
-#create_wait{
-    /*display: none;*/
+#message_content .textbox{
     height: 70px;
     margin-top: -35px;
     top: 50%;
@@ -143,25 +147,18 @@ div#dragdrop_text {
     text-align: center;
     position: relative;
 }
+
 #message_content{
-    position: absolute;
-    top: 50%;
+    position: relative;
+    top: 40%;
     margin-left: auto;
     margin-right: auto;
-    background: #f9f9f9;
-    width: 300px;
+    width: 400px;
     height: 200px;
-    z-index: 10;
-    border: 1px solid #aaaaaa;
     margin-top: -100px;
-    box-shadow: 0px 0px 5px 5px #aaaaaa;
-    display: none;
+    display:none;
 }
-#message_container{
-    position:absolute;
-    width:100%;
-    left:0px;
-}
+
 #venue_wait{
     display: none;
     width: 16px;
@@ -183,18 +180,22 @@ div#dragdrop_text {
 #venue_icon{
     float: left;
 }
+
 #venue_container{
     float: left;
     margin-left: 10px;
 
 }
+
 #venue_name{
     font-size: 1.1em;
     font-weight: 600;
 }
+
 #buttons {
 	text-align:center;
 }
+
 #buttons input{
 	border:1px solid #888;
 	padding:5px;
@@ -203,6 +204,7 @@ div#dragdrop_text {
 	font-size:1.2em;
 	margin: 5px;
 }
+
 #buttons input:hover{
 	border:1px solid #999;
 	background:#f5f5f5;
