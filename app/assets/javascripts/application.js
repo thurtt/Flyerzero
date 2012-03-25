@@ -17,6 +17,7 @@ var markers = [];
 var uploadData = {};
 var venueList = {};
 var focusFlyer = '';
+var errorList = [];
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
@@ -70,12 +71,16 @@ $(document).bind('drop dragover', function (e) {
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng ,function(data) {
 
+		// clear out any old form stuff
+		clearForm();
+
 		$('#change_location').fadeOut("fast", function() {
 			$('#address').fadeIn("fast", function() {}); //make sure it is visible
 		}); // hide this.
 
 		$('#content').html(data);
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
+		$('#add_panel input#event_expiry').attr('readonly', 'readonly');
 
 		$('#mini_dragdrop_area').click( function(){
 			$('#submission_page').fadeIn("slow", function() {});
@@ -84,17 +89,15 @@ function loadFlyerData(lat, lng) {
 
 		// submit for new event
 		$('#submit_event').click( function(){
-			if( uploadData.submit ){
-			    uploadData.submit();
-			    $('#message_text').html('');
-			    $('#create_wait').show();
-			    $('#form_content').fadeOut(function(){
-				    $('#message_content').fadeIn();
-			    });
-			} else {
-			    $('#dragdrop_text').addClass( 'error_text' );
-			    $('#message_content').html('You need to select a flyer to create a new event.');
-			}
+			    clearErrors();
+			    if( validateForm() ){
+				uploadData.submit();
+				$('#message_text').html('');
+				$('#create_wait').show();
+				$('#form_content').fadeOut(function(){
+					$('#message_content').fadeIn();
+				});
+			    }
 		});
 
 		// autocomplete for event location
@@ -300,6 +303,7 @@ function clearForm(){
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
     $('#venue_location').html('No venue chosen');
+    uploadData = {};
 }
 
 function attachFileUploader(){
@@ -309,7 +313,6 @@ function attachFileUploader(){
 	dropZone: $('#dragdrop_content'),
 	add: function( e, data ) {
 	    $.each(data.files, function (index, file) {
-		$('#image_file').html(file.name);
 		uploadData = data;
 		createImagePreview( file );
 	    });
@@ -318,4 +321,49 @@ function attachFileUploader(){
 	    eval( data.result );
 	}
     });
+}
+
+function validateForm(){
+
+    validated = true;
+
+    // check to see if an image has been selected
+    if ( !uploadData.submit ){
+	//$('#dragdrop_text').addClass( 'error_text' );
+	addError( $('#dragdrop_content') );
+	validated = false;
+    }
+
+    // check for a valid email address
+    if($('#event_email').val().length <= 0) {
+	addError( $('#event_email') );
+	validated = false;
+    }
+
+    // check for a valid date
+    if( $('#event_expiry').val().length <= 0 ) {
+	addError( $('#event_expiry') );
+	validated = false;
+    }
+
+    // check for a valid location
+    if( $('#event_venue_id').val().length <= 0 ) {
+	addError( $('#event_loc') );
+	validated = false;
+    }
+
+    return validated;
+}
+
+function addError( item ){
+	item.addClass( 'error_bg' );
+	errorList.push( item );
+}
+
+function clearErrors(){
+	$.each(errorList, function(i, val) {
+	    val.removeClass( 'error_bg' );
+	});
+	//$('#dragdrop_text').removeClass( 'error_text' );
+	errorList = [];
 }

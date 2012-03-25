@@ -14,14 +14,6 @@ div#add_panel {
     width: 350px;
 }
 
-#add_panel .error_border {
-    border: 2px solid red;
-}
-
-.error_text {
-    color: #ff0000;
-}
-
 #submission_page h1 {
     font-size: 1.1em;
     margin-top: 15px;
@@ -208,4 +200,13 @@ div#dragdrop_text {
 #buttons input:hover{
 	border:1px solid #999;
 	background:#f5f5f5;
+}
+
+.error_text{
+    color: #ff0000;
+}
+
+.error_bg {
+   //color: #ff0000;
+   box-shadow: 0px 0px 2px 2px #ff0000;
 }
