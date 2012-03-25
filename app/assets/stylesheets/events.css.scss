@@ -9,9 +9,8 @@ div#add_panel {
 #add_panel .input_text {
 	border:1px solid #777777;
 	padding:5px;
-    font-size: 1.1em;
+    /*font-size: 1.1em;*/
     margin-left: 20px;
-    margin-top: 5px;
     width: 350px;
 }
 
@@ -24,9 +23,9 @@ div#add_panel {
 }
 
 #submission_page h1 {
-    font-size: 1.2em;
-    margin-top: 25px;
-    margin-bottom: 5px;
+    font-size: 1.1em;
+    margin-top: 15px;
+    /*margin-bottom: 5px;*/
 }
 
 div#dragdrop_content {
@@ -180,9 +179,7 @@ div#dragdrop_text {
 #add_panel .foursquare_image{
     padding-left: 20px;
 }
-#add_panel #buttons{
-	margin-top: 50px;
-}
+
 #venue_icon{
     float: left;
 }
@@ -201,10 +198,10 @@ div#dragdrop_text {
 #buttons input{
 	border:1px solid #888;
 	padding:5px;
-	margin:5px;
 	background:#e5e5e5;
 	cursor:pointer;
 	font-size:1.2em;
+	margin: 5px;
 }
 #buttons input:hover{
 	border:1px solid #999;
