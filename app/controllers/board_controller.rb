@@ -24,8 +24,18 @@ class BoardController < ApplicationController
 		end
 		
 		@event = Event.new()
+		
 		@now = Event.within(5, :origin => session[:ll]).where('validated > 0').where(['expiry > ? && expiry < ?', Time.now().beginning_of_day - 1.day, Time.now().beginning_of_day + 3.day]).page(params[:page])
+		if @now.length < 20
+			@now = Event.within(25, :origin => session[:ll]).where('validated > 0').where(['expiry > ? && expiry < ?', Time.now().beginning_of_day - 1.day, Time.now().beginning_of_day + 3.day]).page(params[:page])
+		end
+		
+		
 		@soon = Event.within(5, :origin => session[:ll]).where('validated > 0').where(['expiry > ? && expiry < ?', Time.now().beginning_of_day + 2.day, Time.now().beginning_of_day + 1.week]).page(params[:page])
+		if @soon.length < 20
+			@soon = Event.within(25, :origin => session[:ll]).where('validated > 0').where(['expiry > ? && expiry < ?', Time.now().beginning_of_day + 2.day, Time.now().beginning_of_day + 1.week]).page(params[:page])
+		end
+		
 		render :partial=>"flyers"
 	end
 
