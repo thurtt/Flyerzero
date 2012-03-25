@@ -208,6 +208,19 @@ function addAddressToMap(lat, lng, image) {
           anchor: RichMarkerPosition.BOTTOM,
           content: div
         });
+        var infowindow = new google.maps.InfoWindow(
+	{ 
+		content: '<img src="' + image + '" class="map_flyer_info">',
+		size: new google.maps.Size(170,200)
+	});
+  
+        
+        google.maps.event.addListener(locationmarker, 'click', function() {
+		//alert('hi');
+		map.setZoom(16);
+		map.setCenter(locationmarker.getPosition());
+		infowindow.open(map,locationmarker);
+        });
 
 	map.setCenter(point, 13);
 	markers.push(locationmarker);

@@ -42,8 +42,6 @@
 body{
 	background:#222222;
 	color: #888888;
-	//background-image: url('/assets/rr0213_web_thumb.jpg');
-	//background-image: url('/assets/umlaut0313_web_thumb.jpg');
 }
 
 div.map_flyer{
@@ -56,6 +54,10 @@ div.map_flyer{
 img.map_flyer{
 	height:50px;
 	width:40px;
+}
+img.map_flyer_info{
+	height:167px;
+	width:130px;
 }
 div.overlay{
 	position:absolute;
