@@ -1,7 +1,7 @@
 <script>
 	clearMap();
 	<%for flyer in @now%>
-		addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, '<%=flyer.photo.url( :thumb )%>');
+		addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=h flyer.media%>'});
 	<%end%>
 	addUser();
 	$('#address').html('<%=@origin.full_address%>');
