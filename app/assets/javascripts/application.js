@@ -210,6 +210,7 @@ function addAddressToMap(lat, lng, data) {
         });
         info = '<img src="' + data["large"] + '" class="map_flyer_info">';
         if ( data["text"] != undefined ){
+        	//alert(data["text"]);
         	info += '<div style="float:right;padding:7px;">' + data["text"] + '</div>';
         }
         var infowindow = new google.maps.InfoWindow(
