@@ -1,10 +1,15 @@
 <script>
 	clearMap();
 	<%for flyer in @now%>
-		addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
+		<% if @flyer == flyer %>marker = <%end%>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
 	<%end%>
 	addUser();
 	$('#address').html('<%=@origin.full_address%>');
+	<% if @flyer %>
+		
+		map.setCenter(marker.getPosition());
+		google.maps.event.trigger(marker, 'click');
+	<%end%>
 </script><!-- TO DO: billboard goes here. //-->
 
 

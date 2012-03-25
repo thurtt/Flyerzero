@@ -16,6 +16,7 @@ var longitude;
 var markers = [];
 var uploadData = {};
 var venueList = {};
+var focusFlyer = '';
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
@@ -67,7 +68,7 @@ $(document).bind('drop dragover', function (e) {
 });
 
 function loadFlyerData(lat, lng) {
-	$.get('flyers/?lat=' + lat + '&lng=' + lng ,function(data) {
+	$.get('flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng ,function(data) {
 
 		$('#change_location').fadeOut("fast", function() {
 			$('#address').fadeIn("fast", function() {}); //make sure it is visible
@@ -228,6 +229,7 @@ function addAddressToMap(lat, lng, data) {
 
 	map.setCenter(point, 13);
 	markers.push(locationmarker);
+	return locationmarker;
 }
 
 
