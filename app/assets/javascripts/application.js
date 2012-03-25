@@ -86,7 +86,10 @@ function loadFlyerData(lat, lng) {
 			if( uploadData.submit ){
 			    uploadData.submit();
 			    $('#message_text').html('');
-			    $('#message_content').fadeIn();
+			    $('#create_wait').show();
+			    $('#form_content').fadeOut(function(){
+				    $('#message_content').fadeIn();
+			    });
 			} else {
 			    $('#dragdrop_text').addClass( 'error_text' );
 			    $('#message_content').html('You need to select a flyer to create a new event.');
