@@ -1,7 +1,9 @@
 <script>
 	clearMap();
-	<%for flyer in @now%>
-		<% if @flyer == flyer %>marker = <%end%>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
+	<%if @now.length > 0%>
+		<%for flyer in @now.reverse%>
+			<% if @flyer == flyer %>marker = <%end%>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
+		<%end%>
 	<%end%>
 	addUser();
 	$('#address').html('<%=@origin.full_address%>');

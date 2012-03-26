@@ -147,14 +147,6 @@ function loadFlyerData(lat, lng) {
 			}
 		});
 
-		/*$('.slideshow').cycle({
-			fx: 'shuffle',
-			timeout: 3000,
-			speedIn:  500
-		});
-
-		*/
-
 		$(function () {
 			$(".anyClass").jCarouselLite({
 				btnNext: ".next",
@@ -214,8 +206,7 @@ function addAddressToMap(lat, lng, data) {
         });
         info = '<img src="' + data["large"] + '" class="map_flyer_info">';
         if ( data["text"] != undefined ){
-        	//alert(data["text"]);
-        	info += '<div style="float:right;padding:7px;">' + data["text"] + '</div>';
+        	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
         var infowindow = new google.maps.InfoWindow(
 	{ 
@@ -241,19 +232,15 @@ function foundLocation(position) {
 	longitude = position.coords.longitude;
 	addUser();
 	loadFlyerData(latitude, longitude);
-
-	//alert('Found location: ' + lat + ', ' + long);
 }
 
 
 function noLocation() {
 	loadFlyerData(null,null);
-	//alert('Could not find location');
 }
 
 function createImagePreview( fileObj ) {
       $('#dragdrop_content').css('display', 'none');
-      //$('#dragdrop_content').html('');
       $('#dragdrop_text').hide();
       $('#dragdrop_content').removeClass('drapdrop_area');
       window.loadImage(
