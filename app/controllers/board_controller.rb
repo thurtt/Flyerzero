@@ -40,7 +40,7 @@ class BoardController < ApplicationController
 	end
 
 	def venue
-		if params[:term].length < 3
+		if params[:term].length < 2
 		      render :json=>[] and return
 		end
 
