@@ -51,6 +51,12 @@ div.map_flyer{
 	background-color: white;
 	vertical-align:top;
 }
+iframe {
+	display:block;
+	width:420px !important;
+	padding-bottom:20px;
+}
+
 img.map_flyer{
 	height:50px;
 	width:40px;

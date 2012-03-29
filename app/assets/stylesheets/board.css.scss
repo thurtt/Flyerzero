@@ -18,7 +18,7 @@ div#userzero {
 	left:0px;
 	text-align:left;
 	font-size: 1.1em;
-	z-index:2000;
+	z-index:200;
 	color:black;
 	border-top:1px solid #444444;
 	background-color:#f9e101;
@@ -31,7 +31,7 @@ img.branding{
 	position:absolute; 
 	bottom:30px; 
 	left:0px;
-	z-index:2000;
+	z-index:200;
 }
 div#logo {
 	text-align:center;
@@ -50,7 +50,7 @@ div#submission_page{
 	overflow:scroll;
 	vertical-align: middle;
 	background-color:#fcfcfc;
-	z-index:1000;
+	z-index:100;
 	display:none;
 }
 
@@ -100,7 +100,7 @@ div#board_page{
 	overflow:scroll;
 	vertical-align: middle;
 	background-color:#222222;
-	z-index:1000;
+	z-index:100;
 	display:none;
 }
 div.content{
@@ -126,7 +126,7 @@ div#corner_spot{
 	position:absolute;
 	left:0px;
 	top:0px;
-	z-index:2000;
+	z-index:200;
 }
 
 div#footer {
@@ -187,7 +187,7 @@ div#add_link {
 	border-bottom-left-radius:7px;
 	padding:10px;
 	background-image: url('/assets/trans-white.png');
-	z-index:2000;
+	z-index:200;
 
 }
 #add_link span{
