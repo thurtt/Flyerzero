@@ -1,6 +1,44 @@
 class BoardController < ApplicationController
-	skip_before_filter :findme, :only=>[:callback, :venue, :change_location]
+	#skip_before_filter :findme, :only=>[:callback, :venue, :change_location]
+	before_filter :findme, :only=>[:index]
+	before_filter :updateme, :only=>[:flyers]
 
+	def findme
+
+		if session[:origin]
+			@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
+			#@origin is now a Geoloc object.
+		else
+			@origin = Geokit::Geocoders::IpGeocoder.geocode(request.remote_ip)
+			#@origin is now a Geoloc object.
+
+			#@origin = Geokit::Geocoders::MultiGeocoder.geocode('YOUR ADDRESS HERE')
+			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode @origin
+			session[:origin] = res.full_address
+		end
+		
+		session[:ll] = @origin.ll
+		return true
+	end
+	
+	
+	def updateme
+		if params[:lat] != nil && params[:lat] != ''
+			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [params[:lat], params[:lng]]
+			session[:origin] = res.full_address
+
+
+			#@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
+			@origin = Geokit::LatLng.new(params[:lat], params[:lng])
+			
+			session[:ll] = @origin.ll
+			return true
+			
+		end
+	end
+	
+	
+	
 	def index
 
 	end

@@ -6,7 +6,7 @@
 		<%end%>
 	<%end%>
 	addUser();
-	$('#address').html('<%=@origin.full_address%>');
+	$('#address').html('<%=session[:origin]%>');
 	<% if @flyer %>
 		
 		map.setCenter(marker.getPosition());
