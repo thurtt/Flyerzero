@@ -10,4 +10,9 @@ class Event < ActiveRecord::Base
 			:small  => "130x163>",
 			:medium => "400x500>",
 			:large =>   "600x750>" }
+			
+	def isrecent?
+		return true if expiry < DateTime.now.beginning_of_day + 2.day
+		return false
+	end
 end
