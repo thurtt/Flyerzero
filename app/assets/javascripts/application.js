@@ -295,7 +295,7 @@ function clearForm(){
 
 function attachFileUploader(){
     $('#image_upload').fileupload({
-	dataType: 'html',
+	dataType: 'script',
 	url: '/events/create',
 	dropZone: $('#dragdrop_content'),
 	add: function( e, data ) {
@@ -304,8 +304,11 @@ function attachFileUploader(){
 		createImagePreview( file );
 	    });
 	},
-	always: function( e, data ){
-	    $('#dragdrop').html( data.result );
+	done: function( e, data ){
+	    eval( data.result );
+	},
+	error: function( e, data ){
+	    submitStatus( '<h1>A really ugly error has occurred :(</h1><p>We probably cocked something up pretty bad, but we will fix it right away!</p>');
 	}
     });
 }
@@ -353,4 +356,16 @@ function clearErrors(){
 	});
 	//$('#dragdrop_text').removeClass( 'error_text' );
 	errorList = [];
+}
+
+function submitStatus( text ){
+    $('#message_text').hide();
+    $('#create_wait').fadeOut(function(){
+	    $('#message_text').html( text );
+	    $('#message_text').fadeIn( function(){
+		    $('#message_content').delay(8000).fadeOut( function(){
+			    $('#form_content').fadeIn();
+		    });
+	    });
+    });
 }
