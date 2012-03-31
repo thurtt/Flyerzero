@@ -5,14 +5,20 @@ class EventsController < ApplicationController
 	# POST /events
 	# POST /events.json
 	def create
+		event_id = nil
+		event_id = params[:event][:event_id] if params[:event][:event_id].length > 0
 		@event = Event.new(params[:event])
-		#@event.expiry = Time._load( params[:event][:expiry] )
 		@event.validation_hash = rand(36**16).to_s(36)
+		# attach the photo to our event if we have a valid event id
+		@event.photo = Event.find(event_id).photo if event_id
+
 		if not @event.save
 			render :partial=>"errors" and return
 		end
+
+		event_id = @event.id if not event_id
 		EventMailer.verification_email(@event).deliver
-		render :partial=>"create"
+		render :partial=>"create", :locals=>{ :event_id=>event_id }
 	end
 
 	def verify

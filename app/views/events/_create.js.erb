@@ -1,5 +1,6 @@
 // gotta re-attach the file upload listener
-$('#dragdrop').html( '<%= escape_javascript( render(:partial => "dragdrop") )%>')
+$('#dragdrop').html( '<%= escape_javascript( render(:partial => "dragdrop") )%>');
 attachFileUploader();
 clearForm();
+//$('#event_event_id').val( '<%= event_id %>' );
 submitStatus( '<%= raw("<h1>Event successfully created!</h1><p>Be sure to check your email and click on the activation link to activate your new event.</p>") %>' );

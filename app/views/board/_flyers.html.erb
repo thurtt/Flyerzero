@@ -11,9 +11,6 @@
 				<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
 			<%end%>
 		</div>
-		<div id="message_content">
-			<div id="create_wait" class="textbox"><%= image_tag "cycle-medium.gif" %><br />Submitting your event, please wait...</div>
-			<div id="message_text" class="textbox"></div>
-		</div>
+		<%= render :partial=>"events/message_panel" %>
 	</div>
 </div>

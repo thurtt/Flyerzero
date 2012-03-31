@@ -370,13 +370,9 @@ function clearErrors(){
 }
 
 function submitStatus( text ){
-    $('#message_text').hide();
+    $('#response_container').hide();
     $('#create_wait').fadeOut(function(){
 	    $('#message_text').html( text );
-	    $('#message_text').fadeIn( function(){
-		    $('#message_content').delay(8000).fadeOut( function(){
-			    $('#form_content').fadeIn();
-		    });
-	    });
+	    $('#response_container').fadeIn();
     });
 }
