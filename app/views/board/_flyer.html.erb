@@ -2,17 +2,17 @@
 	clearMap();
 	<%if @now.length > 0%>
 		<%for flyer in @now.reverse%>
-			<% if @flyer == flyer %>marker = <%end%>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
+			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
+			markers["<%=flyer.id%>"] = marker;
 		<%end%>
 	<%end%>
 	addUser();
 	$('#address').html('<%=session[:origin]%>');
 	<% if @flyer %>
-		
-		map.setCenter(marker.getPosition());
-		google.maps.event.trigger(marker, 'click');
+		map.setCenter(markers["<%=@flyer.id%>"].getPosition());
+		google.maps.event.trigger(markers["<%=@flyer.id%>"], 'click');
 	<%end%>
-</script><!-- TO DO: billboard goes here. //-->
+</script>
 
 
 
@@ -21,7 +21,10 @@
 	<div class="flyers">
 			<div id="mini_dragdrop_area">Submit Yours!</div>
 		<%for flyer in @now%>
+			<div class="f_element">
 			<%= link_to(image_tag(flyer.photo.url(:thumb), :size=>"130x163", :class=> flyer.isrecent? == true ? "recent" : "soon"), flyer.photo.url(:large),:target=>"new" ) unless flyer.photo.nil? %>
+			<%if flyer.isrecent?%><span class="show_on_map box" flyer_id="<%=flyer.id%>">Show On Map</span><%end%>
+			</div>
 		<%end%>
 	</div>
 </div>
