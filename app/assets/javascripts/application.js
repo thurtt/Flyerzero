@@ -236,7 +236,7 @@ function foundLocation(position) {
 
 
 function noLocation() {
-	loadFlyerData(null,null);
+	loadFlyerData(38.025208, -78.488517);
 }
 
 function createImagePreview( fileObj ) {

@@ -49,12 +49,6 @@ class BoardController < ApplicationController
 		redirect_to :action=>"index"
 	end
 
-	def set_location
-		@origin = Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
-		session[:origin] = params[:location] if @origin
-		render :text=>'loc set'
-	end
-
 	def flyers
 		
 		if params[:id]
@@ -102,6 +96,7 @@ class BoardController < ApplicationController
 			   }
 		render :json=> venues
 	end
+	
 	
 	def change_location
 		#todo here -- get address from submission
