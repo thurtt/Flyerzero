@@ -5,7 +5,6 @@ class EventsController < ApplicationController
 	# POST /events
 	# POST /events.json
 	def create
-		partial = "submit"
 		@event = Event.new(params[:event])
 		#@event.expiry = Time._load( params[:event][:expiry] )
 		@event.validation_hash = rand(36**16).to_s(36)
@@ -14,9 +13,7 @@ class EventsController < ApplicationController
 		end
 
 		EventMailer.verification_email(@event).deliver
-		respond_to do |format|
-			format.js {render :partial=>"create"}
-		end
+		render :partial=>"create"
 	end
 
 	def verify

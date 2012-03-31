@@ -220,11 +220,11 @@ function addAddressToMap(lat, lng, data) {
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
         var infowindow = new google.maps.InfoWindow(
-	{ 
+	{
 		content: info
 	});
-  
-        
+
+
         google.maps.event.addListener(locationmarker, 'click', function() {
 		//alert('hi');
 		map.setZoom(16);
@@ -306,7 +306,7 @@ function clearForm(){
 
 function attachFileUploader(){
     $('#image_upload').fileupload({
-	dataType: 'script',
+	dataType: 'html',
 	url: '/events/create',
 	dropZone: $('#dragdrop_content'),
 	add: function( e, data ) {
@@ -316,7 +316,7 @@ function attachFileUploader(){
 	    });
 	},
 	always: function( e, data ){
-	    eval( data.result );
+	    $('#dragdrop').html( data.result );
 	}
     });
 }
