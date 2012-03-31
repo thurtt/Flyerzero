@@ -17,22 +17,11 @@
 
 
 <div id="nearby" class="content">
-	<div class="header textual">Nearby, Right Now</div>
+	<div class="header textual">Zero Board</div>
 	<div class="flyers">
 			<div id="mini_dragdrop_area">Submit Yours!</div>
 		<%for flyer in @now%>
-			<%image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
-			<%= link_to(image_tag(flyer.photo.url(:thumb), :size=>"130x163"), flyer.photo.url(:medium), :class => "top_up", :toptions => "shaded = 1, effect = fade, width = 400, height = 500, y = 100, x = auto") unless flyer.photo.nil? %>
-		<%end%>
-	</div>
-</div>
-
-<div id="soon" class="content box">
-	<div class="header textual">Nearby, Soon</div>
-	<div class="flyers">
-		<%for flyer in @soon%>
-			<%image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
-			<%= link_to(image_tag(flyer.photo.url(:thumb), :size=>"130x163"), flyer.photo.url(:medium), :class => "top_up") unless flyer.photo.nil? %>
+			<%= link_to(image_tag(flyer.photo.url(:thumb), :size=>"130x163", :class=> flyer.isrecent? == true ? "recent" : "soon"), flyer.photo.url(:large),:target=>"new" ) unless flyer.photo.nil? %>
 		<%end%>
 	</div>
 </div>

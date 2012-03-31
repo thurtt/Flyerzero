@@ -50,11 +50,15 @@ $(document).ready(function() {
 
 	$('button.change_location').click( function(){
 		if ( $('input#new_location').val() != '' ){
-
-			$.get('/board/change_location/?location=' + $('input#new_location').val(), function(data) {
-				//alert(data);
-				$('#address').html(data);
-			});
+			changeLocation( $('input#new_location').val() );
+		}
+	});
+	$('input#new_location').keypress( function(event){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			if ( $('input#new_location').val() != '' ){
+				changeLocation( $('input#new_location').val() );
+			}
 		}
 	});
 
@@ -67,6 +71,13 @@ $(document).ready(function() {
 $(document).bind('drop dragover', function (e) {
     e.preventDefault();
 });
+
+function changeLocation( location ) {
+	$('input#new_location').val('Changing location...');
+	$.get('/board/change_location/?location=' + location, function(data) {
+		$('#address').html(data);
+	});
+}
 
 function loadFlyerData(lat, lng) {
 	$.get('flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng ,function(data) {
