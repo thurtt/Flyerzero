@@ -13,7 +13,7 @@
 var map;
 var latitude;
 var longitude;
-var markers = [];
+var markers = {};
 var uploadData = {};
 var venueList = {};
 var focusFlyer = '';
@@ -90,6 +90,16 @@ function loadFlyerData(lat, lng) {
 		}); // hide this.
 
 		$('#content').html(data);
+		
+		$('span.show_on_map').click( function(){
+			$('#submission_page').hide("fast", function() {});
+			$('#board_page').fadeOut("slow", function() {});
+				_marker = markers[$(this).attr( 'flyer_id')];
+				map.setCenter(_marker.getPosition());
+				google.maps.event.trigger(_marker, 'click');
+		});
+			
+			
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
 		$('#add_panel input#event_expiry').attr('readonly', 'readonly');
 
@@ -190,14 +200,15 @@ function initialize_map() {
 }
 function clearMap() {
 	if (markers) {
-		for (i in markers) {
+		for (var i in markers) {
 			markers[i].setMap(null);
 		}
-		markers.length = 0;
+		markers = {};
 	}
 }
 function addUser() {
-	addAddressToMap(latitude, longitude, { small: '/assets/user.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
+	marker = addAddressToMap(latitude, longitude, { small: '/assets/user.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
+	markers["0"] = marker;
 }
 
 function addAddressToMap(lat, lng, data) {
@@ -233,7 +244,6 @@ function addAddressToMap(lat, lng, data) {
         });
 
 	map.setCenter(point, 13);
-	markers.push(locationmarker);
 	return locationmarker;
 }
 
