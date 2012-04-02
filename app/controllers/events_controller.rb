@@ -13,12 +13,12 @@ class EventsController < ApplicationController
 		@event.photo = Event.find(event_id).photo if event_id
 
 		if not @event.save
-			render :partial=>"errors" and return
+			render :partial=>"errors.js" and return
 		end
 
 		event_id = @event.id if not event_id
 		EventMailer.verification_email(@event).deliver
-		render :partial=>"create", :locals=>{ :event_id=>event_id }
+		render :partial=>"create.js", :locals=>{ :event_id=>event_id }
 	end
 
 	def verify
