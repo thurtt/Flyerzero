@@ -245,7 +245,7 @@ function addAddressToMap(lat, lng, data) {
         }
         if ( data["flyer_id"] != undefined ){
         	info += '<div style="text-align:center; padding:7px;">';
-        	info += '<a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '" target="_blank">';
+        	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
         	info += '<img src="/assets/facebook_share_button.jpeg" alt="Facebook" /></a></div>';
         }
         
