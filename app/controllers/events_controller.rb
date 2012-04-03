@@ -8,9 +8,16 @@ class EventsController < ApplicationController
 		event_id = nil
 		event_id = params[:event][:event_id] if params[:event][:event_id].length > 0
 		@event = Event.new(params[:event])
-		@event.validation_hash = rand(36**16).to_s(36)
-		# attach the photo to our event if we have a valid event id
-		@event.photo = Event.find(event_id).photo if event_id
+
+		if event_id
+		      # attach the photo to our event if we have a valid event id
+		      parentEvent = Event.find(event_id)
+		      @event.photo = parentEvent.photo
+		      @event.validation_hash = parentEvent.validation_hash
+		else
+		      @event.validation_hash = rand(36**16).to_s(36)
+		end
+
 
 		if not @event.save
 			render :partial=>"errors.js" and return

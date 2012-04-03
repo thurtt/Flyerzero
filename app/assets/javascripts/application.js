@@ -185,15 +185,14 @@ function loadFlyerData(lat, lng) {
 		});
 		$('#clone_event').click( function(){
 			attachFileUploader();
- 			$('#dragdrop').html( dragdropPartial );
 			$('#event_event_id').val( eventId );
 			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
 		});
 
 		$('#fresh_event').click(function(){
-			attachFileUploader();
 			clearForm();
 			$('#dragdrop').html( dragdropPartial );
+			attachFileUploader();
 			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
 		})
 	});
