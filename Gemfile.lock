@@ -154,6 +154,8 @@ GEM
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    webshims-rails (0.1)
+      rails (> 3.1.0)
 
 PLATFORMS
   ruby
@@ -176,3 +178,4 @@ DEPENDENCIES
   therubyracer
   turn (~> 0.8.3)
   uglifier (>= 1.0.3)
+  webshims-rails
