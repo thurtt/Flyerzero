@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Flyerzero</title>
+  <title>Flyer Zero</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -11,11 +11,19 @@
   <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker.js"></script>
   <%= javascript_include_tag "http://gettopup.com/releases/latest/top_up-min.js" %>
   
+  <meta property="og:title" content="Flyer Zero"/>
+  
   <%if params[:flyer]%>
+  <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
+  <meta property="og:image" content="http://www.flyerzero.com<%=Event.find(params[:flyer]).photo(:medium)%>"/>
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
   </script>
+  <%else%>
+  <meta property="og:url" content="http://www.flyerzero.com/"/>
+  <meta property="og:image" content="http://www.flyerzero.com/assets/user.png"/>
   <%end%>
+  
 </head>
 <body class="primary">
 

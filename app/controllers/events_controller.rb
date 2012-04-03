@@ -23,13 +23,15 @@ class EventsController < ApplicationController
 
 	def verify
 		@event = Event.find_by_validation_hash(params[:id])
+		flyer = ""
 		if @event != nil
 			@event.validated = true
 			@event.save
 			message = "Your event has been verified!"
+			flyer = "?flyer=#{@event.id}"
 		else
 			message = "Oops! We can't find your event anywhere. Sad day."
 		end
-		redirect_to "/", :notice=>message
+		redirect_to "/#{flyer}", :notice=>message
 	end
 end
