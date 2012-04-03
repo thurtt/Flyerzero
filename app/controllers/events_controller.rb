@@ -8,6 +8,7 @@ class EventsController < ApplicationController
 		event_id = nil
 		event_id = params[:event][:event_id] if params[:event][:event_id].length > 0
 		@event = Event.new(params[:event])
+		partial = "create"
 
 		if event_id
 		      # attach the photo to our event if we have a valid event id
@@ -20,12 +21,14 @@ class EventsController < ApplicationController
 
 
 		if not @event.save
-			render :partial=>"errors.js" and return
+		      partial = "errors"
 		end
 
 		event_id = @event.id if not event_id
 		EventMailer.verification_email(@event).deliver
-		render :partial=>"create.js", :locals=>{ :event_id=>event_id }
+		respond_to do |format|
+		    format.html { render :partial=>partial, :locals=>{ :event_id=>event_id } }
+		end
 	end
 
 	def verify
