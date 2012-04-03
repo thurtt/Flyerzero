@@ -11,15 +11,19 @@
   <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker.js"></script>
   <%= javascript_include_tag "http://gettopup.com/releases/latest/top_up-min.js" %>
   
-  <meta property="og:title" content="Flyer Zero"/>
   
   <%if params[:flyer]%>
+  <%event = Event.find(params[:flyer])%>
+  <meta property="og:title" content="Flyer Zero Event"/>
   <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
-  <meta property="og:image" content="http://www.flyerzero.com<%=Event.find(params[:flyer]).photo(:medium)%>"/>
+  <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:medium)%>"/>
+  <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%>" />
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
   </script>
   <%else%>
+  <meta property="og:title" content="Flyer Zero"/>
+  <meta property="og:description" content="1 part Flyer. 1 part Foursquare. 1 part Google Maps. 2 parts Kung Fu." />
   <meta property="og:url" content="http://www.flyerzero.com/"/>
   <meta property="og:image" content="http://www.flyerzero.com/assets/user.png"/>
   <%end%>
