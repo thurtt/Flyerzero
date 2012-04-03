@@ -243,6 +243,11 @@ function addAddressToMap(lat, lng, data) {
         if ( data["text"] != undefined ){
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
+        if ( data["flyer_id"] != undefined ){
+        	info += '<div style="padding:7px;"><a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '" target="_blank">';
+        	info += '<img src="/assets/facebook_share_button.jpeg" alt="Facebook" /></a></div>';
+        }
+        
         var infowindow = new google.maps.InfoWindow(
 	{
 		content: info
