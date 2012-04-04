@@ -15,4 +15,12 @@ class Event < ActiveRecord::Base
 		return true if expiry < DateTime.now.beginning_of_day + 2.day
 		return false
 	end
+	
+	def map_photo
+		photo.url(:small)
+	end
+	
+	def map_photo_info
+		photo.url(:medium)
+	end
 end
