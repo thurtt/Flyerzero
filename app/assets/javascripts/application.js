@@ -173,17 +173,6 @@ function loadFlyerData(lat, lng) {
 			}
 		});
 
-		$(function () {
-			$(".anyClass").jCarouselLite({
-				btnNext: ".next",
-				btnPrev: ".prev",
-				visible: 5,
-				//scroll:5
-				auto: 800,
-				speed: 1000
-			});
-		});
-
 		// used for drag and drop file uploads
 		$(function () {
 			attachFileUploader();
@@ -265,6 +254,7 @@ function addAddressToMap(lat, lng, data) {
 		map.setCenter(locationmarker.getPosition());
 		infowindow.open(map,locationmarker);
         });
+
 
 	map.setCenter(point, 13);
 	return locationmarker;

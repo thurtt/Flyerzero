@@ -6,6 +6,9 @@
 			markers["<%=flyer.id%>"] = marker;
 		<%end%>
 	<%end%>
+
+	latitude = parseFloat( '<%= session[:ll].split(',')[0] %>' );
+	longitude = parseFloat( '<%= session[:ll].split(',')[1] %>' );
 	addUser();
 	$('#address').html('<%=session[:origin]%>');
 	<% if @flyer %>
