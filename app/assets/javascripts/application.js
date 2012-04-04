@@ -7,7 +7,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-
+//= require webshims/minified/extras/modernizr-custom
+//= require webshims/minified/polyfiller
 
 
 var map;
@@ -18,6 +19,10 @@ var uploadData = {};
 var venueList = {};
 var focusFlyer = '';
 var errorList = [];
+
+// This shouldn't go in $(document).ready()
+$.webshims.setOptions('basePath', '/assets/webshims/minified/shims/');
+$.webshims.polyfill();
 
 $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
@@ -247,7 +252,7 @@ function addAddressToMap(lat, lng, data) {
         	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
         	info += '<img src="/assets/facebook_share_button.jpeg" alt="Facebook" /></a></div>';
         }
-        
+
         var infowindow = new google.maps.InfoWindow(
 	{
 		content: info

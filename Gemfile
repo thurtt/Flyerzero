@@ -14,6 +14,7 @@ gem 'geokit-rails3'
 gem 'foursquare2'
 gem 'oauth2'
 gem 'rest-client'
+gem 'webshims-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
