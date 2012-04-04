@@ -131,6 +131,9 @@ function loadFlyerData(lat, lng) {
 			minLength: 3,
 			source: function(req, add){
 
+			    // fire off our wait icon
+			    $('#search_wait').show();
+			    
 			    //pass request to server
 			    $.getJSON("/board/venue", req, function(data) {
 
@@ -147,6 +150,9 @@ function loadFlyerData(lat, lng) {
 
 				//pass array to callback
 				add(suggestions);
+				
+				// remove wait icon
+				$('#search_wait').hide();
 			    });
 			},
 
@@ -155,6 +161,7 @@ function loadFlyerData(lat, lng) {
 				$.each(venueList, function(i, val){
 					if( formatLocationText( val.name, val.address, val.cross_street) == ui.item.value){
 					    $('#venue_icon').attr( 'src',  val.icon );
+					    $('#venue_icon').show();
 					    $('#venue_name').html( val.name );
 					    $('#venue_location').html( val.address + ( val.cross_street ? ' ( ' + val.cross_street + ' )' : '' ));
 					    $('#event_lat').val( val.lat );
@@ -328,6 +335,12 @@ function clearForm(){
 }
 
 function attachFileUploader(){
+	if( !supportsDragDrop() ){
+		$('#dragdrop_support').hide();
+	}
+	if( !supportsPreview() ) {
+		$('#no_preview').show();
+	}
     $('#image_upload').fileupload({
 	dataType: 'script',
 	url: '/events/create',
@@ -335,7 +348,9 @@ function attachFileUploader(){
 	add: function( e, data ) {
 	    $.each(data.files, function (index, file) {
 		uploadData = data;
-		createImagePreview( file );
+		if( supportsPreview() ){
+			createImagePreview( file );
+		}
 	    });
 	},
 	done: function( e, data ){
@@ -398,4 +413,18 @@ function submitStatus( text ){
 	    $('#message_text').html( text );
 	    $('#response_container').fadeIn();
     });
+}
+
+function supportsDragDrop(){
+	if ( window.FileReader ) {
+		return true;
+	}
+	return false;
+}
+
+function supportsPreview(){
+	if( window.File && window.FileReader && window.FileList && window.Blob ){
+		return true;
+	}
+	return false;
 }

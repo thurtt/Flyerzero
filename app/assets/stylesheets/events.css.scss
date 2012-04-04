@@ -1,6 +1,6 @@
 div#add_panel {
 	/*position: relative;*/
-	width:400px;
+	width:450px;
 	margin-left: auto;
 	margin-right: auto;
 	font-family: sans-serif;
@@ -12,6 +12,10 @@ div#add_panel {
     /*font-size: 1.1em;*/
     margin-left: 20px;
     width: 350px;
+}
+
+#add_panel table{
+	width: 100%;
 }
 
 #submission_page h1 {
@@ -29,6 +33,10 @@ div.drapdrop_area{
     border: 2px dashed #777777;
 }
 
+div#dragdrop_content #no_preview{
+	display: none;
+	margin-top: 50px;
+}
 div#mini_dragdrop_area{
 	height:163px;
 	width:130px;
@@ -175,6 +183,11 @@ div#dragdrop_text {
     padding-left: 25px;
     width: 328px;
 }
+#add_panel #search_wait{
+	display: none;
+	vertical-align: middle;
+	margin-left: 10px;
+}
 #add_panel .offset{
     padding-left: 25px;
     padding-top: 10px;
@@ -185,6 +198,7 @@ div#dragdrop_text {
 
 #venue_icon{
     float: left;
+    display: none;
 }
 
 #venue_container{
