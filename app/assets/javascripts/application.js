@@ -133,7 +133,7 @@ function loadFlyerData(lat, lng) {
 
 			    // fire off our wait icon
 			    $('#search_wait').show();
-			    
+
 			    //pass request to server
 			    $.getJSON("/board/venue", req, function(data) {
 
@@ -150,7 +150,7 @@ function loadFlyerData(lat, lng) {
 
 				//pass array to callback
 				add(suggestions);
-				
+
 				// remove wait icon
 				$('#search_wait').hide();
 			    });
@@ -196,6 +196,16 @@ function loadFlyerData(lat, lng) {
 			attachFileUploader();
 			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
 		})
+
+		// some hacks for our file input hack...meta hacks
+		$('#image_upload').mouseover( function(){
+			$('#browse_button').removeClass('normal_hack');
+			$('#browse_button').addClass('hover_hack');
+		});
+		$('#image_upload').mouseout( function(){
+			$('#browse_button').removeClass('hover_hack');
+			$('#browse_button').addClass('normal_hack');
+		});
 	});
 
 }
@@ -331,6 +341,7 @@ function clearForm(){
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
     $('#venue_location').html('No venue chosen');
+    $('#venue_icon').hide();
     uploadData = {};
 }
 
@@ -351,7 +362,9 @@ function attachFileUploader(){
 		if( supportsPreview() ){
 			createImagePreview( file );
 		}
+		$('#chosen_file').html( file.name );
 	    });
+
 	},
 	done: function( e, data ){
 	    eval( data.result );
@@ -403,7 +416,6 @@ function clearErrors(){
 	$.each(errorList, function(i, val) {
 	    val.removeClass( 'error_bg' );
 	});
-	//$('#dragdrop_text').removeClass( 'error_text' );
 	errorList = [];
 }
 

@@ -5,9 +5,13 @@
         or<br /><br />
     </div>
     Choose a file to upload:<br /><br />
-    <input accept="image/png,image/gif,image/jpeg" id="image_upload" name="event[photo]" type="file">
+    <div class="fileinput-button">
+	  <div id="browse_button" class="normal_hack" >Browse</div>
+	  <input id="image_upload" name="event[photo]" type="file">
+    </div>
+    <div id="chosen_file">No file chosen</div>
     <div id="no_preview">Sorry, flyer preview is not supported by your browser :(</div>
   </div>
   <div id="flyer_photo"></div>
- 
+
 </div>
