@@ -249,7 +249,8 @@ function addAddressToMap(lat, lng, data) {
           anchor: RichMarkerPosition.BOTTOM,
           content: div
         });
-        info = '<img src="' + data["large"] + '" class="map_flyer_info">';
+        info = '<div style="text-align:center">';
+        info += '<img src="' + data["large"] + '" class="map_flyer_info">';
         if ( data["text"] != undefined ){
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
@@ -258,6 +259,7 @@ function addAddressToMap(lat, lng, data) {
         	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
         	info += '<img src="/assets/facebook_share_button.jpeg" alt="Facebook" /></a></div>';
         }
+        info += '</div>'
 
         var infowindow = new google.maps.InfoWindow(
 	{
