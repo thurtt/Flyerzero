@@ -239,7 +239,7 @@ function closeInfoWindows() {
 	}
 }
 function addUser() {
-	marker = addAddressToMap(latitude, longitude, { small: '/assets/user.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
+	marker = addAddressToMap(latitude, longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
 	markers["0"] = marker;
 }
 
