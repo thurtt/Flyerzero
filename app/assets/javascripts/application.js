@@ -229,6 +229,14 @@ function clearMap() {
 		markers = {};
 	}
 }
+
+function closeInfoWindows() {
+	if (markers) {
+		for (var i in markers) {
+			markers[i].infowindow.close();
+		}
+	}
+}
 function addUser() {
 	marker = addAddressToMap(latitude, longitude, { small: '/assets/user.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
 	markers["0"] = marker;
@@ -268,11 +276,13 @@ function addAddressToMap(lat, lng, data) {
 
 
         google.maps.event.addListener(locationmarker, 'click', function() {
-		//alert('hi');
+                closeInfoWindows();
 		map.setZoom(16);
 		map.setCenter(locationmarker.getPosition());
 		infowindow.open(map,locationmarker);
         });
+        
+        locationmarker.infowindow = infowindow;
 
 
 	map.setCenter(point, 13);
