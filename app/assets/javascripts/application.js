@@ -353,7 +353,7 @@ function attachFileUploader(){
 		$('#no_preview').show();
 	}
     $('#image_upload').fileupload({
-	dataType: 'script',
+	dataType: 'html',
 	url: '/events/create',
 	dropZone: $('#dragdrop_content'),
 	add: function( e, data ) {
@@ -367,7 +367,7 @@ function attachFileUploader(){
 
 	},
 	done: function( e, data ){
-	    eval( data.result );
+	    submitStatus( data.result );
 	},
 	error: function( e, data ){
 	    submitStatus( '<h1>A really ugly error has occurred :(</h1><p>We probably cocked something up pretty bad, but we will fix it right away!</p>');
