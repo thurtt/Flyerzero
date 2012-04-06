@@ -31,6 +31,18 @@ class EventsController < ApplicationController
 		end
 	end
 
+	def delete
+		@event = Event.find( params[:event_id] )
+		if @event.validation_hash == params[:id]
+		      message = "Your event has been deleted!"
+		      @event.delete
+		else
+		      message = "Oops! We can't find your event anywhere. Sad day."
+		end
+		redirect_to "/", :notice=>message
+
+	end
+
 	def verify
 		@event = Event.find_by_validation_hash(params[:id])
 		flyer = ""
