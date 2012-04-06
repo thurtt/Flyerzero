@@ -1,3 +1,6 @@
-var dragdropPartial = '<%= escape_javascript( render(:partial => "dragdrop") )%>';
-var eventId = '<%= event_id %>';
-submitStatus( '<%= raw("<h1>Event successfully created!</h1><p>Be sure to check your email and click on the activation link to activate your new event.</p>") %>' );
+<h1>Event successfully created!</h1>
+<p>Be sure to check your email and click on the activation link to activate your new event.</p>
+<script>
+    var dragdropPartial = '<%= escape_javascript( render(:partial => "dragdrop") )%>';
+    var eventId = '<%= event_id %>';
+</script>
