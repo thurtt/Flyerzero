@@ -212,6 +212,7 @@ function loadFlyerData(lat, lng) {
 
 
 function initialize_map() {
+  
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP
