@@ -212,6 +212,7 @@ function loadFlyerData(lat, lng) {
 
 
 function initialize_map() {
+  
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -227,6 +228,14 @@ function clearMap() {
 			markers[i].setMap(null);
 		}
 		markers = {};
+	}
+}
+
+function closeInfoWindows() {
+	if (markers) {
+		for (var i in markers) {
+			markers[i].infowindow.close();
+		}
 	}
 }
 function addUser() {
@@ -249,7 +258,8 @@ function addAddressToMap(lat, lng, data) {
           anchor: RichMarkerPosition.BOTTOM,
           content: div
         });
-        info = '<img src="' + data["large"] + '" class="map_flyer_info">';
+        info = '<div style="text-align:center">';
+        info += '<img src="' + data["large"] + '" class="map_flyer_info">';
         if ( data["text"] != undefined ){
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
@@ -258,6 +268,7 @@ function addAddressToMap(lat, lng, data) {
         	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
         	info += '<img src="/assets/facebook_share_button.jpeg" alt="Facebook" /></a></div>';
         }
+        info += '</div>'
 
         var infowindow = new google.maps.InfoWindow(
 	{
@@ -266,11 +277,13 @@ function addAddressToMap(lat, lng, data) {
 
 
         google.maps.event.addListener(locationmarker, 'click', function() {
-		//alert('hi');
+                closeInfoWindows();
 		map.setZoom(16);
 		map.setCenter(locationmarker.getPosition());
 		infowindow.open(map,locationmarker);
         });
+        
+        locationmarker.infowindow = infowindow;
 
 
 	map.setCenter(point, 13);
