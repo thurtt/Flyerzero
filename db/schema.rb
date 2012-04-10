@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324172949) do
+ActiveRecord::Schema.define(:version => 20120410035927) do
+
+  create_table "achievements", :force => true do |t|
+    t.string   "email"
+    t.integer  "points"
+    t.integer  "currency"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", :force => true do |t|
     t.string   "email"
