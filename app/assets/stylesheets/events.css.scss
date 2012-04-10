@@ -160,7 +160,7 @@ div#dragdrop_text {
 #message_content{
     margin-left: auto;
     margin-right: auto;
-    width: 500px;
+    width: 585px;
     height: 500px;
     display: none;
 }
@@ -282,4 +282,48 @@ div#dragdrop_text {
     margin-left: 125px;
     margin-top: 13px;
     width: 240px;
+}
+.decision_box{
+    border: 1px solid #999999;
+    width: 230px;
+    height: 300px;
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #000000;
+    font-size: .8em;
+    padding: 10px;
+    background:#e5e5e5;
+    position: relative;
+}
+.decision_box h1{
+    font-size: 1.2em;
+    font-weight: 800;
+}
+
+.decision {
+	position: absolute;
+	bottom: 20px;
+	margin-left: -65px;
+	left: 50%;
+}
+.decision:hover{
+	cursor:pointer;
+	box-shadow: 0px 0px 2px 3px #147efc;
+}
+
+#fresh_event{
+    border: 1px dashed #777777;
+    width: 130px;
+    height: 163px;
+}
+#fresh_event .flyer_text{
+    width: 80px;
+    height: 30px;
+    top: 50%;
+    margin-top: -15px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    color: #777777;
 }

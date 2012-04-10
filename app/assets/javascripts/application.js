@@ -19,6 +19,7 @@ var uploadData = {};
 var venueList = {};
 var focusFlyer = '';
 var errorList = [];
+var submitOk = false;
 
 // This shouldn't go in $(document).ready()
 $.webshims.setOptions('basePath', '/assets/webshims/minified/shims/');
@@ -212,7 +213,7 @@ function loadFlyerData(lat, lng) {
 
 
 function initialize_map() {
-  
+
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
           zoom: 15,
           mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -282,7 +283,7 @@ function addAddressToMap(lat, lng, data) {
 		map.setCenter(locationmarker.getPosition());
 		infowindow.open(map,locationmarker);
         });
-        
+
         locationmarker.infowindow = infowindow;
 
 
@@ -380,10 +381,11 @@ function attachFileUploader(){
 
 	},
 	done: function( e, data ){
-	    submitStatus( data.result );
+	    processResponse( data.result );
 	},
 	error: function( e, data ){
-	    submitStatus( '<h1>A really ugly error has occurred :(</h1><p>We probably cocked something up pretty bad, but we will fix it right away!</p>');
+	    submitOk = false;
+	    processResponse( '<h1>A really ugly error has occurred :(</h1><p>We probably cocked something up pretty bad, but we will fix it right away!</p>');
 	}
     });
 }
@@ -432,11 +434,21 @@ function clearErrors(){
 	errorList = [];
 }
 
-function submitStatus( text ){
+function processResponse( text ){
     $('#response_container').hide();
     $('#create_wait').fadeOut(function(){
 	    $('#message_text').html( text );
-	    $('#response_container').fadeIn();
+	    if( submitOk ){
+		$('#response_container').fadeIn();
+	    } else {
+		$('#decision_widget').hide();
+		$('#response_container').fadeIn();
+		$('#message_content').delay( 8000 ).fadeOut(function(){
+		    $('#form_content').fadeIn()
+		    $('#decision_widget').show();
+		    $('#response_container').hide();
+		});
+	    }
     });
 }
 
