@@ -123,7 +123,11 @@ function loadFlyerData(lat, lng) {
 		$('#submit_event').click( function(){
 			    clearErrors();
 			    if( validateForm() ){
-				uploadData.submit();
+				if( editFlyer ){
+					$('form').submit();
+				} else {
+					uploadData.submit();
+				}
 				$('#message_text').html('');
 				$('#create_wait').show();
 				$('#form_content').fadeOut(function(){
@@ -320,7 +324,7 @@ function createImagePreview( fileObj ) {
       window.loadImage(
 	    fileObj,
 	    function (img) {
-		$('#flyer_photo').append(img);
+		$('#flyer_photo').html(img);
 		$('#dragdrop_content').fadeIn();
 	    },
 	    {maxWidth: 400, maxHeight: 500}
@@ -404,7 +408,7 @@ function validateForm(){
     validated = true;
 
     // check to see if an image has been selected
-    if ( !uploadData.submit ){
+    if ( !uploadData.submit && !editFlyer ){
 	//$('#dragdrop_text').addClass( 'error_text' );
 	addError( $('#dragdrop_content') );
 	validated = false;
@@ -480,9 +484,6 @@ function setEditMode(){
 	    $('#dragdrop_text').hide();
 	    $('#dragdrop_content').removeClass('drapdrop_area');
 
-	    // add an edit value to our form so we know what to do in the controller
-	    $('#event_edit').val("true");
-
 	    // change the button text
 	    $('#submit_event').val("Update Event");
 
@@ -497,7 +498,10 @@ function setEditMode(){
 		    $('#venue_name').html( data.name );
 		    $('#venue_location').html( data.address + ( data.cross_street ? ' ( ' + data.cross_street + ' )' : '' ));
 	    });
-
+	    
+	    // change up the submission controller method
+	    $('form').attr('action', '/events/update');
+	    
 	    // show the submission form
 	    $('#submission_page').fadeIn("slow", function() {});
 	    $('#board_page').fadeOut("slow", function() {});

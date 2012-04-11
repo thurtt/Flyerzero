@@ -22,7 +22,7 @@
 			<td class="foursquare_image"><%= image_tag "foursquare_small.png" %></td>
 		</tr>
 		<tr>
-			<td class="offset">
+			<td class="offset" style="height:50px;">
 				<img id="venue_icon"></img>
 				<div id="venue_container">
 					<div id="venue_name"></div>
@@ -44,6 +44,10 @@
 		</tr>
 	</table>
 	<%= f.hidden_field :event_id %>
-	<input type="hidden" value="false" name="edit" id="event_edit">
+	<% if @event.validation_hash && @event.id %>
+		<%= f.hidden_field :id %>
+		<%= f.hidden_field :validation_hash %>
+	<% end %>
+
 
 </div>

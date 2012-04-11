@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	before_filter :authorize, :except=>[:create, :verify ]
+	before_filter :authorize, :except=>[:create, :verify, :update ]
 	def index
 	end
 
@@ -9,13 +9,8 @@ class EventsController < ApplicationController
 		event_id = nil
 		event_id = params[:event][:event_id] if params[:event][:event_id].length > 0
 
-		if params[:edit]
-		    @event = Event.find( event_id )
-		else
-		    @event = Event.new(params[:event])
-		end
+		@event = Event.new(params[:event])
 		partial = "create"
-
 
 		if event_id
 		      # attach the photo to our event if we have a valid event id
@@ -35,6 +30,17 @@ class EventsController < ApplicationController
 		EventMailer.verification_email(@event).deliver
 		respond_to do |format|
 		    format.html { render :partial=>partial, :locals=>{ :event_id=>event_id, :photo=>@event.photo.url(:thumb) } }
+		end
+	end
+	
+	def update
+		partial = "update"
+		@event = Event.find_by_id_and_validation_hash( params[:event][:id], params[:event][:validation_hash] )
+		if not @event.update_attributes( params[:event] )
+			partial = "errors"
+		end
+		respond_to do |format|
+			format.html { render :partial=>partial }
 		end
 	end
 

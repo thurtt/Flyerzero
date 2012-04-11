@@ -111,7 +111,6 @@ class BoardController < ApplicationController
 						      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
 						    }
 		venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
-		puts venue.inspect
 		render :json=>{
 				:name=>venue["name"],
 				:cross_street=>venue["location"]["crossStreet"],
