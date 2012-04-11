@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+	before_filter :authorize, :except=>[:create, :verify ]
 	def index
 	end
 
@@ -7,8 +8,14 @@ class EventsController < ApplicationController
 	def create
 		event_id = nil
 		event_id = params[:event][:event_id] if params[:event][:event_id].length > 0
-		@event = Event.new(params[:event])
+
+		if params[:edit]
+		    @event = Event.find( event_id )
+		else
+		    @event = Event.new(params[:event])
+		end
 		partial = "create"
+
 
 		if event_id
 		      # attach the photo to our event if we have a valid event id
@@ -32,15 +39,24 @@ class EventsController < ApplicationController
 	end
 
 	def delete
-		@event = Event.find( params[:event_id] )
-		if @event.validation_hash == params[:id]
-		      message = "Your event has been deleted!"
-		      @event.delete
-		else
+		if not @authorized
 		      message = "Oops! We can't find your event anywhere. Sad day."
+		else
+		      event = Event.find( params[:event_id] )
+		      @event.delete
+		      message = "Your event has been deleted!"
 		end
 		redirect_to "/", :notice=>message
+	end
 
+	def edit
+		if not @authorized
+		      message = "Oops! We can't find your event anywhere. Sad day."
+		      redirect_to "/", :notice=>message and return
+		end
+
+		event = Event.find( params[:event_id ] )
+		render "board/index", :locals=>{ :edit=>true, :event_id=>event.id, :validation=>params[:id] }
 	end
 
 	def verify
@@ -55,5 +71,13 @@ class EventsController < ApplicationController
 			message = "Oops! We can't find your event anywhere. Sad day."
 		end
 		redirect_to "/#{flyer}", :notice=>message
+	end
+
+	def authorize
+	      	@authorized = false
+	      	event = Event.find( params[:event_id] )
+		if event and event.validation_hash == params[:id]
+			@authorized = true
+		end
 	end
 end

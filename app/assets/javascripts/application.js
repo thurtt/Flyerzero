@@ -86,7 +86,12 @@ function changeLocation( location ) {
 }
 
 function loadFlyerData(lat, lng) {
-	$.get('flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng ,function(data) {
+	if ( editFlyer ){
+	    url = '/board/flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng + '&validation=' + validation + '&event_id=' + eventId;
+	} else {
+	    url = '/board/flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng;
+	}
+	$.get( url ,function(data) {
 
 		// clear out any old form stuff
 		clearForm();
@@ -207,6 +212,10 @@ function loadFlyerData(lat, lng) {
 			$('#browse_button').removeClass('hover_hack');
 			$('#browse_button').addClass('normal_hack');
 		});
+
+		// this will automatically bring up the submission form if we're
+		// editing something
+		setEditMode();
 	});
 
 }
@@ -464,4 +473,33 @@ function supportsPreview(){
 		return true;
 	}
 	return false;
+}
+function setEditMode(){
+    if( editFlyer ){
+	    // clean up our dragdrop area
+	    $('#dragdrop_text').hide();
+	    $('#dragdrop_content').removeClass('drapdrop_area');
+
+	    // add an edit value to our form so we know what to do in the controller
+	    $('#event_edit').val("true");
+
+	    // change the button text
+	    $('#submit_event').val("Update Event");
+
+	    // Format the ugly old Mysql date
+	    date = $.datepicker.parseDate( 'yy-mm-dd', $('#event_expiry').val() );
+	    $('#event_expiry').val( $.datepicker.formatDate( 'D, dd M yy', date ) );
+
+	    // get the venue information
+	    $.get('/board/venue_by_id/' + $('#event_venue_id').val(), function( data ){
+		    $('#venue_icon').attr( 'src',  data.icon );
+		    $('#venue_icon').show();
+		    $('#venue_name').html( data.name );
+		    $('#venue_location').html( data.address + ( data.cross_street ? ' ( ' + data.cross_street + ' )' : '' ));
+	    });
+
+	    // show the submission form
+	    $('#submission_page').fadeIn("slow", function() {});
+	    $('#board_page').fadeOut("slow", function() {});
+    }
 }
