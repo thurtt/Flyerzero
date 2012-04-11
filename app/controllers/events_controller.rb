@@ -63,6 +63,15 @@ class EventsController < ApplicationController
 		@event = Event.find_by_validation_hash(params[:id])
 		flyer = ""
 		if @event != nil
+			if @event.validated != true
+				#this is the first validation attempt, which is good.
+				achieve = Achievement.find_by_email(@event.email)
+				if !achieve
+					achieve = Achievement.new( { :email=>@event.email, :points=>0, :currency=>0 } )
+				end
+				achieve.complete
+				achieve.save
+			end
 			@event.validated = true
 			@event.save
 			message = "Your event has been verified!"

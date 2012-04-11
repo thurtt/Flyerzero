@@ -2,8 +2,8 @@ development:
   address: smtp.gmail.com
   port: 587
   authentication: plain
-  user_name: xxx
-  password: yyy
+  user_name: bvrn007@gmail.com
+  password: 4s3nAdmin!69
   enable_starttls_auto: true
 production:
   address: mail.flyerzero.com
