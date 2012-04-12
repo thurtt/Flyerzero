@@ -201,8 +201,8 @@ function loadFlyerData(lat, lng) {
 		});
 
 		$('#fresh_event').click(function(){
-			clearForm();
 			$('#dragdrop').html( dragdropPartial );
+			clearForm();
 			attachFileUploader();
 			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
 		})
@@ -326,8 +326,12 @@ function createImagePreview( fileObj ) {
       $('#dragdrop_content').removeClass('drapdrop_area');
       window.loadImage(
 	    fileObj,
-	    function (img) {
-		$('#flyer_photo').html(img);
+	    function (image) {
+		if( image.type === "error" ){
+		    //skippy
+		}else{
+		    stuff = $('#flyer_photo').html( image );
+		}
 		$('#dragdrop_content').fadeIn();
 	    },
 	    {maxWidth: 400, maxHeight: 500}
@@ -367,7 +371,7 @@ function clearForm(){
     $('#event_email').val('');
     $('#event_expiry').val('');
     $('#event_loc').val('');
-    $('#image_file').html('');
+    $('#flyer_photo').html('');
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
     $('#venue_location').html('No venue chosen');
