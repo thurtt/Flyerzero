@@ -58,7 +58,7 @@ class EventsController < ApplicationController
 			end
 			@event.validated = true
 			@event.save
-			message = "Your event has been verified!"
+			message = "Your event has been verified!<br \><span style='font-size:0.8em;'>You have earned 1 cool point.</span>"
 			flyer = "?flyer=#{@event.id}"
 		else
 			message = "Oops! We can't find your event anywhere. Sad day."
