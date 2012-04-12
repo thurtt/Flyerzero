@@ -278,10 +278,10 @@ function addAddressToMap(lat, lng, data) {
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
-        	info += '<div style="text-align:left;">';
+        	info += '<div style="text-align:center;">';
         	if ( data["profile"] != undefined ){
         		info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
-        		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile" class="box"/></a>&nbsp';
+        		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile"class="box"/></a>&nbsp';
         	}
         	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
         	info += '<img src="/assets/facebook_share.png" alt="Facebook"/></a>&nbsp';
