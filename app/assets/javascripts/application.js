@@ -201,8 +201,8 @@ function loadFlyerData(lat, lng) {
 		});
 
 		$('#fresh_event').click(function(){
-			clearForm();
 			$('#dragdrop').html( dragdropPartial );
+			clearForm();
 			attachFileUploader();
 			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
 		})
@@ -368,7 +368,7 @@ function clearForm(){
     $('#event_email').val('');
     $('#event_expiry').val('');
     $('#event_loc').val('');
-    $('#image_file').html('');
+    $('#flyer_photo').html('');
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
     $('#venue_location').html('No venue chosen');
