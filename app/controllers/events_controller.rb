@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	before_filter :authorize, :except=>[:create, :verify, :update ]
+	before_filter :authorize, :except=>[:create, :verify, :update, :share ]
 	def index
 	end
 
@@ -67,9 +67,11 @@ class EventsController < ApplicationController
 		@event = Event.find_by_validation_hash(params[:id])
 		flyer = ""
 		if @event != nil
-			if @event.validated != true
+			
+			achieve = Achievement.find_by_email(@event.email)
+			
+			if @event.validated != 1
 				#this is the first validation attempt, which is good.
-				achieve = Achievement.find_by_email(@event.email)
 				if !achieve
 					achieve = Achievement.new( { :email=>@event.email, :points=>0, :currency=>0 } )
 				end
@@ -78,12 +80,42 @@ class EventsController < ApplicationController
 			end
 			@event.validated = true
 			@event.save
-			message = "Your event has been verified!<br \><span style='font-size:0.8em;'>You have earned 1 cool point.</span>"
+			message = "Your event has been verified!<br \><span style='font-size:0.6em;'>"
+			message += "#{@event.email} now has #{achieve.points} cool points.<br />"
+			message += "Get another: "
+			message += "<a href='http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=#{@event.id}&t=Flyer Zero Event' target='_blank' onclick='return getSharePoints(\"#{params[:id]}\");'>"
+			message += "<img src='/assets/facebook_share_button.jpeg' alt='Facebook' /></a>"
+			message += "</span>"
 			flyer = "?flyer=#{@event.id}"
 		else
 			message = "Oops! We can't find your event anywhere. Sad day."
 		end
 		redirect_to "/#{flyer}", :notice=>message
+	end
+	
+	def share
+		@event = Event.find_by_validation_hash(params[:id])
+		session[:shared] = "" if session[:shared] == nil
+		if @event != nil
+			achieve = Achievement.find_by_email(@event.email)
+			if @event.validated && !session[:shared].include?(params[:id])
+				a.join('')
+				#this is the first validation attempt, which is good.
+				
+				if !achieve
+					achieve = Achievement.new( { :email=>@event.email, :points=>0, :currency=>0 } )
+				end
+				achieve.complete
+				achieve.save
+				session[:shared] += "#{params[:id]},"
+			end
+			message = "This event has been shared!<br \><span style='font-size:0.6em;'>#{@event.email} now has #{achieve.points} cool points.</span>"
+			flyer = "?flyer=#{@event.id}"
+		else
+			message = "Oops! We can't find your event anywhere. Sad day."
+		end
+		render :text=>message
+		
 	end
 
 	def authorize
