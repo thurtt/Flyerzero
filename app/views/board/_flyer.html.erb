@@ -2,7 +2,7 @@
 	clearMap();
 	<%if @now.length > 0%>
 		<%for flyer in @now.reverse%>
-			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { gravatar: '<%=gravatar_url(flyer.email, :size=>"20")%>'<%if Achievement.find_by_email(flyer.email)%>, profile: '<%=Achievement.find_by_email(flyer.email).id%>'<%end%>, flyer_id: '<%=flyer.id%>', small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
+			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { gravatar: '<%=gravatar_url(flyer.email, :size=>"40")%>'<%if Achievement.find_by_email(flyer.email)%>, profile: '<%=Achievement.find_by_email(flyer.email).id%>'<%end%>, flyer_id: '<%=flyer.id%>', small: '<%=flyer.photo.url( :thumb )%>', large: '<%=flyer.photo.url( :medium )%>', text: '<%=sanitize flyer.media, :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'});
 			markers["<%=flyer.id%>"] = marker;
 		<%end%>
 	<%end%>
