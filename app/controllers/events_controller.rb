@@ -32,16 +32,14 @@ class EventsController < ApplicationController
 		    format.html { render :partial=>partial, :locals=>{ :event_id=>event_id, :photo=>@event.photo.url(:thumb) } }
 		end
 	end
-	
+
 	def update
-		partial = "update"
+		message = "Your event has been updated!"
 		@event = Event.find_by_id_and_validation_hash( params[:event][:id], params[:event][:validation_hash] )
 		if not @event.update_attributes( params[:event] )
-			partial = "errors"
+			message = "Oops! We had a problem saving changes to your event. :("
 		end
-		respond_to do |format|
-			format.html { render :partial=>partial }
-		end
+		redirect_to "/", :notice=>message
 	end
 
 	def delete

@@ -501,14 +501,8 @@ function setEditMode(){
 
 	    // change up the submission controller method
 	    $('form').attr('action', '/events/update');
+	    $('form').removeAttr('data-remote');
 
-	    // we need some custom handlers for our ajax request, unfortunately we can't use
-	    // the ones in the fileupload control...bummer
-	    $('form').ajaxComplete( function(e, data, settings ){
-		    if( settings.url == '/events/update') {
-			processResponse( data.responseText );
-		    }
-	    });
 
 	    // show the submission form
 	    $('#submission_page').fadeIn("slow", function() {});
