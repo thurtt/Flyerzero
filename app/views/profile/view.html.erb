@@ -1,0 +1,23 @@
+<div class="profile box">
+	<div class="visage">
+		<table width="100%">
+			<tr>
+				<td style="width:210px;">
+					<%=image_tag gravatar_url(@profile.email, :size=>"200"), :class=>'box'%>
+					<div class="tip">Update this photo on <%=link_to 'GRAVATAR', 'http://www.gravatar.com/'%>.</div>
+				</td>
+				<td valign="top">
+					<div class="points box"><%=@profile.email.split('@')[0][0]%>*****@<%=@profile.email.split('@')[1]%>(<%=@profile.points%>)</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="flyers">
+	Promotion History<br /><br />
+	<%for flyer in @flyers%>
+		<%= link_to image_tag(flyer.photo(:small), :size=>"130x163"), flyer.photo(:large), :target=>"_new"%>
+	<%end%>
+	</div>
+
+</div>
+

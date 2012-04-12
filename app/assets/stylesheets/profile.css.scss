@@ -1,0 +1,29 @@
+// Place all the styles related to the profile controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile{
+	background: #fdfdfd;
+	padding:20px;
+	margin:20px;
+}
+.visage{
+	padding-bottom:20px;
+	border-bottom:1px solid #dddddd;
+}
+
+.flyers{
+	padding-top:20px;
+	font-size:3.0em;
+	color:black;
+}
+.points{
+	background-color:#f9e101;
+	color:black;
+	font-size:3.0em;
+	padding:10px;
+}
+.tip{
+	font-size: 0.7em;
+	text-align: center;
+}

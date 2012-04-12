@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flyer Zero</title>
+  <%= stylesheet_link_tag    "application" %>
+  <% javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  
+  <meta property="og:title" content="Flyer Zero Promoter Profile"/>
+
+</head>
+<body class="primary">
+
+    <%=image_tag 'mainlogo-text.png'%>
+    
+    	<% if notice %>
+		<div id="notice" class='box' style="display:none;"><div class="text"><%=raw notice%></div></div>
+		
+		<script>
+			$('#notice').slideDown(600);
+			$('#notice').delay( 5000 ).slideUp(600);
+		</script>
+	<%end%>
+    
+<%= yield %>
+
+</body>
+</html>
