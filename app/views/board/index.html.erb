@@ -1,4 +1,12 @@
-
+<script>
+      <% if defined?( edit ) && edit %>
+	  var editFlyer = true;
+	  var validation = '<%= validation =%>';
+	  var eventId = '<%= event_id %>';
+      <% else %>
+	  var editFlyer = false;
+      <% end %>
+</script>
 <div id="logo"> </div>
 
 <div id="content">

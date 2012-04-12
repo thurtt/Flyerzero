@@ -16,12 +16,12 @@ class BoardController < ApplicationController
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode @origin
 			session[:origin] = res.full_address
 		end
-		
+
 		session[:ll] = @origin.ll
 		return true
 	end
-	
-	
+
+
 	def updateme
 		if params[:lat] != nil && params[:lat] != ''
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [params[:lat], params[:lng]]
@@ -30,15 +30,15 @@ class BoardController < ApplicationController
 
 			#@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
 			@origin = Geokit::LatLng.new(params[:lat], params[:lng])
-			
+
 			session[:ll] = @origin.ll
 			return true
-			
+
 		end
 	end
-	
-	
-	
+
+
+
 	def index
 
 	end
@@ -50,18 +50,23 @@ class BoardController < ApplicationController
 	end
 
 	def flyers
-		
+
 		if params[:id]
 			@flyer = Event.find(params[:id]) if Event.exists?(params[:id])
 		end
-		
-		@event = Event.new()
-		
+
+		if params[:validation] and params[:event_id]
+			@event = Event.find_by_id_and_validation_hash( params[:event_id], params[:validation] )
+			@event = Event.new() if not @event
+		else
+			@event = Event.new()
+		end
+
 		@now = Event.within(5, :origin => session[:ll]).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		if @now.length < 20
 			@now = Event.within(25, :origin => session[:ll]).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		end
-		
+
 		render :partial=>"flyers"
 	end
 
@@ -73,6 +78,7 @@ class BoardController < ApplicationController
 		# foursquare autocomplete endpoint
 		endpoint = 'https://api.foursquare.com/v2/venues/suggestcompletion'
 		response = RestClient.get endpoint, {:params=>{ :ll=>session[:ll],
+						      :v=>'20120411',
 						      :query=>params[:term],
 						      :limit=>15,
 						      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
@@ -85,13 +91,44 @@ class BoardController < ApplicationController
 				       :lat=>venue["location"]["lat"],
 				       :lng=>venue["location"]["lng"],
 				       :venue_id=>venue["id"],
-				       :icon=>venue["category"] ? venue["category"]["icon"] : nil
+				       :icon=> proc do
+						if venue["category"]
+						      icon = venue["category"]["icon"]["prefix"] + venue["category"]["icon"]["sizes"][0].to_s + venue["category"]["icon"]["name"]
+						else
+						      icon = nil
+						end
+				       end.call
 				     }
 			   }
 		render :json=> venues
 	end
-	
-	
+
+	def venue_by_id
+		endpoint = 'https://api.foursquare.com/v2/venues/' + params[:id]
+		response = RestClient.get endpoint, {:params=>{
+						      :v=>'20120411',
+						      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
+						      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
+						    }
+		venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
+		render :json=>{
+				:name=>venue["name"],
+				:cross_street=>venue["location"]["crossStreet"],
+				:address=>venue["location"]["address"],
+				:lat=>venue["location"]["lat"],
+				:lng=>venue["location"]["lng"],
+				:icon=> proc do
+					if venue["categories"]
+					      icon_info = venue["categories"][0]["icon"]
+					      icon = icon_info["prefix"] + icon_info["sizes"][0].to_s + icon_info["name"]
+					else
+					      icon = nil
+					end
+				end.call
+			      }
+	end
+
+
 	def change_location
 		#todo here -- get address from submission
 		# geoloc to get long/lat,

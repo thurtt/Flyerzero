@@ -12,6 +12,10 @@
     <div id="chosen_file">No file chosen</div>
     <div id="no_preview">Sorry, flyer preview is not supported by your browser :(</div>
   </div>
-  <div id="flyer_photo"></div>
+  <div id="flyer_photo">
+    <% if @event.photo.file? %>
+        <%= image_tag( @event.photo.url("medium") )%>
+    <% end %>
+  </div>
 
 </div>

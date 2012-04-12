@@ -86,7 +86,12 @@ function changeLocation( location ) {
 }
 
 function loadFlyerData(lat, lng) {
-	$.get('flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng ,function(data) {
+	if ( editFlyer ){
+	    url = '/board/flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng + '&validation=' + validation + '&event_id=' + eventId;
+	} else {
+	    url = '/board/flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng;
+	}
+	$.get( url ,function(data) {
 
 		// clear out any old form stuff
 		clearForm();
@@ -118,7 +123,11 @@ function loadFlyerData(lat, lng) {
 		$('#submit_event').click( function(){
 			    clearErrors();
 			    if( validateForm() ){
-				uploadData.submit();
+				if( editFlyer ){
+					$('form').submit();
+				} else {
+					uploadData.submit();
+				}
 				$('#message_text').html('');
 				$('#create_wait').show();
 				$('#form_content').fadeOut(function(){
@@ -207,6 +216,10 @@ function loadFlyerData(lat, lng) {
 			$('#browse_button').removeClass('hover_hack');
 			$('#browse_button').addClass('normal_hack');
 		});
+
+		// this will automatically bring up the submission form if we're
+		// editing something
+		setEditMode();
 	});
 
 }
@@ -311,7 +324,7 @@ function createImagePreview( fileObj ) {
       window.loadImage(
 	    fileObj,
 	    function (img) {
-		$('#flyer_photo').append(img);
+		$('#flyer_photo').html(img);
 		$('#dragdrop_content').fadeIn();
 	    },
 	    {maxWidth: 400, maxHeight: 500}
@@ -395,7 +408,7 @@ function validateForm(){
     validated = true;
 
     // check to see if an image has been selected
-    if ( !uploadData.submit ){
+    if ( !uploadData.submit && !editFlyer ){
 	//$('#dragdrop_text').addClass( 'error_text' );
 	addError( $('#dragdrop_content') );
 	validated = false;
@@ -464,4 +477,35 @@ function supportsPreview(){
 		return true;
 	}
 	return false;
+}
+function setEditMode(){
+    if( editFlyer ){
+	    // clean up our dragdrop area
+	    $('#dragdrop_text').hide();
+	    $('#dragdrop_content').removeClass('drapdrop_area');
+
+	    // change the button text
+	    $('#submit_event').val("Update Event");
+
+	    // Format the ugly old Mysql date
+	    date = $.datepicker.parseDate( 'yy-mm-dd', $('#event_expiry').val() );
+	    $('#event_expiry').val( $.datepicker.formatDate( 'D, dd M yy', date ) );
+
+	    // get the venue information
+	    $.get('/board/venue_by_id/' + $('#event_venue_id').val(), function( data ){
+		    $('#venue_icon').attr( 'src',  data.icon );
+		    $('#venue_icon').show();
+		    $('#venue_name').html( data.name );
+		    $('#venue_location').html( data.address + ( data.cross_street ? ' ( ' + data.cross_street + ' )' : '' ));
+	    });
+
+	    // change up the submission controller method
+	    $('form').attr('action', '/events/update');
+	    $('form').removeAttr('data-remote');
+
+
+	    // show the submission form
+	    $('#submission_page').fadeIn("slow", function() {});
+	    $('#board_page').fadeOut("slow", function() {});
+    }
 }

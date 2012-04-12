@@ -1,0 +1,9 @@
+<h1>Event successfully updated!</h1>
+<script>
+    clearForm();
+    $('#dragdrop').html( '<%= escape_javascript( render(:partial => "dragdrop") )%>' );
+    attachFileUploader();
+    $('#submit_event').val("Create");
+    $('form').attr('action', '/events/create');
+    $('#flyer_photo').html('');
+</script>
