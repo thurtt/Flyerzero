@@ -323,8 +323,12 @@ function createImagePreview( fileObj ) {
       $('#dragdrop_content').removeClass('drapdrop_area');
       window.loadImage(
 	    fileObj,
-	    function (img) {
-		$('#flyer_photo').html(img);
+	    function (image) {
+		if( image.type === "error" ){
+		    //skippy
+		}else{
+		    stuff = $('#flyer_photo').html( image );
+		}
 		$('#dragdrop_content').fadeIn();
 	    },
 	    {maxWidth: 400, maxHeight: 500}
