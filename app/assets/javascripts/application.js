@@ -509,3 +509,7 @@ function setEditMode(){
 	    $('#board_page').fadeOut("slow", function() {});
     }
 }
+function getSharePoints(verification){
+	$.get('/events/share/' + verification, function(data){} );
+	return true;
+}
