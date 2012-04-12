@@ -1,7 +1,9 @@
 <h1>Event successfully updated!</h1>
 <script>
-    var dragdropPartial = '<%= escape_javascript( render(:partial => "dragdrop") )%>';
-    var eventId = '<%= event_id %>';
-    $('#clone_event img').attr( 'src', '<%= photo %>' );
-    submitOk = true;
+    clearForm();
+    $('#dragdrop').html( '<%= escape_javascript( render(:partial => "dragdrop") )%>' );
+    attachFileUploader();
+    $('#submit_event').val("Create");
+    $('form').attr('action', '/events/create');
+    $('#flyer_photo').html('');
 </script>

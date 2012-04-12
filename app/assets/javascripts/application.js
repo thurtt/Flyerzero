@@ -498,10 +498,18 @@ function setEditMode(){
 		    $('#venue_name').html( data.name );
 		    $('#venue_location').html( data.address + ( data.cross_street ? ' ( ' + data.cross_street + ' )' : '' ));
 	    });
-	    
+
 	    // change up the submission controller method
 	    $('form').attr('action', '/events/update');
-	    
+
+	    // we need some custom handlers for our ajax request, unfortunately we can't use
+	    // the ones in the fileupload control...bummer
+	    $('form').ajaxComplete( function(e, data, settings ){
+		    if( settings.url == '/events/update') {
+			processResponse( data.responseText );
+		    }
+	    });
+
 	    // show the submission form
 	    $('#submission_page').fadeIn("slow", function() {});
 	    $('#board_page').fadeOut("slow", function() {});
