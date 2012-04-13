@@ -5,8 +5,14 @@
   <%= stylesheet_link_tag    "application" %>
   <% javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%promoter = Achievement.find(params[:id])%>
   
+  <%if promoter != nil%>
   <meta property="og:title" content="Flyer Zero Promoter Profile"/>
+  <meta property="og:url" content="http://www.flyerzero.com/profile/view/<%=params[:id]%>"/>
+  <meta property="og:image" content="<%=gravatar_url(promoter.email, :size=>'200')%>"/>
+  <meta property="og:description" content="Check out this promoter on Flyer Zero!" />
+  <%end%>
 
 </head>
 <body class="primary">
