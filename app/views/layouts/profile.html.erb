@@ -4,6 +4,8 @@
   <title>Flyer Zero</title>
   <%= stylesheet_link_tag    "application" %>
   <% javascript_include_tag "application" %>
+  <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+  <%= javascript_include_tag "gravatar.js" %>
   <%= csrf_meta_tags %>
   <%promoter = Achievement.find(params[:id])%>
   
