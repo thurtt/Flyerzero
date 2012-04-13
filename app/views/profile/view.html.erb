@@ -2,12 +2,16 @@
 	<div class="visage">
 		<table width="100%">
 			<tr>
-				<td style="width:210px;">
+				<td valign="top" style="width:210px;">
 					<%=image_tag gravatar_url(@profile.email, :size=>"200"), :class=>'box'%>
 					<div class="tip">Update this photo on <%=link_to 'GRAVATAR', 'http://www.gravatar.com/'%>.</div>
 				</td>
 				<td valign="top">
 					<div class="points box"><%=@profile.email.split('@')[0][0]%>*****@<%=@profile.email.split('@')[1]%>(<%=@profile.points%>)</div>
+					<div class="profile_name" id="<%=gravatar_hash(@profile.email)%>_name"></div>
+					<div class="profile_twitter" id="<%=gravatar_hash(@profile.email)%>_profile">
+						<script src="http://www.gravatar.com/<%=gravatar_hash(@profile.email)%>.json?callback=loadProfile" type="text/javascript"></script>
+					</div>
 				</td>
 			</tr>
 		</table>
