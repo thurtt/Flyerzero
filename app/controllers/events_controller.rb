@@ -99,7 +99,6 @@ class EventsController < ApplicationController
 		if @event != nil
 			achieve = Achievement.find_by_email(@event.email)
 			if @event.validated && !session[:shared].include?(params[:id])
-				a.join('')
 				#this is the first validation attempt, which is good.
 				
 				if !achieve
