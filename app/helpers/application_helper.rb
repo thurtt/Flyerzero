@@ -41,7 +41,7 @@ module ApplicationHelper
 			    venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
 		      end
 		end
-		render :partial=>"venue", :locals=>{ :venue=>venue_info }
+		render :partial=>"board/venue", :locals=>{ :venue=>venue_info }
 	end
 end
 

@@ -88,7 +88,7 @@
 	    <h2>Your Profile</h2>
 	    <img src="<%= gravatar_url( @event.email, :r=>'pg', :d=>'mm') %>" />
 	    <p><%= @event.email %> </p>
-	    <p> You currently have <span class="cool_points"><%= @achievements.points %></span> cool points</p>
+	    <p> You currently have <span class="cool_points"><%= @achievements ? @achievements.points : '0' %></span> cool points</p>
 
 	</div>
 	<div class="footer">Flyerzero is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint.</div>
