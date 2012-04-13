@@ -21,13 +21,7 @@ module ApplicationHelper
 			  :icon=>"",
 		      }
 		else
-		      endpoint = 'https://api.foursquare.com/v2/venues/' + venue_id
-		      response = RestClient.get endpoint, {:params=>{
-							    :v=>'20120411',
-							    :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
-							    :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
-							  }
-		      venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
+		      venue = reverse_venue_lookup( venue_id )
 		      venue_info = {
 				      :name=>venue["name"],
 				      :location=>venue["location"]["address"] ,
@@ -49,4 +43,19 @@ module ApplicationHelper
 		end
 		render :partial=>"venue", :locals=>{ :venue=>venue_info }
 	end
+end
+
+def foursquare_venue_name( venue_id )
+	venue_info = reverse_venue_lookup( venue_id )
+	return venue_info["name"]
+end
+
+def reverse_venue_lookup( venue_id )
+	endpoint = 'https://api.foursquare.com/v2/venues/' + venue_id
+	response = RestClient.get endpoint, {:params=>{
+					      :v=>'20120411',
+					      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
+					      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
+					    }
+	venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
 end

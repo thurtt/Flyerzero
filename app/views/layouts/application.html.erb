@@ -10,13 +10,13 @@
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=false"></script>
   <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker.js"></script>
   <%= javascript_include_tag "http://gettopup.com/releases/latest/top_up-min.js" %>
-  
+
   <%if params[:flyer]%>
   <%event = Event.find(params[:flyer])%>
   <meta property="og:title" content="Flyer Zero Event"/>
   <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
   <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:medium)%>"/>
-  <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%>" />
+  <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= foursquare_venue_name event.venue_id %>" />
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
   </script>
@@ -26,7 +26,7 @@
   <meta property="og:url" content="http://www.flyerzero.com/"/>
   <meta property="og:image" content="http://www.flyerzero.com/assets/user.png"/>
   <%end%>
-  
+
 </head>
 <body class="primary">
 
@@ -36,20 +36,20 @@
     	<span style="padding:3px;padding-left:10px; float:left;">Your Zero: <span id="address">Unknown.</span>
     	<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
     	<span class="control_links" style="padding:3px; padding-right:10px; float:right;">
-    		<span id='map_link' class="box">The Zero Map</span> | 
-    		<span id='board_link' class="box">The Zero Board</span> | 
+    		<span id='map_link' class="box">The Zero Map</span> |
+    		<span id='board_link' class="box">The Zero Board</span> |
     		<span id='submit_link' class="box">Submit a Flyer</span>
-    	</span> 
+    	</span>
     	</div>
     	<% if notice %>
 		<div id="notice" class='box' style="display:none;"><div class="text"><%=raw notice%></div></div>
-		
+
 		<script>
 			$('#notice').slideDown(600);
 			$('#notice').delay( 5000 ).slideUp(600);
 		</script>
 	<%end%>
-    
+
 <%= yield %>
 
 </body>
