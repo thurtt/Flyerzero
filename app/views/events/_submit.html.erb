@@ -23,14 +23,7 @@
 		</tr>
 		<tr>
 			<td class="offset" style="height:50px;">
-				<img id="venue_icon"></img>
-				<div id="venue_container">
-					<div id="venue_name"></div>
-					<div id="venue_location">No venue chosen</div>
-				</div>
-				<%=f.hidden_field :lat %>
-				<%=f.hidden_field :lng %>
-				<%=f.hidden_field :venue_id %>
+			      <%= foursquare_venue( @event.venue_id ) %>
 			</td>
 		</tr>
 		<tr>

@@ -285,7 +285,7 @@ function addAddressToMap(lat, lng, data) {
         	}
         	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
         	info += '<img src="/assets/facebook_share.png" alt="Facebook"/></a>&nbsp';
-        	
+
         	info += '<a href="https://twitter.com/share?url=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '" target="_blank">';
         	info += '<img src="/assets/twitter_share.png" alt="Twitter"/></a>&nbsp';
         	info += '</div>';
@@ -503,13 +503,14 @@ function setEditMode(){
 	    date = $.datepicker.parseDate( 'yy-mm-dd', $('#event_expiry').val() );
 	    $('#event_expiry').val( $.datepicker.formatDate( 'D, dd M yy', date ) );
 
-	    // get the venue information
-	    $.get('/board/venue_by_id/' + $('#event_venue_id').val(), function( data ){
+	    // show the venue information
+	    $('#venue_icon').show();
+	    /*$.get('/board/venue_by_id/' + $('#event_venue_id').val(), function( data ){
 		    $('#venue_icon').attr( 'src',  data.icon );
 		    $('#venue_icon').show();
 		    $('#venue_name').html( data.name );
 		    $('#venue_location').html( data.address + ( data.cross_street ? ' ( ' + data.cross_street + ' )' : '' ));
-	    });
+	    });*/
 
 	    // change up the submission controller method
 	    $('form').attr('action', '/events/update');

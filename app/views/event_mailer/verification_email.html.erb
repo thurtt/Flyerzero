@@ -2,27 +2,96 @@
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style type="text/css">
+	a:link {color:#000000;text-decoration:none;}      /* unvisited link */
+	a:visited {color:#000000;text-decoration:none;}  /* visited link */
+	a:hover {color:#000000;text-decoration:none;}  /* mouse over link */
+	a:active {color:#000000;text-decoration:none;}  /* selected link */
+	.outer_border{
+	    background:#000000;
+	    padding:30px;
+	    margin:50px;
+	    border-radius: 5px;
+	}
+	.inner_content{
+	    background:#fcfcfc;
+	    padding: 10px;
+	    border-top-left-radius: 5px;
+	    border-top-right-radius: 5px;
+	}
+	.button{
+	    width: 75px;
+	    border: 1px solid #bbbbbb;
+	    background: #cccccc;
+	    text-align: center;
+	    font-size: 1.2em;
+	    border-radius: 5px;
+	    padding: 5px;
+	}
+	.button:hover{
+	    background: #000000;
+	    color: #fcfcfc;
+	    cursor: pointer;
+
+	}
+	.footer{
+	    background: #f9e101;
+	    border-bottom-left-radius: 5px;
+	    border-bottom-right-radius: 5px;
+	    text-align: center;
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	}
+	.header{
+	    background: #f9e101;
+	    //border-top-left-radius: 5px;
+	    //border-top-right-radius: 5px;
+	    border-radius: 5px;
+	    text-align: center;
+	    padding: 10px;
+	    margin-bottom: 20px;
+	    font-size: 2em;
+	    font-weight: 800;
+	}
+	.cool_points{
+	    color: #ff0000;
+	    font-weight: 700;
+	}
+    </style>
   </head>
   <body>
-    <h1>Thanks for submitting an event on Flyerzero!</h1>
-    <p>
-      To activate your event, simply follow the link below. Pretty easy. :)<br/>
-    </p>
-    <p>
-      Activation Link: <%= @url %>.
-    </p>
-    <p>
-	If you would like to make changes to your event, use the edit link below.
-    </p>
-    <p>
-	Edit Link: <%= @edit_url %>
-    </p>
-    <p>
-	If you would like to remove your event at any time, just use the removal link.
-    </p>
-    <p>
-	Removal Link: <%= @del_url %>
-    </p>
-    <p>Flyerzero is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint.</p>
+    <div class="outer_border">
+	<img src="http://flyerzero.com/assets/mainlogo-text.png" />
+	<div class="header">Thanks for submitting an event on Flyerzero!</div>
+	<div class="inner_content">
+
+	    <h2>Your Event</h2>
+	    <table>
+		<tr>
+		    <td rowspan="4">
+			<img src="<%= @event.photo.url(:thumb) %>" />
+			<div>Event Date: <%= @event.expiry.strftime("%m/%d/%Y") %></div>
+			<div>Event Location: <%= foursquare_venue @event.venue_id %></div>
+		    </td>
+		    <td><a href="<%= @url %>"><div class="button">Activate</div></a></td>
+		    <td>Before your event can show up on the Zero board and map, you need to activate it.</td>
+		</tr>
+		<tr>
+		    <td><a href="<%= @edit_url %>"><div class="button">Edit</div></a></td>
+		    <td>You can edit your event at any time before it expires by clicking this link</td>
+		</tr>
+		<tr>
+		    <td><a href="<%= @del_url %>"><div class="button">Delete</div></a></td>
+		    <td>You can delete your event any time</td>
+		</tr>
+	    </table>
+	    <h2>Your Profile</h2>
+	    <img src="<%= gravatar_url( @event.email, :r=>'pg', :d=>'mm') %>" />
+	    <p><%= @event.email %> </p>
+	    <p> You currently have <span class="cool_points"><%= @achievements.points %></span> cool points</p>
+
+	</div>
+	<div class="footer">Flyerzero is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint.</div>
+    </div>
   </body>
 </html>

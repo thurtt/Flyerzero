@@ -3,6 +3,7 @@ class EventMailer < ActionMailer::Base
 
 	def verification_email(event)
 		@event = event
+		@achievements = Acheivement.find_by_email( @event.email );
 		@url  = "http://www.flyerzero.com/events/verify/#{@event.validation_hash}"
 		@edit_url = "http://www.flyerzero.com/events/edit/#{@event.validation_hash}?event_id=#{event.id}"
 		@del_url = "http://www.flyerzero.com/events/delete/#{@event.validation_hash}?event_id=#{event.id}"

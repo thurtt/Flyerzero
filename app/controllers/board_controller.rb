@@ -103,32 +103,6 @@ class BoardController < ApplicationController
 		render :json=> venues
 	end
 
-	def venue_by_id
-		endpoint = 'https://api.foursquare.com/v2/venues/' + params[:id]
-		response = RestClient.get endpoint, {:params=>{
-						      :v=>'20120411',
-						      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
-						      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
-						    }
-		venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
-		render :json=>{
-				:name=>venue["name"],
-				:cross_street=>venue["location"]["crossStreet"],
-				:address=>venue["location"]["address"],
-				:lat=>venue["location"]["lat"],
-				:lng=>venue["location"]["lng"],
-				:icon=> proc do
-					if venue["categories"]
-					      icon_info = venue["categories"][0]["icon"]
-					      icon = icon_info["prefix"] + icon_info["sizes"][0].to_s + icon_info["name"]
-					else
-					      icon = nil
-					end
-				end.call
-			      }
-	end
-
-
 	def change_location
 		#todo here -- get address from submission
 		# geoloc to get long/lat,
