@@ -1,0 +1,8 @@
+<img id="venue_icon" src="<%= venue[:icon] %>"></img>
+<div id="venue_container">
+	<div id="venue_name"><%= venue[:name] %></div>
+	<div id="venue_location"><%= venue[:location] %></div>
+</div>
+<input id="event_lat" name="event[lat]" value="<%= venue[:lat] %>" type="hidden">
+<input id="event_lng" name="event[lng]" value="<%= venue[:lng] %>" type="hidden">
+<input id="event_venue_id" name="event[venue_id]" value="<%= venue[:venue_id] %>" type="hidden">
