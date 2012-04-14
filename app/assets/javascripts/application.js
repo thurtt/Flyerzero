@@ -173,7 +173,7 @@ function loadFlyerData(lat, lng) {
 					    $('#venue_icon').attr( 'src',  val.icon );
 					    $('#venue_icon').show();
 					    $('#venue_name').html( val.name );
-					    $('#venue_location').html( val.address + ( val.cross_street ? ' ( ' + val.cross_street + ' )' : '' ));
+					    $('#venue_location').html( ( val.address ? val.address : '' ) + ( val.cross_street ? ' ( ' + val.cross_street + ' )' : '' ));
 					    $('#event_lat').val( val.lat );
 					    $('#event_lng').val( val.lng );
 					    $('#event_venue_id').val( val.venue_id );

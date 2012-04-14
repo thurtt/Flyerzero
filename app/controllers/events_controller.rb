@@ -47,7 +47,7 @@ class EventsController < ApplicationController
 		      message = "Oops! We can't find your event anywhere. Sad day."
 		else
 		      event = Event.find( params[:event_id] )
-		      @event.delete
+		      event.delete
 		      message = "Your event has been deleted!"
 		end
 		redirect_to "/", :notice=>message
@@ -64,29 +64,39 @@ class EventsController < ApplicationController
 	end
 
 	def verify
-		@event = Event.find_by_validation_hash(params[:id])
+		@events = Event.where( 'validation_hash = ?', params[:id] )
+		
+		no_cool_points_for_you = false
+				
 		flyer = ""
-		if @event != nil
+		if @events != nil
+			@events.each do | event |
+				if event.validated != 1
+					event.validated = true
+					event.save
+				else
+					no_cool_points_for_you = true
+				end
+			end
+			email = @events[0].email
 			
-			achieve = Achievement.find_by_email(@event.email)
+			achieve = Achievement.find_by_email(email)
 			
-			if @event.validated != 1
+			if no_cool_points_for_you == false
 				#this is the first validation attempt, which is good.
 				if !achieve
-					achieve = Achievement.new( { :email=>@event.email, :points=>0, :currency=>0 } )
+					achieve = Achievement.new( { :email=>email, :points=>0, :currency=>0 } )
 				end
 				achieve.complete
 				achieve.save
 			end
-			@event.validated = true
-			@event.save
 			message = "Your event has been verified!<br \><span style='font-size:0.6em;'>"
-			message += "#{@event.email} now has #{achieve.points} cool points.<br />"
+			message += "#{email} now has #{achieve.points} cool points.<br />"
 			message += "Get another: "
-			message += "<a href='http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=#{@event.id}&t=Flyer Zero Event' target='_blank' onclick='return getSharePoints(\"#{params[:id]}\");'>"
+			message += "<a href='http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=#{params[:event_id]}&t=Flyer Zero Event' target='_blank' onclick='return getSharePoints(\"#{params[:id]}\");'>"
 			message += "<img src='/assets/facebook_share_button.jpeg' alt='Facebook' /></a>"
 			message += "</span>"
-			flyer = "?flyer=#{@event.id}"
+			flyer = "?flyer=#{params[:event_id]}"
 		else
 			message = "Oops! We can't find your event anywhere. Sad day."
 		end

@@ -24,12 +24,11 @@ module ApplicationHelper
 		      venue = reverse_venue_lookup( venue_id )
 		      venue_info = {
 				      :name=>venue["name"],
-				      :location=>venue["location"]["address"] ,
 				      :lat=>venue["location"]["lat"],
 				      :lng=>venue["location"]["lng"],
 				      :venue_id=>venue["id"],
 				      :icon=> proc do
-					      if venue["categories"]
+					      if venue["categories"].length > 0
 						    icon_info = venue["categories"][0]["icon"]
 						    icon = icon_info["prefix"] + icon_info["sizes"][0].to_s + icon_info["name"]
 					      else
@@ -37,8 +36,11 @@ module ApplicationHelper
 					      end
 				      end.call
 				    }
+		      # address if applicable
+		      venue_info[:location] = venue["location"].has_key?("address") ? venue["location"]["address"] : ""
+		      
 		      # add cross street if necessary
-		      if ( venue["location"]["crossStreet"] )
+		      if ( venue["location"].has_key?("crossStreet") )
 			    venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
 		      end
 		end
