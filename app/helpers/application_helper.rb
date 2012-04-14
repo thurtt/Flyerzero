@@ -27,6 +27,7 @@ module ApplicationHelper
 				      :location=>venue["location"]["address"] ,
 				      :lat=>venue["location"]["lat"],
 				      :lng=>venue["location"]["lng"],
+				      :venue_id=>venue["id"],
 				      :icon=> proc do
 					      if venue["categories"]
 						    icon_info = venue["categories"][0]["icon"]
@@ -41,7 +42,7 @@ module ApplicationHelper
 			    venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
 		      end
 		end
-		render :partial=>"board/venue", :locals=>{ :venue=>venue_info }
+		render :partial=>"venue", :locals=>{ :venue=>venue_info }
 	end
 end
 

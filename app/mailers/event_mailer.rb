@@ -8,8 +8,6 @@ class EventMailer < ActionMailer::Base
 		@url  = "http://www.flyerzero.com/events/verify/#{@event.validation_hash}"
 		@edit_url = "http://www.flyerzero.com/events/edit/#{@event.validation_hash}?event_id=#{event.id}"
 		@del_url = "http://www.flyerzero.com/events/delete/#{@event.validation_hash}?event_id=#{event.id}"
-		attachments.inline['logo.png'] = Net::HTTP.get('flyerzero.com', '/assets/mainlogo-text.png')
-		attachments.inline['flyer.png'] = Net::HTTP.get('flyerzero.com', @event.photo.url(:thumb))
 		mail(:to => event.email, :subject => "Verify Your Event on Flyerzero")
 	end
 
