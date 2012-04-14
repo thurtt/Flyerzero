@@ -26,7 +26,7 @@
 		<%for flyer in @now%>
 			<div class="f_element">
 			<%= link_to(image_tag(flyer.photo.url(:thumb), :size=>"130x163", :class=> flyer.isrecent? == true ? "recent" : "soon"), flyer.photo.url(:large),:target=>"new" ) unless flyer.photo.nil? %>
-			<%if flyer.isrecent?%><span class="show_on_map box" flyer_id="<%=flyer.id%>">Show On Map</span><%end%>
+			<span class="show_on_map box" flyer_id="<%=flyer.id%>">Show On Map</span>
 			</div>
 		<%end%>
 	</div>
