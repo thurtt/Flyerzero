@@ -132,11 +132,28 @@ div#dragdrop_text {
     margin-top: 2px;
     border-radius: 5px;
 }
+.ui-datepicker-calendar{
+	background-color:#ffffff !important;
+}
+
+.ui-datepicker-calendar th{
+	background-color:#fefefe !important;
+	color:#666 !important;
+}
 .ui-datepicker-title
 {
     text-align: center;
     color: #000000;
     font-weight: 700;
+}
+.ui-datepicker-week-end{
+	background-color: #f8f8f8 !important;
+}
+.ui-datepicker-today{
+	border:1px solid #F9E101 !important;
+}
+.ui-state-default{
+	color:#222 !important;
 }
 
 #message_content .textbox{
