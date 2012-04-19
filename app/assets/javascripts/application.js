@@ -283,7 +283,7 @@ function addAddressToMap(lat, lng, data) {
         		info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
         		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile"class="box"/></a>&nbsp';
         	}
-        	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank">';
+        	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank" onclick="return getSharePoints(\'' + data["flyer_id"] + '\');">';
         	info += '<img src="/assets/facebook_share.png" alt="Facebook"/></a>&nbsp';
 
         	info += '<a href="https://twitter.com/share?url=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '" target="_blank">';

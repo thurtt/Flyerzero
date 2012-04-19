@@ -93,7 +93,7 @@ class EventsController < ApplicationController
 			message = "Your event has been verified!<br \><span style='font-size:0.6em;'>"
 			message += "#{email} now has #{achieve.points} cool points.<br />"
 			message += "Get another: "
-			message += "<a href='http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=#{params[:event_id]}&t=Flyer Zero Event' target='_blank' onclick='return getSharePoints(\"#{params[:id]}\");'>"
+			message += "<a href='http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=#{params[:event_id]}&t=Flyer Zero Event' target='_blank' onclick='return getSharePoints(\"#{params[:event_id]}\");'>"
 			message += "<img src='/assets/facebook_share_button.jpeg' alt='Facebook' /></a>"
 			message += "</span>"
 			flyer = "?flyer=#{params[:event_id]}"
@@ -104,11 +104,11 @@ class EventsController < ApplicationController
 	end
 	
 	def share
-		@event = Event.find_by_validation_hash(params[:id])
+		@event = Event.find(params[:id])
 		session[:shared] = "" if session[:shared] == nil
 		if @event != nil
 			achieve = Achievement.find_by_email(@event.email)
-			if @event.validated && !session[:shared].include?(params[:id])
+			if @event.validated && !session[:shared].include?(@event.validation_hash)
 				#this is the first validation attempt, which is good.
 				
 				if !achieve
@@ -116,7 +116,7 @@ class EventsController < ApplicationController
 				end
 				achieve.complete
 				achieve.save
-				session[:shared] += "#{params[:id]},"
+				session[:shared] += "#{@event.validation_hash},"
 			end
 			message = "This event has been shared!<br \><span style='font-size:0.6em;'>#{@event.email} now has #{achieve.points} cool points.</span>"
 			flyer = "?flyer=#{@event.id}"
