@@ -30,7 +30,10 @@
 			<td><h1>Have Media?</h1></td>
 		</tr>
 		<tr>
-			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>5%></td>
+			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>4%></td>
+		</tr>
+		<tr>
+			<td><%=f.text_field :media, :placeholder=>"Put your Facebook event URL here!", :class=>"input_text"%></td>
 		</tr>
 		<tr>
 		  <td><div class="buttons"><input value="Create" id="submit_event" type="button" %></div></td>

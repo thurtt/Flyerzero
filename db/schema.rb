@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410035927) do
+ActiveRecord::Schema.define(:version => 20120419201524) do
 
   create_table "achievements", :force => true do |t|
     t.string   "email"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20120410035927) do
     t.string   "validation_hash"
     t.string   "venue_id"
     t.text     "media"
+    t.string   "fbevent"
   end
 
 end

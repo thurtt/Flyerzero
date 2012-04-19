@@ -376,6 +376,7 @@ function clearForm(){
     $('#event_email').val('');
     $('#event_expiry').val('');
     $('#event_loc').val('');
+    $('#event_fbevent').val('');
     $('#flyer_photo').html('');
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
