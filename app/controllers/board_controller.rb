@@ -50,9 +50,16 @@ class BoardController < ApplicationController
 	end
 
 	def flyers
-
 		if params[:id]
 			@flyer = Event.find(params[:id]) if Event.exists?(params[:id])
+			# set our location to the location of the flyer
+			# this makes it so everyone can see it
+			if @flyer
+			    res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [@flyer.lat, @flyer.lng]
+			    session[:origin] = res.full_address
+			    @origin = Geokit::LatLng.new(@flyer.lat, @flyer.lng)
+			    session[:ll] = @origin.ll
+			end
 		end
 
 		if params[:validation] and params[:event_id]
