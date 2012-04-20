@@ -3,7 +3,7 @@
 	<script>clearMap();</script>
 	<div class="flyers">
 		<%for flyer in @now%>
-			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :small ), :size=>"130x163", :class=>"first"%>
 			<script>addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, '<%=flyer.photo.url( :small )%>');</script>
 		<%end%>
 	</div>
@@ -16,7 +16,7 @@
 	<div class="header textual">Nearby, Soon</div>
 	<div class="flyers">
 		<%for flyer in @soon%>
-			<%=image_tag flyer.photo.url( :thumb ), :size=>"130x163", :class=>"first"%>
+			<%=image_tag flyer.photo.url( :small ), :size=>"130x163", :class=>"first"%>
 		<%end%>
 	</div>
 	
