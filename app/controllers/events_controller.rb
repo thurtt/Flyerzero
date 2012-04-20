@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 		event_id = @event.id if not event_id
 		EventMailer.verification_email(@event).deliver
 		respond_to do |format|
-		    format.html { render :partial=>partial, :locals=>{ :event_id=>event_id, :photo=>@event.photo.url(:thumb) } }
+		    format.html { render :partial=>partial, :locals=>{ :event_id=>event_id, :photo=>@event.photo.url(:small) } }
 		end
 	end
 
