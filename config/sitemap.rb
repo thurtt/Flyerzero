@@ -5,8 +5,8 @@ SitemapGenerator::Sitemap.default_host = "http://www.flyerzero.com"
 SitemapGenerator::Sitemap.sitemaps_path = 'shared/'
 
 SitemapGenerator::Sitemap.create do
-  Add '/profile/view'
-  Add '/board/flyers'
+  add '/profile/view'
+  add '/board/flyers'
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.
