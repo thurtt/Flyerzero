@@ -49,4 +49,8 @@ namespace :deploy do
    end
 end
 
-after "deploy", "deploy:migrate"
+task :refresh_sitemaps do
+  run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
+end
+
+after "deploy", "deploy:migrate", "refresh_sitemaps"

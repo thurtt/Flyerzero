@@ -15,6 +15,8 @@ gem 'foursquare2'
 gem 'oauth2'
 gem 'rest-client'
 gem 'webshims-rails'
+gem 'sitemap_generator'
+gem 'whenever', :require => false
 
 # Gems used only for assets and not required
 # in production environments by default.
