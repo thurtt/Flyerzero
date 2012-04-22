@@ -278,7 +278,12 @@ function addAddressToMap(lat, lng, data) {
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
+        	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
+        		info += '<div class="fbevent"><a href="' + data["fbevent"] + '" target="_blank">';
+        		info += '<img src="/assets/fbevent.png" alt="Facebook Event" /></a></div>';
+        	}
         	info += '<div style="text-align:center;">';
+        	
         	if ( data["profile"] != undefined ){
         		info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
         		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile"class="box"/></a>&nbsp';
