@@ -89,3 +89,14 @@ div.overlay{
 	left:21px;
 	
 }
+
+.fbevent{
+	position:relative;
+	top:-5px;
+	padding:0px;
+	margin:0px;
+	text-align:center;
+}
+.fbevent img{
+	margin:auto;
+}

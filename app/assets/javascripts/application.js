@@ -14,6 +14,8 @@
 var map;
 var latitude;
 var longitude;
+var user_latitude;
+var user_longitude;
 var markers = {};
 var uploadData = {};
 var venueList = {};
@@ -92,6 +94,7 @@ function changeLocation( location ) {
 	$('input#new_location').val('Changing location...');
 	$.get('/board/change_location/?location=' + location, function(data) {
 		$('#address').html(data);
+		$('input#new_location').val('');
 	});
 }
 
@@ -268,7 +271,7 @@ function closeInfoWindows() {
 	}
 }
 function addUser() {
-	marker = addAddressToMap(latitude, longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
+	marker = addAddressToMap(user_latitude, user_longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
 	markers["0"] = marker;
 }
 
@@ -293,7 +296,12 @@ function addAddressToMap(lat, lng, data) {
         	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
+        	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
+        		info += '<div class="fbevent"><a href="' + data["fbevent"] + '" target="_blank">';
+        		info += '<img src="/assets/fbevent.png" alt="Facebook Event" /></a></div>';
+        	}
         	info += '<div style="text-align:center;">';
+        	
         	if ( data["profile"] != undefined ){
         		info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
         		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile"class="box"/></a>&nbsp';
@@ -329,6 +337,9 @@ function addAddressToMap(lat, lng, data) {
 
 
 function foundLocation(position) {
+	user_latitude = position.coords.latitude;
+	user_longitude = position.coords.longitude;
+	
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude;
 	addUser();
