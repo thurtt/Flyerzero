@@ -28,8 +28,8 @@ span#submit_link{
 }
 
 img.branding{
-	position:absolute; 
-	bottom:30px; 
+	position:absolute;
+	bottom:30px;
 	left:0px;
 	z-index:200;
 }
@@ -41,6 +41,20 @@ div#logo {
 div#content {
 }
 div#submission_page{
+	text-align:center;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	overflow:scroll;
+	vertical-align: middle;
+	background-color:#fcfcfc;
+	z-index:100;
+	display:none;
+}
+
+div#about_page{
 	text-align:center;
 	position:absolute;
 	top:0px;
@@ -208,11 +222,11 @@ div#add_link:hover {
 }
 
 .yellow_text {
-	background-color:#f9e101; 
-	border-right:1px solid #222222; 
-	border-left:1px solid #222222; 
-	border-bottom:1px solid #222222; 
-	color: #555555; 
+	background-color:#f9e101;
+	border-right:1px solid #222222;
+	border-left:1px solid #222222;
+	border-bottom:1px solid #222222;
+	color: #555555;
 	text-shadow: #222222 0.03em 0.03em 0.03em}
 }
 
@@ -225,8 +239,8 @@ img.soon {
 	opacity:0.7;
 	filter:alpha(opacity=70); /* For IE8 and earlier */
 }
-span.show_on_map{ 
-	display:block; 
+span.show_on_map{
+	display:block;
 	cursor:pointer;
 	background-color: #dddddd;
 	color:#222222;
@@ -234,24 +248,22 @@ span.show_on_map{
 	margin-left:10px;
 	margin-right:10px;
 	border:1px solid #555;
-	
-	
+
+
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777', endColorstr='#454545'); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from(#aaaaaa), to(#777777)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #777777,  #454545); /* for firefox 3.6+ */ 
+	background: -moz-linear-gradient(top,  #777777,  #454545); /* for firefox 3.6+ */
 }
 
-span.show_on_map:hover{ 
-	display:block; 
+span.show_on_map:hover{
+	display:block;
 	cursor:pointer;
 	background-color: #222222;
 	color:#dddddd;
 }
 
-div.f_element{ 
-	float:left; 
-	width:150px; 
-	text-align:center; 
+div.f_element{
+	float:left;
+	width:150px;
+	text-align:center;
 }
-
-

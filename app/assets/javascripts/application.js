@@ -38,20 +38,30 @@ $(document).ready(function() {
 	$('#map_link').click( function(){
 		$('#board_page').fadeOut("slow", function() {});
 		$('#submission_page').fadeOut("slow", function() {});
+		$('#about_page').fadeOut("slow", function(){});
 	});
 	$('#board_link').click( function(){
 		$('#board_page').fadeIn("slow", function() {});
 		$('#submission_page').fadeOut("slow", function() {});
+		$('#about_page').fadeOut("slow", function(){});
 	});
 
 	$('#submit_link').click( function(){
 		$('#submission_page').fadeIn("slow", function() {});
 		$('#board_page').fadeOut("slow", function() {});
+		$('#about_page').fadeOut("slow", function(){});
 	});
+
 	$('#address').click( function(){
 		$('#address').fadeOut("fast", function() {
 			$('#change_location').fadeIn("fast", function() {});
 		});
+	});
+
+	$('#about_link').click( function(){
+		$('#about_page').fadeIn("slow", function() {});
+		$('#board_page').fadeOut("slow", function() {});
+		$('#submission_page').fadeOut("slow", function(){});
 	});
 
 	$('button.change_location').click( function(){
@@ -220,6 +230,11 @@ function loadFlyerData(lat, lng) {
 		// this will automatically bring up the submission form if we're
 		// editing something
 		setEditMode();
+
+		// Our about presentaion
+		$(function() {
+		    $('#jmpress').jmpress();
+		});
 	});
 
 }
