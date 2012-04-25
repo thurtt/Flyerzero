@@ -106,6 +106,7 @@ div#board_page{
 div.content{
 	text-align:left;
 	padding:40px;
+	padding-bottom:80px;
 }
 
 div.content div.flyers {
@@ -253,5 +254,10 @@ div.f_element{
 	width:150px; 
 	text-align:center; 
 }
-
+div.spacer{
+	float:left; 
+	height:100px;
+	width:90%;
+	text-align:center;
+}
 
