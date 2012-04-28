@@ -28,6 +28,14 @@
   <meta name="google-site-verification" content="ZT5zfsirjSt9UFCOg_XcbTvceY4BKmxrdFkFbG7X-UM" />
   <%end%>
 
+  <script>
+  <% if defined? params[:id] and params[:id] == "about" %>
+	aboutEnable = true;
+  <% else %>
+	aboutEnable = false;
+  <% end %>
+  </script>
+
 </head>
 <body class="primary">
 

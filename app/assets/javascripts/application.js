@@ -61,9 +61,7 @@ $(document).ready(function() {
 	});
 
 	$('#about_link').click( function(){
-		$('#about_page').fadeIn("slow", function() {});
-		$('#board_page').fadeOut("slow", function() {});
-		$('#submission_page').fadeOut("slow", function(){});
+		showAbout();
 	});
 
 	$('button.change_location').click( function(){
@@ -234,10 +232,9 @@ function loadFlyerData(lat, lng) {
 		// editing something
 		setEditMode();
 
-		// Our about presentaion
-		$(function() {
-		    $('#jmpress').jmpress();
-		});
+		if( aboutEnable == true ){
+		    showAbout();
+		}
 	});
 
 }
@@ -301,7 +298,7 @@ function addAddressToMap(lat, lng, data) {
         		info += '<img src="/assets/fbevent.png" alt="Facebook Event" /></a></div>';
         	}
         	info += '<div style="text-align:center;">';
-        	
+
         	if ( data["profile"] != undefined ){
         		info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
         		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile"class="box"/></a>&nbsp';
@@ -339,7 +336,7 @@ function addAddressToMap(lat, lng, data) {
 function foundLocation(position) {
 	user_latitude = position.coords.latitude;
 	user_longitude = position.coords.longitude;
-	
+
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude;
 	addUser();
@@ -552,4 +549,11 @@ function setEditMode(){
 function getSharePoints(verification){
 	$.get('/events/share/' + verification, function(data){} );
 	return true;
+}
+function showAbout(){
+	// Our about presentaion
+	$('#jmpress').jmpress();
+	$('#about_page').fadeIn("slow", function() {});
+	$('#board_page').fadeOut("slow", function() {});
+	$('#submission_page').fadeOut("slow", function(){});
 }

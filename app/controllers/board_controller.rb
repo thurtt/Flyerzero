@@ -123,4 +123,8 @@ class BoardController < ApplicationController
 		render :text=>"success"
 	end
 
+	def about
+		redirect_to :action=>"index", :id=>"about"
+	end
+
 end
