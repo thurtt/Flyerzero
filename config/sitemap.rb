@@ -2,6 +2,7 @@
 SitemapGenerator::Sitemap.default_host = "http://www.flyerzero.com"
 
 SitemapGenerator::Sitemap.create do
+  add '/about'
   add '/profile/view'
   add '/board/flyers'
   # Put links creation logic here.
