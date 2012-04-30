@@ -21,6 +21,6 @@ class MobileController < ApplicationController
 			@now = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		end
 		
-		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media], :methods => [:map_photo, :map_photo_info])
+		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info])
 	end
 end
