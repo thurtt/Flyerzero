@@ -12,7 +12,6 @@ div#about_page{
 	display:none;
 }
 
-
 .slide{
     width: 600px;
     height: 450px;
@@ -20,4 +19,24 @@ div#about_page{
     //border: 1px solid #888888;
     border-radius: 10px;
     color: #dddddd;
+}
+
+div#nav_buttons{
+    position: absolute;
+    z-index:200;
+    bottom: 20px;
+    right: 20px;
+}
+
+div#next_button{
+    float: right;
+}
+div#next_button:hover{
+    cursor: pointer;
+}
+div#prev_button{
+    float: left;
+}
+div#prev_button:hover{
+    cursor: pointer;
 }

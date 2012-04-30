@@ -235,6 +235,14 @@ function loadFlyerData(lat, lng) {
 		if( aboutEnable == true ){
 		    showAbout();
 		}
+
+		// controls for the about page
+		$('#prev_button').click( function(){
+		   $('#jmpress').jmpress( 'prev' );
+		});
+		$('#next_button').click( function(){
+		    $('#jmpress').jmpress( 'next' );
+		});
 	});
 
 }
@@ -552,7 +560,12 @@ function getSharePoints(verification){
 }
 function showAbout(){
 	// Our about presentaion
-	$('#jmpress').jmpress();
+	$('#jmpress').jmpress({
+	    viewPort:{ width: 800,
+		       height: 600,
+		    },
+	    hash:{ use: false }
+	});
 	$('#about_page').fadeIn("slow", function() {});
 	$('#board_page').fadeOut("slow", function() {});
 	$('#submission_page').fadeOut("slow", function(){});

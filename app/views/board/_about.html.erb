@@ -1,7 +1,11 @@
+<div id="nav_container">
+
+</div>
 <div style="width:990px; margin:0 auto;height: 100%;" id="about_area">
+
 	<div id="jmpress" >
 
-	    <div id="start" class="step slide" data-x="-1500" data-y="-1500" data-z="0" >
+	    <div id="start" class="step slide start" data-x="-1500" data-y="-1500" data-z="0" >
 		<h1>Welcome to Flyer Zero!</h1>
 		<img src="/assets/ZedRobotMain.png" />
 		<p>This is our rock robot.</p>
@@ -96,6 +100,10 @@
 	</div>
 
 	<div class="hint">
-	    <p>Use a spacebar or arrow keys to navigate</p>
+	    <p>Use buttons, spacebar, or arrow keys to navigate</p>
+	</div>
+	<div id="nav_buttons">
+	    <div id="prev_button"><%= image_tag "about_prev.png", :alt=>"Previous Slide"%></div>
+	    <div id="next_button"><%= image_tag "about_next.png", :alt=>"Next Slide"%></div>
 	</div>
 </div>
