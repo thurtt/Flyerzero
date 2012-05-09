@@ -41,11 +41,15 @@ $(document).ready(function() {
 		$('#board_page').fadeOut("slow", function() {});
 		$('#submission_page').fadeOut("slow", function() {});
 		$('#about_page').fadeOut("slow", function(){});
+		$('#board_link').show();
+		$('#map_link').hide();
 	});
 	$('#board_link').click( function(){
 		$('#board_page').fadeIn("slow", function() {});
 		$('#submission_page').fadeOut("slow", function() {});
 		$('#about_page').fadeOut("slow", function(){});
+		$('#map_link').show();
+		$('#board_link').hide();
 	});
 
 	$('#submit_link').click( function(){
@@ -58,6 +62,9 @@ $(document).ready(function() {
 		$('#address').fadeOut("fast", function() {
 			$('#change_location').fadeIn("fast", function() {});
 		});
+	});
+	$('img.branding').click( function(){
+			window.location = '/';
 	});
 
 	$('#about_link').click( function(){
