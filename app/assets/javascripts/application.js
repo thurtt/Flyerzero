@@ -360,6 +360,12 @@ function foundLocation(position) {
 
 
 function noLocation() {
+	
+	user_latitude = 38.025208;
+	user_longitude = -78.488517;
+
+	latitude = 38.025208;
+	longitude = -78.488517;
 	loadFlyerData(38.025208, -78.488517);
 }
 
