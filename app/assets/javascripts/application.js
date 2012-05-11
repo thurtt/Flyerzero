@@ -123,6 +123,8 @@ function loadFlyerData(lat, lng) {
 		$('span.show_on_map').click( function(){
 			$('#submission_page').hide("fast", function() {});
 			$('#board_page').fadeOut("slow", function() {});
+				$('#board_link').show();
+				$('#map_link').hide();
 				_marker = markers[$(this).attr( 'flyer_id')];
 				map.setCenter(_marker.getPosition());
 				google.maps.event.trigger(_marker, 'click');
@@ -360,7 +362,7 @@ function foundLocation(position) {
 
 
 function noLocation() {
-	
+
 	user_latitude = 38.025208;
 	user_longitude = -78.488517;
 
