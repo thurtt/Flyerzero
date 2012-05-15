@@ -307,7 +307,8 @@ function addAddressToMap(lat, lng, data) {
         info = '<div style="text-align:center">';
         info += '<a href="' + data["original"] + '" target="_new"><img src="' + data["large"] + '" class="map_flyer_info"></a>';
         if ( data["text"] != undefined ){
-        	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
+        	
+        	info += '<div style="float:right;padding-left:7px;">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
         	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
