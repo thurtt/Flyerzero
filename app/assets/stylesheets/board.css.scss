@@ -227,27 +227,8 @@ img.soon {
 	opacity:0.7;
 	filter:alpha(opacity=70); /* For IE8 and earlier */
 }
-span.show_on_map{
-	display:block;
+img.show_on_map{
 	cursor:pointer;
-	background-color: #dddddd;
-	color:#222222;
-	margin:5px;
-	margin-left:10px;
-	margin-right:10px;
-	border:1px solid #555;
-
-
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#777777', endColorstr='#454545'); /* for IE */
-	background: -webkit-gradient(linear, left top, left bottom, from(#aaaaaa), to(#777777)); /* for webkit browsers */
-	background: -moz-linear-gradient(top,  #777777,  #454545); /* for firefox 3.6+ */
-}
-
-span.show_on_map:hover{
-	display:block;
-	cursor:pointer;
-	background-color: #222222;
-	color:#dddddd;
 }
 
 div.f_element{

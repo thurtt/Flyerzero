@@ -120,7 +120,7 @@ function loadFlyerData(lat, lng) {
 
 		$('#content').html(data);
 
-		$('span.show_on_map').click( function(){
+		$('img.show_on_map').click( function(){
 			$('#submission_page').hide("fast", function() {});
 			$('#board_page').fadeOut("slow", function() {});
 				$('#board_link').show();
@@ -305,9 +305,10 @@ function addAddressToMap(lat, lng, data) {
           content: div
         });
         info = '<div style="text-align:center">';
-        info += '<img src="' + data["large"] + '" class="map_flyer_info">';
+        info += '<a href="' + data["original"] + '" target="_new"><img src="' + data["large"] + '" class="map_flyer_info"></a>';
         if ( data["text"] != undefined ){
-        	info += '<div style="float:right;padding-left:7px;">' + data["text"] + '</div>';
+        	
+        	info += '<div style="float:right;padding-left:7px;">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
         	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
