@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419201524) do
+ActiveRecord::Schema.define(:version => 20120515034132) do
 
   create_table "achievements", :force => true do |t|
     t.string   "email"
@@ -37,6 +37,12 @@ ActiveRecord::Schema.define(:version => 20120419201524) do
     t.string   "venue_id"
     t.text     "media"
     t.string   "fbevent"
+  end
+
+  create_table "uniques", :force => true do |t|
+    t.string   "hash"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
