@@ -27,13 +27,20 @@
 			</td>
 		</tr>
 		<tr>
-			<td><h1>Have Media?</h1></td>
+			<td>
+				<h1>Have Media?</h1>
+				<!--[if IE]><span class="create_helper">Include your Youtube, Soundcloud, or reverbnation iframes here!</span><![endif]-->
+				
+			</td>
 		</tr>
 		<tr>
 			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>4%></td>
 		</tr>
 		<tr>
-			<td><%=f.text_field :fbevent, :placeholder=>"Put your Facebook event URL here!", :class=>"input_text"%></td>
+			<td>
+				<!--[if IE]><span class="create_helper">Add your facebook event URL here!</span><![endif]-->
+				<%=f.text_field :fbevent, :placeholder=>"Put your Facebook event URL here!", :class=>"input_text"%>
+			</td>
 		</tr>
 		<tr>
 		  <td><div class="buttons"><input value="Create" id="submit_event" type="button" %></div></td>
