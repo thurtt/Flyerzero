@@ -34,12 +34,14 @@ class EventsController < ApplicationController
 	end
 
 	def update
-		message = "Your event has been updated!"
+		partial = "update"
 		@event = Event.find_by_id_and_validation_hash( params[:event][:id], params[:event][:validation_hash] )
 		if not @event.update_attributes( params[:event] )
-			message = "Oops! We had a problem saving changes to your event. :("
+			partial = "errors"
 		end
-		redirect_to "/", :notice=>message
+		respond_to do |format|
+			format.html { render :partial=>partial, :locals=>{ :flyer_id=>@event.id } }
+		end
 	end
 
 	def delete
@@ -65,9 +67,9 @@ class EventsController < ApplicationController
 
 	def verify
 		@events = Event.where( 'validation_hash = ?', params[:id] )
-		
+
 		no_cool_points_for_you = false
-				
+
 		flyer = ""
 		if @events != nil
 			@events.each do | event |
@@ -79,9 +81,9 @@ class EventsController < ApplicationController
 				end
 			end
 			email = @events[0].email
-			
+
 			achieve = Achievement.find_by_email(email)
-			
+
 			if no_cool_points_for_you == false
 				#this is the first validation attempt, which is good.
 				if !achieve
@@ -102,7 +104,7 @@ class EventsController < ApplicationController
 		end
 		redirect_to "/#{flyer}", :notice=>message
 	end
-	
+
 	def share
 		@event = Event.find(params[:id])
 		session[:shared] = "" if session[:shared] == nil
@@ -110,7 +112,7 @@ class EventsController < ApplicationController
 			achieve = Achievement.find_by_email(@event.email)
 			if @event.validated && !session[:shared].include?(@event.validation_hash)
 				#this is the first validation attempt, which is good.
-				
+
 				if !achieve
 					achieve = Achievement.new( { :email=>@event.email, :points=>0, :currency=>0 } )
 				end
@@ -124,7 +126,7 @@ class EventsController < ApplicationController
 			message = "Oops! We can't find your event anywhere. Sad day."
 		end
 		render :text=>message
-		
+
 	end
 
 	def authorize

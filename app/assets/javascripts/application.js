@@ -9,33 +9,21 @@
 //= require_tree .
 //= require webshims/minified/extras/modernizr-custom
 //= require webshims/minified/polyfiller
-
-
 var map;
 var latitude;
 var longitude;
 var user_latitude;
 var user_longitude;
 var markers = {};
-var uploadData = {};
-var venueList = {};
 var focusFlyer = '';
-var errorList = [];
-var submitOk = false;
 
 // This shouldn't go in $(document).ready()
 $.webshims.setOptions('basePath', '/assets/webshims/minified/shims/');
 $.webshims.polyfill();
 
 $(document).ready(function() {
+
 	$('div.slideshow img:first').addClass('first');
-
-
-
-	/*$('#submit_link').click( function(){
-		$('#submission_page').fadeToggle("slow", "linear");
-		$('#board_page').fadeToggle("slow", "linear");
-	});*/
 
 	$('#map_link').click( function(){
 		$('#board_page').fadeOut("slow", function() {});
@@ -130,7 +118,6 @@ function loadFlyerData(lat, lng) {
 				google.maps.event.trigger(_marker, 'click');
 		});
 
-
 		$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
 		$('#add_panel input#event_expiry').attr('readonly', 'readonly');
 
@@ -140,80 +127,19 @@ function loadFlyerData(lat, lng) {
 		});
 
 		// submit for new event
-		$('#submit_event').click( function(){
-			    clearErrors();
-			    if( validateForm() ){
-				if( editFlyer ){
-					$('form').submit();
-				} else {
-					uploadData.submit();
-				}
-				$('#message_text').html('');
-				$('#create_wait').show();
-				$('#form_content').fadeOut(function(){
-					$('#message_content').fadeIn();
-				});
-			    }
-		});
+		$('#submit_event').click(submitEvent);
 
 		// autocomplete for event location
 		$( "#event_loc" ).autocomplete({
 			minLength: 3,
-			source: function(req, add){
-
-			    // fire off our wait icon
-			    $('#search_wait').show();
-
-			    //pass request to server
-			    $.getJSON("/board/venue", req, function(data) {
-
-				//create array for response objects
-				var suggestions = [];
-
-				//process response
-				venueList = data;
-				$.each(venueList, function(i, val){
-				    venueName = formatLocationText( val.name, val.address, val.cross_street );
-				    venueLabel = formatListItem( val.name, val.address, val.cross_street );
-				    suggestions.push({ label: venueLabel, value: venueName});
-				});
-
-				//pass array to callback
-				add(suggestions);
-
-				// remove wait icon
-				$('#search_wait').hide();
-			    });
-			},
-
-			select: function(e, ui) {
-				// whichever item is selected, we need to record lat and lng info for it
-				$.each(venueList, function(i, val){
-					if( formatLocationText( val.name, val.address, val.cross_street) == ui.item.value){
-					    $('#venue_icon').attr( 'src',  val.icon );
-					    $('#venue_icon').show();
-					    $('#venue_name').html( val.name );
-					    $('#venue_location').html( ( val.address ? val.address : '' ) + ( val.cross_street ? ' ( ' + val.cross_street + ' )' : '' ));
-					    $('#event_lat').val( val.lat );
-					    $('#event_lng').val( val.lng );
-					    $('#event_venue_id').val( val.venue_id );
-					}
-				});
-			},
-
-			open: function(event, ui){
-				$("ul.ui-autocomplete li a").each(function(){
-					var htmlString = $(this).html().replace(/&lt;/g, '<');
-					htmlString = htmlString.replace(/&gt;/g, '>');
-					$(this).html(htmlString);
-				});
-			}
+			source: function(req, add){venueSearch(req, add);},
+			select: function(e, ui) {selectVenue(e, ui)},
+			open: function(event, ui){useVenue(event, ui)}
 		});
 
 		// used for drag and drop file uploads
-		$(function () {
-			attachFileUploader();
-		});
+		attachFileUploader();
+
 		$('#clone_event').click( function(){
 			attachFileUploader();
 			$('#event_event_id').val( eventId );
@@ -256,7 +182,6 @@ function loadFlyerData(lat, lng) {
 
 }
 
-
 function initialize_map() {
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
@@ -266,8 +191,8 @@ function initialize_map() {
 	map.setCenter(new google.maps.LatLng(38.025208, -78.488517), 1);
 	var timeoutVal = 10 * 1000 * 1000;
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation,{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 });
-
 }
+
 function clearMap() {
 	if (markers) {
 		for (var i in markers) {
@@ -284,6 +209,7 @@ function closeInfoWindows() {
 		}
 	}
 }
+
 function addUser() {
 	marker = addAddressToMap(user_latitude, user_longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
 	markers["0"] = marker;
@@ -307,7 +233,7 @@ function addAddressToMap(lat, lng, data) {
         info = '<div style="text-align:center">';
         info += '<a href="' + data["original"] + '" target="_new"><img src="' + data["large"] + '" class="map_flyer_info"></a>';
         if ( data["text"] != undefined ){
-        	
+
         	info += '<div style="float:right;padding-left:7px;">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
@@ -335,7 +261,6 @@ function addAddressToMap(lat, lng, data) {
 		content: info
 	});
 
-
         google.maps.event.addListener(locationmarker, 'click', function() {
                 closeInfoWindows();
 		map.setZoom(16);
@@ -345,11 +270,9 @@ function addAddressToMap(lat, lng, data) {
 
         locationmarker.infowindow = infowindow;
 
-
 	map.setCenter(point, 13);
 	return locationmarker;
 }
-
 
 function foundLocation(position) {
 	user_latitude = position.coords.latitude;
@@ -361,7 +284,6 @@ function foundLocation(position) {
 	loadFlyerData(latitude, longitude);
 }
 
-
 function noLocation() {
 
 	user_latitude = 38.025208;
@@ -372,208 +294,15 @@ function noLocation() {
 	loadFlyerData(38.025208, -78.488517);
 }
 
-function createImagePreview( fileObj ) {
-      $('#dragdrop_content').css('display', 'none');
-      $('#dragdrop_text').hide();
-      $('#dragdrop_content').removeClass('drapdrop_area');
-      window.loadImage(
-	    fileObj,
-	    function (image) {
-		if( image.type === "error" ){
-		    //skippy
-		}else{
-		    stuff = $('#flyer_photo').html( image );
-		}
-		$('#dragdrop_content').fadeIn();
-	    },
-	    {maxWidth: 400, maxHeight: 500}
-      );
-}
-
-function formatListItem( name, address, crossStreet ){
-    formatStr = '<div class="venue_name">' + name + '</div>';
-    if( address || crossStreet ){
-	formatStr += '<div class="venue_details">'
-	if( address ){
-	    formatStr += address;
-	}
-	if( crossStreet ){
-	    formatStr += ' (' + crossStreet + ')';
-	}
-	formatStr += '</div>';
-    }
-    return formatStr;
-}
-function formatLocationText( name, address, crossStreet ){
-    formatStr = name
-    if( address ){
-	formatStr += ' ' + address;
-    }
-    if( crossStreet ){
-	formatStr += ' (' + crossStreet + ')';
-    }
-    return formatStr;
-}
-
 function MoveTo( id, x, y, func ){
     $(id).animate( { left: x, top: y }, 'swing', func );
 }
 
-function clearForm(){
-    $('#event_email').val('');
-    $('#event_expiry').val('');
-    $('#event_loc').val('');
-    $('#event_fbevent').val('');
-    $('#flyer_photo').html('');
-    $('#venue_icon').attr('src', '');
-    $('#venue_name').html('');
-    $('#venue_location').html('No venue chosen');
-    $('#venue_icon').hide();
-    uploadData = {};
-}
-
-function attachFileUploader(){
-	if( !supportsDragDrop() ){
-		$('#dragdrop_support').hide();
-	}
-	if( !supportsPreview() ) {
-		$('#no_preview').show();
-	}
-    $('#image_upload').fileupload({
-	dataType: 'html',
-	url: '/events/create',
-	dropZone: $('#dragdrop_content'),
-	add: function( e, data ) {
-	    $.each(data.files, function (index, file) {
-		uploadData = data;
-		if( supportsPreview() ){
-			createImagePreview( file );
-		}
-		$('#chosen_file').html( file.name );
-	    });
-
-	},
-	done: function( e, data ){
-	    processResponse( data.result );
-	},
-	error: function( e, data ){
-	    submitOk = false;
-	    processResponse( '<h1>A really ugly error has occurred :(</h1><p>We probably cocked something up pretty bad, but we will fix it right away!</p>');
-	}
-    });
-}
-
-function validateForm(){
-
-    validated = true;
-
-    // check to see if an image has been selected
-    if ( !uploadData.submit && !editFlyer ){
-	//$('#dragdrop_text').addClass( 'error_text' );
-	addError( $('#dragdrop_content') );
-	validated = false;
-    }
-
-    // check for a valid email address
-    if($('#event_email').val().length <= 0) {
-	addError( $('#event_email') );
-	validated = false;
-    }
-
-    // check for a valid date
-    if( $('#event_expiry').val().length <= 0 ) {
-	addError( $('#event_expiry') );
-	validated = false;
-    }
-
-    // check for a valid location
-    if( $('#event_venue_id').val().length <= 0 ) {
-	addError( $('#event_loc') );
-	validated = false;
-    }
-
-    return validated;
-}
-
-function addError( item ){
-	item.addClass( 'error_bg' );
-	errorList.push( item );
-}
-
-function clearErrors(){
-	$.each(errorList, function(i, val) {
-	    val.removeClass( 'error_bg' );
-	});
-	errorList = [];
-}
-
-function processResponse( text ){
-    $('#response_container').hide();
-    $('#create_wait').fadeOut(function(){
-	    $('#message_text').html( text );
-	    if( submitOk ){
-		$('#response_container').fadeIn();
-	    } else {
-		$('#decision_widget').hide();
-		$('#response_container').fadeIn();
-		$('#message_content').delay( 8000 ).fadeOut(function(){
-		    $('#form_content').fadeIn()
-		    $('#decision_widget').show();
-		    $('#response_container').hide();
-		});
-	    }
-    });
-}
-
-function supportsDragDrop(){
-	if ( window.FileReader ) {
-		return true;
-	}
-	return false;
-}
-
-function supportsPreview(){
-	if( window.File && window.FileReader && window.FileList && window.Blob ){
-		return true;
-	}
-	return false;
-}
-function setEditMode(){
-    if( editFlyer ){
-	    // clean up our dragdrop area
-	    $('#dragdrop_text').hide();
-	    $('#dragdrop_content').removeClass('drapdrop_area');
-
-	    // change the button text
-	    $('#submit_event').val("Update Event");
-
-	    // Format the ugly old Mysql date
-	    date = $.datepicker.parseDate( 'yy-mm-dd', $('#event_expiry').val() );
-	    $('#event_expiry').val( $.datepicker.formatDate( 'D, dd M yy', date ) );
-
-	    // show the venue information
-	    $('#venue_icon').show();
-	    /*$.get('/board/venue_by_id/' + $('#event_venue_id').val(), function( data ){
-		    $('#venue_icon').attr( 'src',  data.icon );
-		    $('#venue_icon').show();
-		    $('#venue_name').html( data.name );
-		    $('#venue_location').html( data.address + ( data.cross_street ? ' ( ' + data.cross_street + ' )' : '' ));
-	    });*/
-
-	    // change up the submission controller method
-	    $('form').attr('action', '/events/update');
-	    $('form').removeAttr('data-remote');
-
-
-	    // show the submission form
-	    $('#submission_page').fadeIn("slow", function() {});
-	    $('#board_page').fadeOut("slow", function() {});
-    }
-}
 function getSharePoints(verification){
 	$.get('/events/share/' + verification, function(data){} );
 	return true;
 }
+
 function showAbout(){
 	// Our about presentaion
 	$('#jmpress').jmpress({
