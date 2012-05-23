@@ -34,18 +34,8 @@ set :rvm_type, :system
 # This line runs the bundler
 require "bundler/capistrano"
 
-# and this block compiles the asset pipeline
-namespace :deploy do
-  task :asset_compile_digest do
-    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake assets:precompile:primary"
-    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake assets:precompile:nondigest"
-  end
-end
-namespace :deploy do
-  task :asset_compile_nondigest do
-    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake assets:precompile:nondigest"
-  end
-end
+# and this line compiles the asset pipeline
+load 'deploy/assets'
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -63,4 +53,4 @@ task :refresh_sitemaps do
   run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
 end
 
-after "deploy", "deploy:asset_compile_digest", "deploy:asset_compile_nondigest", "deploy:migrate", "refresh_sitemaps"
+after "deploy", "deploy:migrate", "refresh_sitemaps"
