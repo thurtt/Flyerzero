@@ -13,13 +13,13 @@ Paperclip.interpolates('escaped_filename') do |attachment, style|
   s.gsub!(/'/, '')
 
   # Replace any non-letter or non-number character with a space
-  s.gsub!(/[^A-Za-z0-9]+/, ' ')
+  #s.gsub!(/[^A-Za-z0-9_]+/, ' ')
 
   # Remove spaces from beginning and end of string
   s.strip!
 
   # Replace groups of spaces with single hyphen
-  s.gsub!(/\ +/, '-')
+  #s.gsub!(/\ +/, '-')
 
   return s + "." + extension(attachment, style)
 
