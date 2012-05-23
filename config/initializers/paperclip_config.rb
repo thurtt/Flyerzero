@@ -1,7 +1,7 @@
 # Use the escaped_filename for all attachments
 Paperclip::Attachment.default_options.merge!(
-  :path => ":rails_root/public/:attachment/:id/:style/:escaped_filename",
-  :url =>  "/:attachment/:id/:style/:escaped_filename")
+  :path => ":rails_root/public/system/:attachment/:id/:style/:escaped_filename",
+  :url =>  "/system/:attachment/:id/:style/:escaped_filename")
 
 
 # ensure that escaped_filename for all attachments is actually escaped
