@@ -37,6 +37,17 @@ require "bundler/capistrano"
 # and this line compiles the asset pipeline
 load 'deploy/assets'
 
+# override the double compile
+Rake::Task['assets:precompile:all'].clear
+namespace :assets do
+  namespace :precompile do
+    task :all do
+      Rake::Task['assets:precompile:primary'].invoke
+      # ruby_rake_task("assets:precompile:nondigest", false) if Rails.application.config.assets.digest
+    end
+  end
+end
+
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
