@@ -34,17 +34,16 @@ set :rvm_type, :system
 # This line runs the bundler
 require "bundler/capistrano"
 
-# and this line compiles the asset pipeline
-load 'deploy/assets'
-
-# override the double compile
-Rake::Task['assets:precompile:all'].clear
-namespace :assets do
-  namespace :precompile do
-    task :all do
-      Rake::Task['assets:precompile:primary'].invoke
-      # ruby_rake_task("assets:precompile:nondigest", false) if Rails.application.config.assets.digest
-    end
+# and this block compiles the asset pipeline
+namespace :deploy do
+  task :asset_compile_digest do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake assets:precompile:primary"
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake assets:precompile:nondigest"
+  end
+end
+namespace :deploy do
+  task :asset_compile_nondigest do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake assets:precompile:nondigest"
   end
 end
 
@@ -64,4 +63,4 @@ task :refresh_sitemaps do
   run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
 end
 
-after "deploy", "deploy:migrate", "refresh_sitemaps"
+after "deploy", "deploy:asset_compile_digest", "deploy:asset_compile_nondigest", "deploy:migrate", "refresh_sitemaps"
