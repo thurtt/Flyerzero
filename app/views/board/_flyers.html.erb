@@ -3,7 +3,7 @@
 </div>
 
 <div id="submission_page">
-	<div style="width:990px; margin:0 auto;height: 100%;" id="form_area">
+	<div style="width:990px; margin:0 auto;height: 100%;padding-bottom:40px;" id="form_area">
 		<div class="yellow_text" style="font-size:3.0em;">Submit your flyer.</div>
 		<div id="form_content">
 			<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true" ) do |f| %>
@@ -13,6 +13,7 @@
 		</div>
 		<%= render :partial=>"events/message_panel" %>
 	</div>
+
 </div>
 
 <div id="about_page">

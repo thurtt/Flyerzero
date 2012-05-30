@@ -14,7 +14,7 @@ class BoardController < ApplicationController
 
 			#@origin = Geokit::Geocoders::MultiGeocoder.geocode('YOUR ADDRESS HERE')
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode @origin
-			session[:origin] = res.full_address
+			set_session_location(res)
 		end
 
 		session[:ll] = @origin.ll
@@ -25,8 +25,7 @@ class BoardController < ApplicationController
 	def updateme
 		if params[:lat] != nil && params[:lat] != ''
 			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [params[:lat], params[:lng]]
-			session[:origin] = res.full_address
-
+			set_session_location(res)
 
 			#@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
 			@origin = Geokit::LatLng.new(params[:lat], params[:lng])
@@ -36,8 +35,6 @@ class BoardController < ApplicationController
 
 		end
 	end
-
-
 
 	def index
 
@@ -56,7 +53,8 @@ class BoardController < ApplicationController
 			# this makes it so everyone can see it
 			if @flyer
 			    res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [@flyer.lat, @flyer.lng]
-			    session[:origin] = res.full_address
+			    set_session_location(res)
+
 			    @origin = Geokit::LatLng.new(@flyer.lat, @flyer.lng)
 			    session[:ll] = @origin.ll
 			end
@@ -82,9 +80,16 @@ class BoardController < ApplicationController
 		      render :json=>[] and return
 		end
 
+		# if we're searching in a different location, override the session's location
+		if params[:ll]
+		  ll = params[:ll]
+		else
+		  ll = session[:ll]
+		end
+
 		# foursquare autocomplete endpoint
 		endpoint = 'https://api.foursquare.com/v2/venues/suggestcompletion'
-		response = RestClient.get endpoint, {:params=>{ :ll=>session[:ll],
+		response = RestClient.get endpoint, {:params=>{ :ll=>ll,
 						      :v=>'20120411',
 						      :query=>params[:term],
 						      :limit=>15,
@@ -110,6 +115,12 @@ class BoardController < ApplicationController
 		render :json=> venues
 	end
 
+	def get_location
+		location = Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
+		puts location.inspect
+		render :json=>location
+	end
+
 	def change_location
 		#todo here -- get address from submission
 		# geoloc to get long/lat,
@@ -125,6 +136,12 @@ class BoardController < ApplicationController
 
 	def about
 		redirect_to :action=>"index", :id=>"about"
+	end
+
+	def set_session_location(res)
+		session[:origin] = res.full_address
+		session[:city] = res.city
+		session[:state] = res.state
 	end
 
 end

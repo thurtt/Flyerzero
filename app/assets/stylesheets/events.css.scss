@@ -348,3 +348,32 @@ div#dragdrop_text {
 	margin:10px;
 	font-size:0.8em;
 }
+.search_area{
+    font-size: 0.75em;
+    padding-left: 20px;
+    height: 30px;
+}
+span#venue_search_location{
+    color: #000000;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    background: #eeeeee;
+}
+
+span#venue_search_location:hover{
+    cursor: pointer;
+    background: #cccccc;
+}
+
+span#venue_search_location_edit{
+    display: none;
+}
+
+div#submission_footer{
+    margin-top: 50px;
+    vertical-align: middle;
+    color: #000000;
+}

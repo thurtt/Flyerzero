@@ -16,10 +16,14 @@
 			<td><h1>Where is it?</h1></td>
 		</tr>
 		<tr>
-			<td><input class="input_text" id="event_loc" placeholder="Search local venues"><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></td>
+			<td class="search_area">
+			    Zero in on:
+			    <span id="venue_search_location"><%=session[:city]%>, <%=session[:state]%></span>
+			    <span id="venue_search_location_edit"><input name="location" value="<%=session[:city]%>, <%=session[:state]%>"></span>
+			</td>
 		</tr>
 		<tr>
-			<td class="foursquare_image"><%= image_tag "foursquare_small.png" %></td>
+			<td><input class="input_text" id="event_loc" placeholder="Search for venues"><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></td>
 		</tr>
 		<tr>
 			<td class="offset" style="height:50px;">
@@ -30,7 +34,7 @@
 			<td>
 				<h1>Have Media?</h1>
 				<!--[if IE]><span class="create_helper">Include your Youtube, Soundcloud, or reverbnation iframes here!</span><![endif]-->
-				
+
 			</td>
 		</tr>
 		<tr>

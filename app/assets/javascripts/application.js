@@ -178,6 +178,24 @@ function loadFlyerData(lat, lng) {
 		$('#next_button').click( function(){
 		    $('#jmpress').jmpress( 'next' );
 		});
+
+		$('#venue_search_location').click(function(){
+		    $(this).hide();
+		    $('#venue_search_location_edit').show();
+		    $('#venue_search_location_edit input').select();
+		    $('#venue_search_location_edit input').focus();
+		});
+
+		$('#venue_search_location_edit input').blur(function(){
+		    updateSearchLocation();
+		});
+
+		$('#venue_search_location_edit input').keypress( function(event){
+		    var keycode = (event.keyCode ? event.keyCode : event.which);
+		    if(keycode == '13'){
+			updateSearchLocation();
+		    }
+		});
 	});
 
 }

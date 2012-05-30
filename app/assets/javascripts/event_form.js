@@ -2,6 +2,7 @@ var venueList = {};
 var errorList = [];
 var submitState = 'error';
 var uploadData = {};
+var venue_search_ll = '';
 
 
 // *** Form Cleanup ****
@@ -248,6 +249,9 @@ function venueSearch( req, add ){
     // fire off our wait icon
     $('#search_wait').show();
 
+    if(venue_search_ll != ''){
+	req['ll'] = venue_search_ll;
+    }
     //pass request to server
     $.getJSON("/board/venue", req, function(data) {
 
@@ -291,4 +295,22 @@ function useVenue(event, ui){
 	htmlString = htmlString.replace(/&gt;/g, '>');
 	$(this).html(htmlString);
     });
+}
+
+function updateSearchLocation(){
+    if($('#venue_search_location').html() != $('#venue_search_location_edit input').val() ){
+	$.getJSON('board/get_location', { 'location': $('#venue_search_location_edit input').val() },
+		  function(data){
+			if(data['city'] == null){
+			    $('#venue_search_location').html('Location not found :(');
+			} else {
+			    venue_search_ll = data['lat'] + ', ' + data['lng'];
+			    $('#venue_search_location_edit input').val(data['city'] + ', ' + data['state']);
+			    $('#venue_search_location').html(data['city'] + ', ' + data['state']);
+			}
+		  });
+	$('#venue_search_location').html('Changing location...');
+    }
+    $('#venue_search_location_edit').hide();
+    $('#venue_search_location').show();
 }
