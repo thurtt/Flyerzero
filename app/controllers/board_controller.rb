@@ -104,8 +104,8 @@ class BoardController < ApplicationController
 				       :lng=>venue["location"]["lng"],
 				       :venue_id=>venue["id"],
 				       :icon=> proc do
-						if venue["category"]
-						      icon = venue["category"]["icon"]["prefix"] + venue["category"]["icon"]["sizes"][0].to_s + venue["category"]["icon"]["name"]
+						if venue["categories"][0]
+						      icon = venue["categories"][0]["icon"]["prefix"] + venue["categories"][0]["icon"]["sizes"][0].to_s + venue["categories"][0]["icon"]["name"]
 						else
 						      icon = nil
 						end
