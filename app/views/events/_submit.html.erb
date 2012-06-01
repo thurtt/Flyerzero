@@ -4,13 +4,19 @@
 			<td><h1>Whose Shindig? (email)</h1></td>
 		</tr>
 		<tr>
-			<td><%=f.email_field :email, :placeholder=>"Your email address", :class=>"input_text" %></td>
+			<td>
+			  <%=f.email_field :email, :placeholder=>"Your email address", :class=>"input_text",
+			    :data=>{:help=>"We will send you an email that will allow you to activate, edit, or delete your event. Your event won't appear on Flyer Zero until you activate it."}
+			  %>
+			</td>
 		</tr>
 		<tr>
 			<td><h1>When?</h1></td>
 		</tr>
 		<tr>
-			<td><%=f.text_field :expiry, :placeholder=>"Event date", :class=>"input_text"%></td>
+			<td><%=f.text_field :expiry, :placeholder=>"Event date", :class=>"input_text",
+			:data=>{:help=>"Enter the date for the event here. If you have a flyer with multiple dates, just add the first date here, and you will get a chance to use the flyer for other events after you create the first one."}
+			%></td>
 		</tr>
 		<tr>
 			<td><h1>Where is it?</h1></td>
@@ -23,7 +29,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><input class="input_text" id="event_loc" placeholder="Search for venues"><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></td>
+			<td><input class="input_text" id="event_loc" placeholder="Search for venues" data-help="Search uses the power of Foursquare&reg; to find venues in your area. You can change the search location by clicking on the city name and typing in the name of a new place."><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></td>
 		</tr>
 		<tr>
 			<td class="offset" style="height:50px;">
@@ -38,12 +44,16 @@
 			</td>
 		</tr>
 		<tr>
-			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>4%></td>
+			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>4,
+			:data=>{:help=>"If you have samples of music your music on a site like soundcloud or reverberation, video of your event, or any other media that you would like to include with your flyer, you can add the iframe html code here. Each site has a different way to generate the code, but it&apos;s usually tied to a &quot;share&quot; link on the site."}
+			%></td>
 		</tr>
 		<tr>
 			<td>
 				<!--[if IE]><span class="create_helper">Add your facebook event URL here!</span><![endif]-->
-				<%=f.text_field :fbevent, :placeholder=>"Put your Facebook event URL here!", :class=>"input_text"%>
+				<%=f.text_field :fbevent, :placeholder=>"Put your Facebook event URL here!", :class=>"input_text",
+				:data=>{:help=>"If you have created an event on Facebook, you can include the URL to your Facebook event here, and a link to it will be included with your flyer."}
+				%>
 			</td>
 		</tr>
 		<tr>
@@ -57,4 +67,15 @@
 	<% end %>
 
 
+</div>
+<div id="submit_help">
+    <div class="help_bubble">
+	<table style="border-collapse:collapse;">
+	    <tr>
+	    <td id="help_icon"><%= image_tag "hal.png"%></td>
+	    <td id="help_contents"></td>
+	    </tr>
+	</table>
+    </div>
+    <div class="help_arrow"></div>
 </div>

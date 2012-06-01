@@ -377,3 +377,53 @@ div#submission_footer{
     vertical-align: middle;
     color: #000000;
 }
+
+div#submit_help{
+    display:none;
+    position: absolute;
+    left: 250px;
+    top: 100px;
+    z-index: 999;
+}
+.help_bubble{
+    position: relative;
+    width: 400px;
+    border-radius: 10px;
+    font-size: 0.95em;
+    border: 2px solid black;
+    background: #222222;
+    color: #000000;
+    padding: 0px;
+    float: left;
+}
+
+/* create an arrow that points right */
+.help_arrow {
+  position: relative;
+  width:0px;
+  height:0px;
+  border-bottom:15px solid transparent;  /* left arrow slant */
+  border-top:15px solid transparent; /* right arrow slant */
+  border-left:20px solid #222222; /* bottom, add background color here */
+  font-size:0px;
+  line-height:0px;
+  left: -2px;
+  top: 15px;
+  float: left;
+}
+
+#help_icon{
+    background: -webkit-gradient(linear, left top, left bottom, from(#555555), to(#222222));
+    background: -moz-linear-gradient(top, #555555, #222222);
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+#help_contents{
+    background: #f9f9f9;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#eeeeee));
+    background: -moz-linear-gradient(top, #ffffff, #dddddd);
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

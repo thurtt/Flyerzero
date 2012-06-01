@@ -196,6 +196,17 @@ function loadFlyerData(lat, lng) {
 			updateSearchLocation();
 		    }
 		});
+
+		$('.input_text').click(function(){
+		    offset = $(this).offset();
+		    $('#submit_help').css('top', (offset.top - 15) + $('#submission_page').scrollTop());
+		    $('#help_contents').html($(this).attr('data-help'));
+		    $('#submit_help').fadeIn('medium');
+		});
+
+		$('.input_text').blur(function(){
+		    $('#submit_help').hide();
+		});
 	});
 
 }
