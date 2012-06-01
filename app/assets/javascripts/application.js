@@ -200,6 +200,7 @@ function loadFlyerData(lat, lng) {
 		$('.input_text').click(function(){
 		    offset = $(this).offset();
 		    $('#submit_help').css('top', (offset.top - 15) + $('#submission_page').scrollTop());
+		    $('#submit_help').css('left', offset.left - 425);
 		    $('#help_contents').html($(this).attr('data-help'));
 		    $('#submit_help').fadeIn('medium');
 		});
