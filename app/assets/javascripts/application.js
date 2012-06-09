@@ -269,7 +269,7 @@ function addAddressToMap(lat, lng, data) {
         if ( data["flyer_id"] != undefined ){
         	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
         		var event_url = "";
-        		if ( data["fbevent"].indexOf("http:") < 0 ){
+        		if ( data["fbevent"].indexOf("http") < 0 ){
         			event_url = 'http://';
         		}
         		event_url += data["fbevent"];
