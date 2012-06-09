@@ -268,7 +268,12 @@ function addAddressToMap(lat, lng, data) {
         }
         if ( data["flyer_id"] != undefined ){
         	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
-        		info += '<div class="fbevent"><a href="' + data["fbevent"] + '" target="_blank">';
+        		var event_url = "";
+        		if ( data["fbevent"].indexOf("http:") < 0 ){
+        			event_url = 'http://';
+        		}
+        		event_url += data["fbevent"];
+        		info += '<div class="fbevent"><a href="' + event_url + '" target="_blank">';
         		info += '<img src="/assets/fbevent.png" alt="Facebook Event" /></a></div>';
         	}
         	info += '<div style="text-align:center;">';
