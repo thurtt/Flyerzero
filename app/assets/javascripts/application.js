@@ -264,11 +264,16 @@ function addAddressToMap(lat, lng, data) {
         info += '<a href="' + data["original"] + '" target="_new"><img src="' + data["large"] + '" class="map_flyer_info"></a>';
         if ( data["text"] != undefined ){
 
-        	info += '<div style="float:right;padding-left:7px;">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
+        	info += '<div style="float:right;padding-left:7px;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
         }
         if ( data["flyer_id"] != undefined ){
         	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
-        		info += '<div class="fbevent"><a href="' + data["fbevent"] + '" target="_blank">';
+        		var event_url = "";
+        		if ( data["fbevent"].indexOf("http") < 0 ){
+        			event_url = 'http://';
+        		}
+        		event_url += data["fbevent"];
+        		info += '<div class="fbevent"><a href="' + event_url + '" target="_blank">';
         		info += '<img src="/assets/fbevent.png" alt="Facebook Event" /></a></div>';
         	}
         	info += '<div style="text-align:center;">';
