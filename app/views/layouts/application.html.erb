@@ -56,7 +56,7 @@
     	<span class="control_links" style="padding:3px; padding-right:10px; float:right;">
     		<span id='map_link' class="box menu_item" style="display:none;">The Zero Map</span>
     		<span id='board_link' class="box menu_item">The Zero Board</span> |
-    		<span id='submit_link' class="box menu_item">Submit a Flyer</span> 
+    		<span id='submit_link' class="box menu_item">Submit a Flyer</span>
     		<div class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></div>
     	</span>
     	</div>
@@ -70,6 +70,9 @@
 	<%end%>
 
 <%= yield %>
+
+<!-- Google Analytics -->
+<%= render :partial => Ôlayouts/gaÕ if RAILS_ENV == ÔproductionÕ %>
 
 </body>
 </html>
