@@ -72,7 +72,7 @@
 <%= yield %>
 
 <!-- Google Analytics -->
-<%= render :partial => Ôlayouts/gaÕ if RAILS_ENV == ÔproductionÕ %>
+<%= render :partial => "layouts/ga" if RAILS_ENV == "production" %>
 
 </body>
 </html>
