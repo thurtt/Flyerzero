@@ -34,11 +34,41 @@
   <% else %>
 	aboutEnable = false;
   <% end %>
+  
+  var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i) ? true : false;
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i) ? true : false;
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+    }
+};
+
+
   </script>
 
 </head>
 <body class="primary">
-
+<script
+  <!-- load intent -->
+  if( isMobile.any() ){
+  ifrm = document.createElement("IFRAME"); 
+   ifrm.setAttribute("src", "flyerzero://event/<%=params[:flyer]%>"); 
+   ifrm.style.width = "0px"; 
+   ifrm.style.height = "0px"; 
+   ifrm.style.display = "none";
+   document.body.appendChild(ifrm); 
+   }
+  </script>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
