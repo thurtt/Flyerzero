@@ -21,8 +21,12 @@ class MobileController < ApplicationController
 		if @now.length < 1
 			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		end
+		
+		for f in @now
+			f.distance_from_object = ll
+		end
 
-		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info])
+		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from])
 	end
 
 	def flyer

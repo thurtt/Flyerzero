@@ -11,6 +11,13 @@ class Event < ActiveRecord::Base
 			:medium => "400x500>",
 			:large =>   "600x750>" }
 			
+	attr_accessor :distance_from_object
+			
+	def get_distance_from(point = nil)
+		point ||= distance_from_object
+		return distance_from(point)
+	end
+	
 	def isrecent?
 		return true if expiry < DateTime.now.beginning_of_day + 2.day
 		return false
