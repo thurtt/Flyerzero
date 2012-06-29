@@ -16,7 +16,7 @@
   <meta property="og:title" content="Flyer Zero Event"/>
   <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
   <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:medium)%>"/>
-  <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= foursquare_venue_name event.venue_id %>" />
+  <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%>" />
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
   </script>
@@ -34,7 +34,7 @@
   <% else %>
 	aboutEnable = false;
   <% end %>
-  
+
   var isMobile = {
     Android: function() {
         return navigator.userAgent.match(/Android/i) ? true : false;
@@ -61,12 +61,12 @@
 <script
   <!-- load intent -->
   if( isMobile.any() ){
-  ifrm = document.createElement("IFRAME"); 
-   ifrm.setAttribute("src", "flyerzero://event/<%=params[:flyer]%>"); 
-   ifrm.style.width = "0px"; 
-   ifrm.style.height = "0px"; 
+  ifrm = document.createElement("IFRAME");
+   ifrm.setAttribute("src", "flyerzero://event/<%=params[:flyer]%>");
+   ifrm.style.width = "0px";
+   ifrm.style.height = "0px";
    ifrm.style.display = "none";
-   document.body.appendChild(ifrm); 
+   document.body.appendChild(ifrm);
    }
   </script>
 <div id="fb-root"></div>
