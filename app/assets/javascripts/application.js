@@ -88,6 +88,8 @@ function changeLocation( location ) {
 	$.get('/board/change_location/?location=' + location, function(data) {
 		$('#address').html(data);
 		$('input#new_location').val('');
+		$('#board_link').show();
+		$('#map_link').hide();
 	});
 }
 

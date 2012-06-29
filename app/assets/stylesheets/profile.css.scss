@@ -1,7 +1,6 @@
 // Place all the styles related to the profile controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 .profile{
 	background: #fdfdfd;
 	padding:20px;
@@ -29,4 +28,7 @@
 }
 .twtr-ft{
 	display:none !important;
+}
+.body_profile{
+    overflow: auto !important;
 }
