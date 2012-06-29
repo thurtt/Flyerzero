@@ -50,7 +50,7 @@ namespace :deploy do
 end
 
 task :update_permissions do
-    run "#{try_sudo} chmod -R g+w #{latest_release}/public/system/photos/*"
+    sudo "chmod -R g+w #{latest_release}/public/system/photos/*"
 end
 
 task :refresh_sitemaps do
