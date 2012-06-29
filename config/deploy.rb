@@ -49,8 +49,12 @@ namespace :deploy do
    end
 end
 
+task :update_permissions do
+    run "#{try_sudo} chmod -R g+w #{latest_release}/public/system/photos/*"
+end
+
 task :refresh_sitemaps do
   run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
 end
 
-after "deploy", "deploy:migrate", "refresh_sitemaps"
+after "deploy", "deploy:migrate", "update_permissions", "refresh_sitemaps"
