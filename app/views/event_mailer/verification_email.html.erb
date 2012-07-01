@@ -34,7 +34,7 @@
                 <tr>
                     <td>Location:</td>
                 </tr>
-		<%= foursquare_venue @event.venue_id %> 
+		<%= foursquare_venue @event%>
 	    </table>
 	    <h2>Your Profile</h2>
 	    <%= image_tag gravatar_url( @event.email, :r=>'pg', :d=>'mm' ), :alt=>"Gravatar!"%>

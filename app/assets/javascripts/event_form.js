@@ -248,12 +248,13 @@ function formatLocationText( name, address, crossStreet ){
 function venueSearch( req, add ){
     // fire off our wait icon
     $('#search_wait').show();
+    $('#foursquare_search_error').hide();
 
     if(venue_search_ll != ''){
 	req['ll'] = venue_search_ll;
     }
     //pass request to server
-    $.getJSON("/board/venue", req, function(data) {
+    var jqxhr = $.getJSON("/board/venue", req, function(data) {
 
 	//create array for response objects
 	var suggestions = [];
@@ -271,6 +272,11 @@ function venueSearch( req, add ){
 
 	// remove wait icon
 	$('#search_wait').hide();
+    })
+    .error(function(){
+	// remove wait icon
+	$('#search_wait').hide();
+	 $('#foursquare_search_error').show().delay(30000).fadeOut();
     });
 }
 

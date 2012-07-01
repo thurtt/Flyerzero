@@ -32,8 +32,11 @@
 			<td><input class="input_text" id="event_loc" placeholder="Search for venues" data-help="Search uses the power of Foursquare&reg; to find venues in your area. You can change the search location by clicking on the city name and typing in the name of a new place."><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></td>
 		</tr>
 		<tr>
+			<td><div id="foursquare_search_error">There was a problem connecting to the Foursquare venue search service. Unfortunately, you will not be able to submit a flyer until the service is back up. :(</div></td>
+		</tr>
+		<tr>
 			<td class="offset" style="height:50px;">
-			      <%= foursquare_venue( @event.venue_id ) %>
+			      <%= foursquare_venue( @event ) %>
 			</td>
 		</tr>
 		<tr>
