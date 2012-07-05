@@ -86,6 +86,7 @@ $(document).bind('drop dragover', function (e) {
 function changeLocation( location ) {
 	$('input#new_location').val('Changing location...');
 	$.get('/board/change_location/?location=' + location, function(data) {
+		focusFlyer = "";
 		$('#address').html(data);
 		$('input#new_location').val('');
 		$('#board_link').show();
