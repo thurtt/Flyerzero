@@ -61,6 +61,7 @@ GEM
       faraday (>= 0.6, < 0.8)
       faraday_middleware (>= 0.8)
       hashie (~> 1.0)
+    gabba (0.3.0)
     geokit (1.6.5)
       multi_json
     geokit-rails3 (0.1.5)
@@ -168,6 +169,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   execjs
   foursquare2
+  gabba
   geokit-rails3
   jquery-rails
   json
