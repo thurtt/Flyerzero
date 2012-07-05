@@ -5,7 +5,7 @@ class MobileController < ApplicationController
 	end
 
 	def flyers
-		Gabba::Gabba.new("UA-31288505-1", "www.flyerzero.com").event("Mobile", "Flyers", "", "", true)
+		Gabba::Gabba.new("UA-31288505-1", "http://www.flyerzero.com").page_view("Mobile", "mobile/flyers")
 		if params[:lat] != nil && params[:lat] != ''
 			ll = Geokit::LatLng.new(params[:lat], params[:lng])
 		end
@@ -30,7 +30,7 @@ class MobileController < ApplicationController
 	end
 
 	def flyer
-		Gabba::Gabba.new("UA-31288505-1", "www.flyerzero.com").event("Mobile", "Flyer", "", "", true)
+		Gabba::Gabba.new("UA-31288505-1", "http://www.flyerzero.com").page_view("Mobile", "mobile/flyer")
 		if params[:id]
 			@flyer = Event.find(params[:id]) if Event.exists?(params[:id])
 			render :json=>@flyer.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info])
@@ -42,7 +42,7 @@ class MobileController < ApplicationController
 	end
 
 	def found_user
-		Gabba::Gabba.new("UA-31288505-1", "www.flyerzero.com").event("Mobile", "Found User", "", "", true)
+		Gabba::Gabba.new("UA-31288505-1", "http://www.flyerzero.com").page_view("Mobile", "mobile/found_user")
 		result = { :status=>"Error updating Achievement", :points=>0, :currency=>0 }
 	  	if params[:email] && params[:email] != "undefined" && params[:event_id] && params[:foursquare_id]
 			achieve = Achievement.find_by_email(params[:email])
