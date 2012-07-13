@@ -4,50 +4,49 @@ var currentMarker = null;
 function PreviousMarker(){
     var curfound = false;
     if (currentMarker != null){
-        if (markers) {
-            for (var i in markers) {
+        if (oMarkers) {
+            for (var i in oMarkers) {
                 if (curfound == true){
-                    SetViewedMarker(i);
+                    SetViewedMarker(oMarkers[i]);
                     return;
                 }
-                if (i == currentMarker){
+                if (oMarkers[i] == currentMarker){
                     curfound = true;
                 }
             }
         }
         
     }
-    for (var i in markers){
-        SetViewedMarker(i);
+    for (var i in oMarkers){
+        SetViewedMarker(oMarkers[i]);
         return;
     }
     
 }
 
 function NextMarker(){
+	
+	var reversed = [];
+	reversed = oMarkers.slice(0);
+	reversed.reverse();
+	
     var curfound = false;
-    var keys = new Array();
-    
-    for (var k in markers) {
-        keys.unshift(k);
-    }
-    
     if (currentMarker != null){
-        if (markers) {
-            for (var c = keys.length, n = 0; n < c; n++) {
+        if (reversed) {
+            for (var i in reversed) {
                 if (curfound == true){
-                    SetViewedMarker(keys[n]);
+                    SetViewedMarker(reversed[i]);
                     return;
                 }
-                if (keys[n] == currentMarker){
+                if (reversed[i] == currentMarker){
                     curfound = true;
                 }
             }
         }
         
     }
-    for (var c = keys.length, n = 0; n < c; n++){
-        SetViewedMarker(keys[n]);
+    for (var i in reversed){
+        SetViewedMarker(reversed[i]);
         return;
     }
     
@@ -57,15 +56,15 @@ function ResetViewedMarker(){
     $('span#flyer_distance').html("0mi");
 }
 function SetViewedMarker(marker){
-    $('span#flyer_distance').html(markers[marker].distance.toFixed(2) + "mi");
-    markers[marker].setZIndex(9999);
+    $('span#flyer_distance').html(marker.distance.toFixed(2) + "mi");
+    marker.setZIndex(9999);
     map.setZoom(17);
-    map.setCenter(markers[marker].getPosition());
+    map.setCenter(marker.getPosition());
     if (currentMarker != null) {
-        markers[currentMarker].setZIndex(9998);
+        marker.setZIndex(9998);
     }
     currentMarker = marker;
-    google.maps.event.trigger(markers[marker], 'click');
+    google.maps.event.trigger(marker, 'click');
 }
 
 function ZoomIn(){

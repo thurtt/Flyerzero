@@ -15,6 +15,7 @@ var longitude;
 var user_latitude;
 var user_longitude;
 var markers = {};
+var oMarkers = [];
 var foursquare_markers = {};
 var focusFlyer = '';
 
@@ -249,6 +250,7 @@ function clearMap() {
 			markers[i].setMap(null);
 		}
 		markers = {};
+		oMarkers = [];
 	}
 	if (foursquare_markers) {
 		for (var i in foursquare_markers) {
