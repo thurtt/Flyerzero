@@ -44,5 +44,10 @@ module Flyerzero
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # don't load the app while precompiling
+    config.assets.initialize_on_precompile = false
+
+    config.assets.precompile += ['zerobox.js', 'zerobox.css']
   end
 end
