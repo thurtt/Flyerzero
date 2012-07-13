@@ -235,6 +235,7 @@ function initialize_map() {
 
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
           zoom: 15,
+          disableDefaultUI: true,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 	map.setCenter(new google.maps.LatLng(38.025208, -78.488517), 1);
