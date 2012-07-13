@@ -79,6 +79,18 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
     <div id="map_canvas" style="width: 100%; height: 100%; position:absolute; top:0; left:0;"></div>
+    
+          <div id="map_overlay">
+              <span id="flyer_distance">Loading...</span><br/>
+              <img id="map_navigation" src="/assets/map_overlay.png" usemap="#gmapui" style="display:none;">
+                  <map name="gmapui">
+                      <area id="previous" shape="rect" coords="6,55,55,6" alt="Previous Event" />
+                      <area id="zoomIn" shape="rect" coords="56,25,106,0" alt="Zoom In" />
+                      <area id="zoomOut" shape="rect" coords="56,56,106,32" alt="Zoom Out" />
+                      <area id="next" shape="rect" coords="107,55,157,6" alt="Next Event" />
+                  </map>
+          </div>
+          
     <%=image_tag 'mainlogo-text.png', :class=>"branding"%>
     <div id="userzero" class=''>
     	<span style="padding:3px;padding-left:10px; float:left;">Your Zero: <span id="address" class="box menu_item">Unknown.</span>

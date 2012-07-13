@@ -15,6 +15,7 @@ var longitude;
 var user_latitude;
 var user_longitude;
 var markers = {};
+var foursquare_markers = {};
 var focusFlyer = '';
 
 // This shouldn't go in $(document).ready()
@@ -72,6 +73,17 @@ $(document).ready(function() {
 			}
 		}
 	});
+	$('area#zoomIn').unbind();
+	    $('area#zoomOut').unbind();
+	    $('area#previous').unbind();
+	    $('area#next').unbind();
+	  
+	    
+	    $('area#zoomIn').click( function(){ZoomIn();});
+	    $('area#zoomOut').click( function(){ZoomOut();});
+	    $('area#previous').click( function(){PreviousMarker();});
+	    $('area#next').click( function(){NextMarker();});
+	    
 
 	initialize_map();
 	//setTimeout( "initialize_map();", 3000);
@@ -100,6 +112,8 @@ function loadFlyerData(lat, lng) {
 	} else {
 	    url = '/board/flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng;
 	}
+	
+	$('span#flyer_distance').html("Loading Flyers...");
 	$.get( url ,function(data) {
 
 		// clear out any old form stuff
@@ -211,6 +225,8 @@ function loadFlyerData(lat, lng) {
 		$('.input_text').blur(function(){
 		    $('#submit_help').hide();
 		});
+              $('span#flyer_distance').html("0mi");
+              $('img#map_navigation').show();
 	});
 
 }
@@ -233,6 +249,12 @@ function clearMap() {
 		}
 		markers = {};
 	}
+	if (foursquare_markers) {
+		for (var i in foursquare_markers) {
+			foursquare_markers[i].setMap(null);
+		}
+		foursquare_markers = {};
+	}
 }
 
 function closeInfoWindows() {
@@ -241,17 +263,24 @@ function closeInfoWindows() {
 			markers[i].infowindow.close();
 		}
 	}
+	
+	if (foursquare_markers) {
+		for (var i in foursquare_markers) {
+			foursquare_markers[i].infowindow.close();
+		}
+	}
 }
 
 function addUser() {
 	marker = addAddressToMap(user_latitude, user_longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
-	markers["0"] = marker;
+	foursquare_markers["0"] = marker;
 }
 
 function addAddressToMap(lat, lng, data) {
 	point = new google.maps.LatLng(lat,lng);
 
         var locationmarker;
+        var distance = 100;
 	var div = document.createElement('DIV');
         div.innerHTML = '<div class="map_flyer box"><img src="' + data["small"] + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
 
@@ -269,6 +298,11 @@ function addAddressToMap(lat, lng, data) {
 
         	info += '<div style="float:right;padding-left:7px;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
         }
+        
+        if (data["get_distance_from"] != undefined){
+        	distance = parseFloat(data["get_distance_from"]);
+    	}
+    
         if ( data["flyer_id"] != undefined ){
         	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
         		var event_url = "";
@@ -307,6 +341,7 @@ function addAddressToMap(lat, lng, data) {
         });
 
         locationmarker.infowindow = infowindow;
+        locationmarker.distance = distance;
 
 	map.setCenter(point, 13);
 	return locationmarker;

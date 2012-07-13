@@ -77,6 +77,11 @@ class BoardController < ApplicationController
 		if @now.length < 1
 			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		end
+		
+		for f in @now
+			f.distance_from_object = session[:ll]
+		end
+		
 		render :partial=>"flyers"
 	end
 
