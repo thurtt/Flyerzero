@@ -55,3 +55,34 @@
     float: left;
 }
 
+/***** 
+calendar
+*****/
+
+div#calendar{
+	height:600px;
+	width:600px;
+}
+.fc-event-skin{
+	background:none;
+	border:0px;
+	display:none;
+}
+.fc-event-title{
+	display:none;
+}
+.fc-widget-header{
+	border-top:none !important;
+	border-right:none !important;
+	border-left:none !important;
+}
+.fc-header {
+	background:none;
+}
+
+.fc-content th{
+	color:#888;
+}
+.fc-content td{
+	background:#f8f8f8;
+}
