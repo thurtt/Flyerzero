@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515034132) do
+ActiveRecord::Schema.define(:version => 20120716143236) do
 
   create_table "achievements", :force => true do |t|
     t.string   "email"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20120515034132) do
     t.integer  "currency"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gravatar_hash"
   end
 
   create_table "events", :force => true do |t|
