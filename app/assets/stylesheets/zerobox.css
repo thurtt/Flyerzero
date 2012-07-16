@@ -60,11 +60,12 @@ img {
 /***** 
 calendar
 *****/
-
 div#calendar{
 	height:600px;
 	width:600px;
 	margin:auto;
+	padding:20px;
+
 }
 .fc-event-skin{
 	background:none;
@@ -72,7 +73,7 @@ div#calendar{
 	//display:none;
 }
 .fc-event-title{
-	//display:none;
+	display:none;
 }
 .fc-widget-header{
 	border-top:none !important;
@@ -82,12 +83,15 @@ div#calendar{
 .fc-header {
 	background:none;
 }
-
+.fc-widget-content{
+}
 .fc-content th{
 	color:#888;
 }
 .fc-content td{
-	background:#f8f8f8;
+	background:white;
+	opacity:0.75;
+	filter:alpha(opacity=75); /* For IE8 and earlier */
 }
 .fc-item{
 	display:block;
@@ -98,6 +102,7 @@ div#calendar{
 	width:84px;
 }
 .fc-item .myday{
+	display:none;
 	padding:4px;
 	text-align:right;
 	display:block;
