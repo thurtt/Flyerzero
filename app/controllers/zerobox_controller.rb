@@ -44,7 +44,7 @@ class ZeroboxController < ApplicationController
 	
 		  email = Achievement.find(promoter_id).email
 		  @flyers = Event.where(:email=>email).where('validated > 0').order('expiry') if all
-		  @flyers = Event.where(:email=>email).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry') if !all
+		  @flyers = Event.where(:email=>email).where('validated > 0').where(['expiry >= ? && expiry <= ?', params[:start], params["end"]]).order('expiry') if !all
 	  end
 	  
 	  if params[:venue_id]

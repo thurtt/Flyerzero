@@ -12,14 +12,24 @@ $(document).ready(function() {
     $('#calendar').fullCalendar({
     		    
     dayClick: function() {
-        alert($(this).find('.fc-day-number').html());
+        //alert($(this).find('.fc-day-number').html());
     },
     		    
     eventRender: function(event, element, view) {
-    	    $('.fc-day' + (event['expiry'].split('-')[2] - 1)).css('background',"url("+event['imgURL']+")");
-    	    $('.fc-day' + (event['expiry'].split('-')[2] - 1)).css('textShadow','-1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black');
-    	    $('.fc-day' + (event['expiry'].split('-')[2] - 1)).css('color',"#fff");
-    	element = null;
+    	    /*
+    	    if (event.start.getMonth() != view.start.getMonth()) {
+		    $('.fc-other-month.fc-day' + (event['expiry'].split('-')[2] - 1)).css('background',"url("+event['imgURL']+")");
+		    $('.fc-other-month.fc-day' + (event['expiry'].split('-')[2] - 1)).css('textShadow','-1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black');
+		    $('.fc-other-month.fc-day' + (event['expiry'].split('-')[2] - 1)).css('color',"#fff");
+    	    }
+    	    else {
+		    $('.fc-day' + (event['expiry'].split('-')[2] - 1)).css('background',"url("+event['imgURL']+")");
+		    $('.fc-day' + (event['expiry'].split('-')[2] - 1)).css('textShadow','-1px 0 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black');
+		    $('.fc-day' + (event['expiry'].split('-')[2] - 1)).css('color',"#fff");
+    	    }*/
+    	    element.html("<div class='fc-item'><span class='myday'>"+ (event['expiry'].split('-')[2] ) + "</span></div>");
+    	    element.find("div").css('background',"url("+event['imgURL']+")");
+    	//element = null;
     },
     events: function(start, end, callback) {
     	    $('.fc-widget-content').css('color','black');
@@ -29,8 +39,11 @@ $(document).ready(function() {
             url: refresh_url,
             dataType: 'json',
             data: {
-                start: Math.round(start.getTime() / 1000),
+                /*start: Math.round(start.getTime() / 1000),
                 end: Math.round(end.getTime() / 1000)
+                */
+                start: $.fullCalendar.formatDate( start, "yyyy-MM-dd" ),
+                end: $.fullCalendar.formatDate( end, "yyyy-MM-dd" )
             },
             success: function(doc) {
                 var events = [];
