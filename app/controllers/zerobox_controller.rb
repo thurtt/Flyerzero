@@ -49,21 +49,21 @@ class ZeroboxController < ApplicationController
 		  if result
 			email = result[0].email
 			@flyers = Event.where(:email=>email).where('validated > 0').order('expiry') if all
-			@flyers = Event.where(:email=>email).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry') if !all
+			@flyers = Event.where(:email=>email).where('validated > 0').where(['expiry >= ? && expiry <= ?', params[:start], params["end"]]).order('expiry') if !all
 		  end
 	  end
 
 	  if params[:venue_id]
 		venue_id = params[:venue_id]
 		refresh_url = "/zerobox/calendar?venue_id=" + params[:venue_id] + "&size=" + params[:size]
-		@flyers = Event.where(:venue_id=>venue_id).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
+		@flyers = Event.where(:venue_id=>venue_id).where('validated > 0').where(['expiry >= ? && expiry <= ?', params[:start], params["end"]]).order('expiry')
 	  end
 
 	  if params[:ll]
 	  	  ll = params[:ll]
   	  	  refresh_url = "/zerobox/calendar?ll=" + params[:ll] + "&size=" + params[:size] + "&radius=" + params[:radius]
 	  	  radius = params[:radius]
-	  	  @flyers = Event.within(radius, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
+	  	  @flyers = Event.within(radius, :origin => ll).where('validated > 0').where(['expiry >= ? && expiry <= ?', params[:start], params["end"]]).order('expiry')
 	  end
 
 	  respond_to do |format|
