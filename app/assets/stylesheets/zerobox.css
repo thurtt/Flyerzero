@@ -1,4 +1,6 @@
-
+img {
+	border:0px;
+}
 .header{
     width: 400px;
     padding-top: 5px;

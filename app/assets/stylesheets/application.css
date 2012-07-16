@@ -5,7 +5,9 @@
  *= require_self
  *= require_tree . 
 */
-
+img {
+	border:0px;
+}
 .box {
 	-moz-border-radius: 7px;
 	border-radius: 7px;
