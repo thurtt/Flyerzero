@@ -60,16 +60,17 @@ img {
 /***** 
 calendar
 *****/
-
 div#calendar{
 	height:600px;
-	width:600px;
+	width:595px;
 	margin:auto;
+	padding:20px;
+
 }
 .fc-event-skin{
 	background:none;
 	border:0px;
-	display:none;
+	//display:none;
 }
 .fc-event-title{
 	display:none;
@@ -82,10 +83,38 @@ div#calendar{
 .fc-header {
 	background:none;
 }
-
+.fc-widget-content{
+}
 .fc-content th{
 	color:#888;
 }
 .fc-content td{
-	background:#f8f8f8;
+	background:white;
+	opacity:0.75;
+	filter:alpha(opacity=75); /* For IE8 and earlier */
 }
+.fc-item{
+	display:block;
+	position:absolute; 
+	top:-21px;
+	left:-3px;
+	height:69px;
+	width:84px;
+}
+.fc-item .myday{
+	display:none;
+	padding:4px;
+	text-align:right;
+	display:block;
+	height:50%;
+	background: -moz-linear-gradient(top,  rgba(68,68,68,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(68,68,68,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(68,68,68,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(68,68,68,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(68,68,68,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(68,68,68,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6444444', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+
+	color:white;
+}
+
