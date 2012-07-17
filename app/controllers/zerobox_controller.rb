@@ -2,39 +2,8 @@ class ZeroboxController < ApplicationController
   def index
 
   end
-
-  def promoter
-    	  # Promoter: slideshow all promoter events, or just ones coming up
-	  # promoter_id
-	  # all
-
-	  # sanity check
-	  if !params[:promoter_hash] or !params[:size] or !params[:all]
-		# not ok
-	  end
-
-	  template = "zerobox/slideshow"
-
-	  if params[:calendar] == "1"
-	  	  template = "zerobox/calendar"
-	  end
-
-	  promoter_hash = params[:promoter_hash]
-	  all = params[:all]
-	  @size = params[:size]
-
-	  result = Achievement.where(:gravatar_hash=>promoter_hash)
-	  if result
-		email = result[0].email
-		@flyers = Event.where(:email=>email).where('validated > 0').order('expiry') if all
-		@flyers = Event.where(:email=>email).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry') if !all
-	  end
-	  render :template=>template
-
-  end
-
+  
   def calendar
-
   	  if !params[:size]
   	  	  #not ok
   	  end
@@ -70,38 +39,27 @@ class ZeroboxController < ApplicationController
 	  	  format.html { render :template=>"zerobox/calendar", :locals=>{:refresh_url=>refresh_url}}
 	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info]) }
 	  end
-
-
   end
-
-  def venue
-	  # Venue: Show all upcoming shows at a venue
-	  # foursqaure venue id
-	  if !params[:venue_id] or !params[:size]
-		# broken
-	  end
-
-	  @size = params[:size]
-	  venue_id = params[:venue_id]
-	  @flyers = Event.where(:venue_id=>venue_id).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
-	  render :template=>"zerobox/slideshow"
-  end
-
 
   def box
-
-	  # Zero Box, etc: Show all upcoming events within a certain radius
-	  # radius if no venue id
-	  # ll if no venue id
-	  if !params[:ll] or !params[:radius] or !params[:size]
-		# uh oh
-	  end
-
-	  ll = params[:ll]
-	  radius = params[:radius]
+  	  if !params[:size]
+  	  	  #not ok
+  	  end
+	  all = params[:all]
 	  @size = params[:size]
 
-	  @flyers = Event.within(radius, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
-	  render :template=>"zerobox/slideshow"
+	  # A promoter slideshow
+	  @flyers = Event.valid_by_promoter(params[:promoter_hash]) if params[:promoter_hash] and all
+	  @flyers = Event.current_and_valid_by_promoter(params[:promoter_hash]) if params[:promoter_hash] and !all
+
+	  # A point-radius slideshow
+	  @flyers = Event.current_and_valid_by_ll_and_radius(params[:ll], params[:radius]) if params[:ll]
+
+	  # A venue oriented slideshow
+	  @flyers = Event.current_and_valid_by_venue(params[:venue_id]) if params[:venue_id]
+
+	  respond_to do |format|
+	  	  format.html { render :template=>"zerobox/slideshow", :locals=>{:refresh_url=>refresh_url}}
+	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info]) }
+	  end
   end
-end
