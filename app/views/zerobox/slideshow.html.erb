@@ -2,13 +2,13 @@
 <div id="widget" class="slideshow_container">
     <% @flyers.each do |flyer| %>
 	<div>
-	    <div class="header gradientbg">
+	    <div class="header_<%=@size%> gradientbg">
 		<%= flyer.expiry.strftime('%m/%d/%Y') %>
 	    </div>
-	    <div class="flyer">
-		<%= image_tag(flyer.photo.url(@size), :size=>"400x500") unless flyer.photo.nil? %>
+	    <div class="flyer_<%=@size%>">
+		<%= image_tag(flyer.photo.url(@size), :size=>size_in_pixels(@size)) unless flyer.photo.nil? %>
 	    </div>
-	    <div id="" class="footer gradientbg">
+	    <div id="" class="footer_<%=@size%> gradientbg">
 		 <%= foursquare_venue(flyer) %>
 	    </div>
 	</div>

@@ -1,7 +1,7 @@
 <div class="venue_widget">
-  <img class="venue_icon" src="<%= venue[:icon] %>"></img>
+  <%if @size != "small" %><img class="venue_icon" src="<%= venue[:icon] %>"></img><% end %>
   <div class="venue_container">
 	  <div class="venue_name"><%= venue[:name] %></div>
-	  <div class="venue_location"><%= venue[:location] %></div>
+	  <%if @size != "small" %><div class="venue_location"><%= venue[:location] %></div><% end %>
   </div>
 </div>

@@ -1,7 +1,7 @@
 img {
 	border:0px;
 }
-.header{
+.header_medium{
     width: 400px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -12,7 +12,29 @@ img {
     border-top-right-radius: 10px;
 }
 
-.footer{
+.header_large{
+    width: 600px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #cdcdcd;
+    font-size: 1.1em;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header_small{
+    width: 130px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #cdcdcd;
+    font-size: 0.8em;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.footer_medium{
     width: 400px;
     color: #cdcdcd;
     font-size: 1.1em;
@@ -23,9 +45,41 @@ img {
     padding-top: 10px;
     padding-bottom: 10px;
 }
+.footer_large{
+    width: 600px;
+    color: #cdcdcd;
+    font-size: 1.1em;
+    text-align: center;
+    height: 35px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.footer_small{
+    width: 130px;
+    color: #cdcdcd;
+    font-size: 0.8em;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-.flyer{
+.flyer_small{
     background: #0f0f0f;
+    width: 130px;
+}
+
+.flyer_medium{
+    background: #0f0f0f;
+    width: 400px;
+}
+
+.flyer_large{
+    background: #0f0f0f;
+    width: 600px;
 }
 
 .gradientbg{
@@ -47,6 +101,7 @@ img {
 .venue_container{
     float: left;
     text-align: left;
+    margin-left: 5px;
 }
 
 .venue_location{
@@ -57,7 +112,7 @@ img {
     float: left;
 }
 
-/***** 
+/*****
 calendar
 *****/
 div#calendar{
@@ -95,7 +150,7 @@ div#calendar{
 }
 .fc-item{
 	display:block;
-	position:absolute; 
+	position:absolute;
 	top:-21px;
 	left:-3px;
 	height:69px;
@@ -117,4 +172,3 @@ div#calendar{
 
 	color:white;
 }
-

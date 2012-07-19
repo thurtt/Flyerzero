@@ -42,7 +42,7 @@ class ZeroboxController < ApplicationController
 	  @flyers = Event.by_venue(params[:venue_id]).is_valid.is_current if params[:venue_id]
 
 	  respond_to do |format|
-	  	  format.html { render :template=>"zerobox/slideshow"}
+		  format.html { render :template=>"zerobox/slideshow"}
 	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info]) }
 	  end
   end
