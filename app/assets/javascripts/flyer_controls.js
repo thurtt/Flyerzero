@@ -56,7 +56,7 @@ function ResetViewedMarker(){
     $('span#flyer_distance').html(formatDistance(0));
 }
 function SetViewedMarkerNoClick(marker){
-    $('span#flyer_distance').html(marker.distance.toFixed(2) + "mi");
+    $('span#flyer_distance').html(formatDistance(marker.distance));
     marker.setZIndex(9999);
     map.setZoom(17);
     map.setCenter(marker.getPosition());
