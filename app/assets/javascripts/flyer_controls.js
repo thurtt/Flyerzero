@@ -55,6 +55,17 @@ function ResetViewedMarker(){
     currentMarker = null;
     $('span#flyer_distance').html("0mi");
 }
+function SetViewedMarkerNoClick(marker){
+    $('span#flyer_distance').html(marker.distance.toFixed(2) + "mi");
+    marker.setZIndex(9999);
+    map.setZoom(17);
+    map.setCenter(marker.getPosition());
+    if (currentMarker != null) {
+        currentMarker.setZIndex(9998);
+    }
+    currentMarker = marker;
+}
+
 function SetViewedMarker(marker){
     $('span#flyer_distance').html(marker.distance.toFixed(2) + "mi");
     marker.setZIndex(9999);
