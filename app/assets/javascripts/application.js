@@ -285,7 +285,7 @@ function addAddressToMap(lat, lng, data) {
         var locationmarker;
         var distance = 100;
 	var div = document.createElement('DIV');
-        div.innerHTML = '<div class="map_flyer box"><img src="' + data["small"] + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
+        div.innerHTML = '<div class="map_flyer"><img src="' + data["large"] + '" class="map_flyer"><div class="arrow-down"></div></div>';
 
         locationmarker = new RichMarker({
           map: map,
@@ -338,6 +338,7 @@ function addAddressToMap(lat, lng, data) {
 
         google.maps.event.addListener(locationmarker, 'click', function() {
                 closeInfoWindows();
+            
 		map.setZoom(16);
 		map.setCenter(locationmarker.getPosition());
 		infowindow.open(map,locationmarker);

@@ -60,8 +60,8 @@ div.map_data iframe {
 }
 
 img.map_flyer{
-	height:50px;
-	width:40px;
+	height:100px;
+	width:80px;
 }
 img.map_flyer_info{
 	height:250px;
@@ -82,13 +82,13 @@ div.overlay{
 .arrow-down {
 	width: 0;
 	height: 0;
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
 
-	border-top: 6px solid #999999;
+	border-top: 10px solid #999999;
 	position:absolute;
-	bottom: -3px;
-	left:21px;
+	bottom: -7px;
+	left:41px;
 	
 }
 
