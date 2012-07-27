@@ -276,17 +276,17 @@ function closeInfoWindows() {
 }
 
 function addUser() {
-	marker = addAddressToMap(user_latitude, user_longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'});
+	marker = addAddressToMap(user_latitude, user_longitude, { small: '/assets/user_small.png', large: '/assets/user.png', text: 'We think you are physically here. <br /> <br />Philosophically, though, is another matter.'}, true);
 	foursquare_markers["0"] = marker;
 }
 
-function addAddressToMap(lat, lng, data) {
+function addAddressToMap(lat, lng, data, person) {
 	point = new google.maps.LatLng(lat,lng);
 
         var locationmarker;
         var distance = 100;
 	var div = document.createElement('DIV');
-        div.innerHTML = '<div class="map_flyer box"><img src="' + data["small"] + '" class="map_flyer"><div class="overlay box"></div><div class="arrow-down"></div></div>';
+        div.innerHTML = '<div class="map_flyer"><img src="' + data["large"] + '" class="map_flyer"><div class="arrow-down"></div></div>';
 
         locationmarker = new RichMarker({
           map: map,
@@ -298,37 +298,45 @@ function addAddressToMap(lat, lng, data) {
         });
         info = '<div style="text-align:center">';
         info += '<a href="' + data["original"] + '" target="_new"><img src="' + data["large"] + '" class="map_flyer_info"></a>';
-        if ( data["text"] != undefined ){
-
-        	info += '<div style="float:right;padding-left:7px;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe")).html() + '</div>';
+        if ( person ) {
         }
-
-        if (data["get_distance_from"] != undefined){
-        	distance = parseFloat(data["get_distance_from"]);
-    	}
-
-        if ( data["flyer_id"] != undefined ){
-        	if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
-        		var event_url = "";
-        		if ( data["fbevent"].indexOf("http") < 0 ){
-        			event_url = 'http://';
-        		}
-        		event_url += data["fbevent"];
-        		info += '<div class="fbevent"><a href="' + event_url + '" target="_blank">';
-        		info += '<img src="/assets/fbevent.png" alt="Facebook Event" /></a></div>';
-        	}
-        	info += '<div style="text-align:center;">';
-
-        	if ( data["profile"] != undefined ){
-        		info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
-        		info += '<img src="' + data["gravatar"] + '" alt="Submitter Profile"class="box"/></a>&nbsp';
-        	}
-        	info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank" onclick="return getSharePoints(\'' + data["flyer_id"] + '\');">';
-        	info += '<img src="/assets/facebook_share.png" alt="Facebook"/></a>&nbsp';
-
-        	info += '<a href="https://twitter.com/share?url=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '" target="_blank">';
-        	info += '<img src="/assets/twitter_share.png" alt="Twitter"/></a>&nbsp';
-        	info += '</div>';
+        else {
+		if ( data["text"] != '' ){
+	
+			info += '<div style="float:right;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe").first()).html() + '</div>';
+		}
+		else {
+	
+			info += '<div style="float:right;" class="map_data"><div class="alert_header"><br /><br /><br />This promoter hasn\'t<br />included any media yet!<br /><br /></div></div>';
+		}
+		
+		if (data["get_distance_from"] != undefined){
+			distance = parseFloat(data["get_distance_from"]);
+		}
+	    
+		if ( data["flyer_id"] != undefined ){
+	
+			if ( data["profile"] != undefined ){
+				info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
+				info += '<div style="background-image:url(\'' + data["gravatar"] + '&s=200\'); background-position: 0px -60px;" class="bullet_button"><div class="bullet_text">Promoter</div></div></a>';
+			}
+			if ( (data["fbevent"] != undefined ) && ( data["fbevent"] != "" )){
+				var event_url = "";
+				if ( data["fbevent"].indexOf("http") < 0 ){
+					event_url = 'http://';
+				}
+				event_url += data["fbevent"];
+				info += '<a href="' + event_url + '" target="_blank">';
+				info += '<div style="background-image:url(\'/assets/fb_rsvp.png\');" class="bullet_button"><div class="bullet_text">RSVP</div></div></a>';
+			}
+			else {
+				info += '<div class="bullet_button"><div class="bullet_fail">No event link</div></div>';
+			}
+			/*
+			info += '<a href="http://www.facebook.com/sharer.php?&u=http://www.flyerzero.com/?flyer=' + data["flyer_id"] + '&t=Flyer Zero Event" target="_blank" onclick="return getSharePoints(\'' + data["flyer_id"] + '\');">';
+			info += '<div style="background-image:url(\'/assets/fb_scrn.png\');" class="bullet_button"><div class="bullet_text">SHARE</div></div></a>';
+			*/
+		}
         }
         info += '</div>'
 
@@ -336,16 +344,24 @@ function addAddressToMap(lat, lng, data) {
 	{
 		content: info
 	});
+	locationmarker.flyer_id = data["flyer_id"];
+        locationmarker.distance = distance;
+        locationmarker.person = person;
 
         google.maps.event.addListener(locationmarker, 'click', function() {
                 closeInfoWindows();
-		map.setZoom(16);
-		map.setCenter(locationmarker.getPosition());
-		infowindow.open(map,locationmarker);
+                if ( person == false) {
+                	history.pushState({foo: "bar"}, "Flyer Zero", "?flyer=" + locationmarker.flyer_id);
+                	SetViewedMarkerNoClick(locationmarker);
+                	infowindow.open(map,locationmarker);
+                }
+                else {
+                	history.pushState({foo: "bar"}, "Flyer Zero", "/");
+                	map.setCenter(locationmarker.getPosition());
+                }
         });
 
         locationmarker.infowindow = infowindow;
-        locationmarker.distance = distance;
 
 	map.setCenter(point, 13);
 	return locationmarker;
