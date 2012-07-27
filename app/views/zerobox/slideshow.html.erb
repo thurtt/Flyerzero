@@ -3,7 +3,7 @@
     <% @flyers.each do |flyer| %>
 	<div>
 	    <div class="header_<%=@size%> gradientbg">
-		<%= flyer.expiry.strftime('%m/%d/%Y') %>
+		<%= flyer.expiry.strftime('%a, %d %b %Y') %>
 	    </div>
 	    <div class="flyer_<%=@size%>">
 		<%= image_tag(flyer.photo.url(@size), :size=>size_in_pixels(@size)) unless flyer.photo.nil? %>
