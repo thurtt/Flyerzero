@@ -138,6 +138,7 @@ div.event{
 	position:relative;
 	text-align:center;
 	background:white;
+	border:1px solid #ddd;
 }
 
 img.flyer_info{
