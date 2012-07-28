@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+	include ApplicationHelper
+	
 	belongs_to :event
 	acts_as_mappable
 	validates_presence_of :email
@@ -37,5 +39,13 @@ class Event < ActiveRecord::Base
 
 	def map_photo_info
 		photo.url(:medium)
+	end
+	
+	def gravatar
+		gravatar_url(email)
+	end
+	
+	def promoter
+		Achievement.find_by_email(email).id
 	end
 end

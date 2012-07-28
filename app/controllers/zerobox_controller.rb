@@ -20,7 +20,7 @@ class ZeroboxController < ApplicationController
 
 	  respond_to do |format|
 	  	  format.html { render :template=>"zerobox/calendar"}
-	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info]) }
+	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter]) }
 	  end
   end
 
@@ -43,7 +43,7 @@ class ZeroboxController < ApplicationController
 
 	  respond_to do |format|
 		  format.html { render :template=>"zerobox/slideshow"}
-	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info]) }
+	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter]) }
 	  end
   end
 end
