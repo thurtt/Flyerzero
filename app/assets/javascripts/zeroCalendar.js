@@ -4,7 +4,7 @@ function loadCalendar(_url){
 	
 	
     refresh_url = _url;
-    $('body').append("<div id='calendar'></div><div id='day_detail'></div>");
+    $('body').append("<div class='container'><div id='calendar'></div></div><div class='container'><div id='day_detail'></div></div>");
     
     $('#calendar').fullCalendar({
     		    
@@ -74,8 +74,14 @@ function getForDay(date, _url){
                 		
                 });
                 map = '<img src="http://maps.googleapis.com/maps/api/staticmap?' + map_markers + 'zoom=14&size=600x300&key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=true" class="bullet_map"/>';
-		whole = '<div class="event">' + map + info + '</div>';
+		whole = '<div class="event"><div class="bullet_expiry">' + $.fullCalendar.formatDate( date, "ddd, MMM dd yyyy" ) + '</div><div class="return_to_calendar">Calendar &rarr;</div>' + map + info + '</div>';
                 $('#day_detail').html(whole);
+                $('.return_to_calendar').click(function(){
+                	$('#day_detail').hide(); 
+                	$('#calendar').fadeIn('fast', function() {});
+                });
+                $('#calendar').hide(); 
+                $('#day_detail').fadeIn('fast', function() {});
             }
         });
 }
