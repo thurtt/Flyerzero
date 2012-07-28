@@ -15,21 +15,21 @@ function PreviousMarker(){
                 }
             }
         }
-        
+
     }
     for (var i in oMarkers){
         SetViewedMarker(oMarkers[i]);
         return;
     }
-    
+
 }
 
 function NextMarker(){
-	
+
 	var reversed = [];
 	reversed = oMarkers.slice(0);
 	reversed.reverse();
-	
+
     var curfound = false;
     if (currentMarker != null){
         if (reversed) {
@@ -43,20 +43,20 @@ function NextMarker(){
                 }
             }
         }
-        
+
     }
     for (var i in reversed){
         SetViewedMarker(reversed[i]);
         return;
     }
-    
+
 }
 function ResetViewedMarker(){
     currentMarker = null;
-    $('span#flyer_distance').html("0mi");
+    $('span#flyer_distance').html(formatDistance(0));
 }
 function SetViewedMarkerNoClick(marker){
-    $('span#flyer_distance').html(marker.distance.toFixed(2) + "mi");
+    $('span#flyer_distance').html(formatDistance(marker.distance));
     marker.setZIndex(9999);
     map.setZoom(17);
     map.setCenter(marker.getPosition());
@@ -67,7 +67,7 @@ function SetViewedMarkerNoClick(marker){
 }
 
 function SetViewedMarker(marker){
-    $('span#flyer_distance').html(marker.distance.toFixed(2) + "mi");
+    $('span#flyer_distance').html(formatDistance(marker.distance));
     marker.setZIndex(9999);
     map.setZoom(17);
     map.setCenter(marker.getPosition());
@@ -85,4 +85,13 @@ function ZoomIn(){
 function ZoomOut(){
     if (map.getZoom() > 1)
         map.setZoom(map.getZoom() - 1);
+}
+
+function formatDistance(inMiles){
+    if(user_country.toUpperCase() == "US" || user_country.toUpperCase() == "GB"){
+	return inMiles ? inMiles.toFixed(2) + "mi" : "0mi";
+    } else {
+	inKms = inMiles * 1.609344;
+	return inKms ? inKms.toFixed(2) + "km" : "0km";
+    }
 }

@@ -14,6 +14,7 @@ var latitude;
 var longitude;
 var user_latitude;
 var user_longitude;
+var user_country = 'US';
 var markers = {};
 var oMarkers = [];
 var foursquare_markers = {};
@@ -78,13 +79,13 @@ $(document).ready(function() {
 	    $('area#zoomOut').unbind();
 	    $('area#previous').unbind();
 	    $('area#next').unbind();
-	  
-	    
+
+
 	    $('area#zoomIn').click( function(){ZoomIn();});
 	    $('area#zoomOut').click( function(){ZoomOut();});
 	    $('area#previous').click( function(){PreviousMarker();});
 	    $('area#next').click( function(){NextMarker();});
-	    
+
 
 	initialize_map();
 	//setTimeout( "initialize_map();", 3000);
@@ -113,7 +114,7 @@ function loadFlyerData(lat, lng) {
 	} else {
 	    url = '/board/flyers/?id='+focusFlyer+'&lat=' + lat + '&lng=' + lng;
 	}
-	
+
 	$('span#flyer_distance').html("Loading Flyers...");
 	$.get( url ,function(data) {
 
@@ -226,7 +227,7 @@ function loadFlyerData(lat, lng) {
 		$('.input_text').blur(function(){
 		    $('#submit_help').hide();
 		});
-              $('span#flyer_distance').html("0mi");
+              $('span#flyer_distance').html(formatDistance(0));
               $('img#map_navigation').show();
 	});
 
@@ -266,7 +267,7 @@ function closeInfoWindows() {
 			markers[i].infowindow.close();
 		}
 	}
-	
+
 	if (foursquare_markers) {
 		for (var i in foursquare_markers) {
 			foursquare_markers[i].infowindow.close();
@@ -369,6 +370,7 @@ function addAddressToMap(lat, lng, data, person) {
 function foundLocation(position) {
 	user_latitude = position.coords.latitude;
 	user_longitude = position.coords.longitude;
+	findCountry(user_latitude, user_longitude);
 
 	latitude = position.coords.latitude;
 	longitude = position.coords.longitude;
@@ -406,4 +408,24 @@ function showAbout(){
 	$('#about_page').fadeIn("slow", function() {});
 	$('#board_page').fadeOut("slow", function() {});
 	$('#submission_page').fadeOut("slow", function(){});
+}
+function findCountry(lat, lng){
+    	// get the country we're in
+	geocoder = new google.maps.Geocoder();
+	latlng = new google.maps.LatLng(lat, lng);
+
+	geocoder.geocode({'latLng': latlng}, function(results, status) {
+	    if (status == google.maps.GeocoderStatus.OK) {
+		if (results[0]) {
+		    for(method in results[0].address_components){
+			types = results[0].address_components[method].types
+			for(var index in types ){
+			    if(types[index] == 'country'){
+				user_country = results[0].address_components[method].short_name;
+			    }
+			}
+		    }
+		}
+	    }
+	 });
 }

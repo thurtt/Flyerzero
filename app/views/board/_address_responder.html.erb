@@ -1,6 +1,7 @@
 <script>
 	user_latitude = <%=@origin.ll.split(',')[0]%>;
 	user_longitude = <%=@origin.ll.split(',')[1]%>;
+	findCountry(user_latitude, user_longitude);
 	latitude = <%=@origin.ll.split(',')[0]%>;
 	longitude = <%=@origin.ll.split(',')[1]%>;
 	loadFlyerData('<%=@origin.ll.split(',')[0]%>', '<%=@origin.ll.split(',')[1]%>');
