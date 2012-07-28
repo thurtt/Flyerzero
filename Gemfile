@@ -16,6 +16,7 @@ gem 'oauth2'
 gem 'rest-client'
 gem 'webshims-rails'
 gem 'sitemap_generator'
+gem "historyjs-rails"
 gem 'whenever', :require => false
 
 # Gems used only for assets and not required
