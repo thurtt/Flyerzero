@@ -227,8 +227,12 @@ function loadFlyerData(lat, lng) {
 		$('.input_text').blur(function(){
 		    $('#submit_help').hide();
 		});
-              $('span#flyer_distance').html(formatDistance(0));
-              $('img#map_navigation').show();
+
+		if(!focusFlyer){
+		  $('span#flyer_distance').html(formatDistance(0));
+		}
+		
+		$('img#map_navigation').show();
 	});
 
 }
@@ -302,20 +306,20 @@ function addAddressToMap(lat, lng, data, person) {
         }
         else {
 		if ( data["text"] != '' ){
-	
+
 			info += '<div style="float:right;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe").first()).html() + '</div>';
 		}
 		else {
-	
+
 			info += '<div style="float:right;" class="map_data"><div class="alert_header"><br /><br /><br />This promoter hasn\'t<br />included any media yet!<br /><br /></div></div>';
 		}
-		
+
 		if (data["get_distance_from"] != undefined){
 			distance = parseFloat(data["get_distance_from"]);
 		}
-	    
+
 		if ( data["flyer_id"] != undefined ){
-	
+
 			if ( data["profile"] != undefined ){
 				info += '<a href="/profile/view/' + data["profile"] + '" target="_blank">';
 				info += '<div style="background-image:url(\'' + data["gravatar"] + '&s=200\'); background-position: 0px -60px;" class="bullet_button"><div class="bullet_text">Promoter</div></div></a>';
@@ -409,23 +413,24 @@ function showAbout(){
 	$('#board_page').fadeOut("slow", function() {});
 	$('#submission_page').fadeOut("slow", function(){});
 }
-function findCountry(lat, lng){
-    	// get the country we're in
-	geocoder = new google.maps.Geocoder();
-	latlng = new google.maps.LatLng(lat, lng);
 
-	geocoder.geocode({'latLng': latlng}, function(results, status) {
-	    if (status == google.maps.GeocoderStatus.OK) {
-		if (results[0]) {
-		    for(method in results[0].address_components){
-			types = results[0].address_components[method].types
-			for(var index in types ){
-			    if(types[index] == 'country'){
-				user_country = results[0].address_components[method].short_name;
-			    }
+function findCountry(lat, lng){
+    // get the country we're in
+    geocoder = new google.maps.Geocoder();
+    latlng = new google.maps.LatLng(lat, lng);
+
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+	if (status == google.maps.GeocoderStatus.OK) {
+	    if (results[0]) {
+		for(method in results[0].address_components){
+		    types = results[0].address_components[method].types
+		    for(var index in types ){
+			if(types[index] == 'country'){
+			    user_country = results[0].address_components[method].short_name;
 			}
 		    }
 		}
 	    }
-	 });
+	}
+     });
 }

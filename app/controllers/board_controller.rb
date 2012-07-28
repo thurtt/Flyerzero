@@ -47,16 +47,16 @@ class BoardController < ApplicationController
 	end
 
 	def flyers
+		ll = session[:ll]
 		if params[:id]
 			@flyer = Event.find(params[:id]) if Event.exists?(params[:id])
 			# set our location to the location of the flyer
 			# this makes it so everyone can see it
 			if @flyer
-			    res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [@flyer.lat, @flyer.lng]
-			    set_session_location(res)
-
+			  
+			    # set our search ll to that of our flyer and get everything nearby
 			    @origin = Geokit::LatLng.new(@flyer.lat, @flyer.lng)
-			    session[:ll] = @origin.ll
+			    ll = @origin.ll
 			end
 		end
 
@@ -67,12 +67,12 @@ class BoardController < ApplicationController
 			@event = Event.new()
 		end
 
-		@now = Event.within(5, :origin => session[:ll]).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+		@now = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		if @now.length < 20
-			@now = Event.within(25, :origin => session[:ll]).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+			@now = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		end
 		if @now.length < 20
-			@now = Event.within(60, :origin => session[:ll]).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+			@now = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
 		end
 		if @now.length < 1
 			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
