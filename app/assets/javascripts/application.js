@@ -9,6 +9,8 @@
 //= require_tree .
 //= require webshims/minified/extras/modernizr-custom
 //= require webshims/minified/polyfiller
+//= require history_jquery
+
 var map;
 var latitude;
 var longitude;
@@ -355,12 +357,12 @@ function addAddressToMap(lat, lng, data, person) {
         google.maps.event.addListener(locationmarker, 'click', function() {
                 closeInfoWindows();
                 if ( person == false) {
-                	history.pushState({foo: "bar"}, "Flyer Zero", "?flyer=" + locationmarker.flyer_id);
+                	History.pushState({foo: "bar"}, "Flyer Zero", "?flyer=" + locationmarker.flyer_id);
                 	SetViewedMarkerNoClick(locationmarker);
                 	infowindow.open(map,locationmarker);
                 }
                 else {
-                	history.pushState({foo: "bar"}, "Flyer Zero", "/");
+                	History.pushState({foo: "bar"}, "Flyer Zero", "/");
                 	map.setCenter(locationmarker.getPosition());
                 }
         });
