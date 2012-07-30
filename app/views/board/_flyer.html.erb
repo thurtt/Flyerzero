@@ -14,7 +14,7 @@
 	$('#address').html('<%=session[:origin]%>');
 	<% if @flyer %>
 		map.setCenter(markers["<%=@flyer.id%>"].getPosition());
-		google.maps.event.trigger(markers["<%=@flyer.id%>"], 'click');
+		SetViewedMarker(markers["<%=@flyer.id%>"]);
 	<%end%>
 </script>
 
