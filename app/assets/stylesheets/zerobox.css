@@ -123,8 +123,8 @@ body.zerobox div.container{
 	width:100%;
 }
 div#calendar{
-	height:500px;
-	width:595px;
+	/*height:900px;
+	width:995px;*/
 	margin:auto;
 	padding:20px;
 
@@ -200,6 +200,8 @@ img.flyer_info{
 	left:-3px;
 	height:69px;
 	width:84px;
+	background-size: 100%;
+	-moz-background-size: 100% auto !important;
 }
 .fc-item .myday{
 	display:none;
