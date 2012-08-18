@@ -231,6 +231,8 @@ div#dragdrop_text {
 
 .buttons {
 	text-align:center;
+    float: left;
+    margin-left: 15px;
 }
 
 .buttons input{
@@ -262,14 +264,17 @@ div#dragdrop_text {
 	margin: 5px;
 }
 .normal_hack{
-    	border:1px solid #888;
+    border:1px solid #888;
 	background:#e5e5e5;
 }
 .hover_hack{
 	border:1px solid #999;
 	background:#f5f5f5;
 }
-
+#browse_table{
+    table-layout: fixed;
+    width: 365px;
+}
 .fileinput-button {
 	position: relative;
 	overflow: hidden;
@@ -277,7 +282,7 @@ div#dragdrop_text {
 	margin-right: 4px;
 	text-align:center;
 	vertical-align: middle;
-	margin-left: 40px;
+	margin-left: 15px;
 }
 
 .fileinput-button input {
@@ -296,9 +301,10 @@ div#dragdrop_text {
 
 #chosen_file {
     text-align: left;
-    margin-left: 125px;
     margin-top: 13px;
     width: 240px;
+    overflow: hidden;
+    font-size: 0.8em
 }
 .decision_box{
     border: 1px solid #999999;
@@ -432,4 +438,32 @@ div#submit_help{
     display: none;
     font-size: 0.75em;
     padding-left: 20px;
+}
+
+div#flyer_error_box{
+    position: relative;
+    width: 378px;
+    height: 480px;
+    top: -102px;
+    border: 2px solid #ff0000;
+    background: #bbbbbb;
+    opacity:0.85;
+    filter:alpha(opacity=85); /* For IE8 and earlier */
+    border-radius: 5px;
+    display: none;
+    padding: 10px;
+    left: -3px;
+}
+div#flyer_error_text{
+    color:#000000;
+    height: 50px;
+    top:40%;
+    margin-top: -25px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 10px;
+    padding-left: 0px;
+    text-indent:0px;
+    font-size: 1.25em;
 }

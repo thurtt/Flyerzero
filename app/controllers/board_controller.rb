@@ -53,7 +53,7 @@ class BoardController < ApplicationController
 			# set our location to the location of the flyer
 			# this makes it so everyone can see it
 			if @flyer
-			  
+
 			    # set our search ll to that of our flyer and get everything nearby
 			    @origin = Geokit::LatLng.new(@flyer.lat, @flyer.lng)
 			    ll = @origin.ll
@@ -93,6 +93,10 @@ class BoardController < ApplicationController
 		# if we're searching in a different location, override the session's location
 		if params[:ll]
 		  ll = params[:ll]
+		elsif params[:near]
+		  # convert the near to ll
+		  location = Geokit::Geocoders::MultiGeocoder.geocode(params[:near])
+		  ll = "#{location.lat}, #{location.lng}"
 		else
 		  ll = session[:ll]
 		end
@@ -122,12 +126,15 @@ class BoardController < ApplicationController
 				       end.call
 				     }
 			   }
-		render :json=> venues
+		respond_to do |format|
+		      format.json{render :json=> venues}
+		      format.html{render :text=> "blah blah blah"}
+
+		end
 	end
 
 	def get_location
 		location = Geokit::Geocoders::MultiGeocoder.geocode(params[:location])
-		puts location.inspect
 		render :json=>location
 	end
 

@@ -150,6 +150,14 @@ function loadFlyerData(lat, lng) {
 		// submit for new event
 		$('#submit_event').click(submitEvent);
 
+		$('#clear_form').click( function(){
+			clearForm();
+			clearUploadArea();
+		});
+
+		// clear out flyer error box
+		$('#flyer_error_box').click(function(){$('#flyer_error_box').fadeOut('fast')});
+
 		// autocomplete for event location
 		$( "#event_loc" ).autocomplete({
 			minLength: 3,
@@ -233,7 +241,7 @@ function loadFlyerData(lat, lng) {
 		if(!focusFlyer){
 		  $('span#flyer_distance').html(formatDistance(0));
 		}
-		
+
 		$('img#map_navigation').show();
 	});
 

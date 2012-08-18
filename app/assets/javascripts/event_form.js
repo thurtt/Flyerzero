@@ -3,6 +3,7 @@ var errorList = [];
 var submitState = 'error';
 var uploadData = {};
 var venue_search_ll = '';
+var typeCheck = /\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i;
 
 
 // *** Form Cleanup ****
@@ -11,12 +12,22 @@ function clearForm(){
     $('#event_expiry').val('');
     $('#event_loc').val('');
     $('#event_fbevent').val('');
+    $('#event_media').val('');
     $('#flyer_photo').html('');
     $('#venue_icon').attr('src', '');
     $('#venue_name').html('');
     $('#venue_location').html('No venue chosen');
     $('#venue_icon').hide();
     uploadData = {};
+}
+
+function clearUploadArea(){
+    $('#dragdrop_content').hide();
+    $('#flyer_photo').html( '' );
+    $('#dragdrop_text').show();
+    $('#chosen_file').html('No file chosen');
+    $('#dragdrop_content').addClass('drapdrop_area')
+    $('#dragdrop_content').show();
 }
 
 
@@ -83,6 +94,13 @@ function validateForm(){
 	validated = false;
     }
 
+    // check for a valid file type
+    if(!typeCheck.test($('#chosen_file').html())){
+	alert('Sorry, we only support image file types of jpg, png, and gif :(');
+	addError( $('#dragdrop_content') );
+	validated = false;
+    }
+
     // check for a valid email address
     if($('#event_email').val().length <= 0) {
 	addError( $('#event_email') );
@@ -131,11 +149,17 @@ function attachFileUploader(){
 	dropZone: $('#dragdrop_content'),
 	add: function( e, data ) {
 	    $.each(data.files, function (index, file) {
-		uploadData = data;
-		if( supportsPreview() ){
-		    createImagePreview( file );
-		}
-		$('#chosen_file').html( file.name );
+			if(typeCheck.test(file.name)){
+			    uploadData = data;
+			    if( supportsPreview() ){
+				console.log('File: ' + file);
+				createImagePreview( file );
+			    }
+			    $('#chosen_file').html( file.name );
+			} else {
+			    $('#flyer_error_text').html('Sorry, but we only support the image types of jpeg, png, or gif :(');
+			    $('#flyer_error_box').fadeIn('slow').delay(3000).fadeOut('slow');
+			}
 	    });
 
 	},
@@ -200,15 +224,17 @@ function supportsPreview(){
 }
 
 function createImagePreview( fileObj ) {
-      $('#dragdrop_content').css('display', 'none');
-      $('#dragdrop_text').hide();
-      $('#dragdrop_content').removeClass('drapdrop_area');
+      $('#dragdrop_content').hide();
+      $('#flyer_photo').html( '' );
       window.loadImage(
 	    fileObj,
 	    function (image) {
 		if( image.type === "error" ){
-		    //skippy
+		    console.log('error');
 		}else{
+		    console.log('image');
+		    $('#dragdrop_text').hide();
+		    $('#dragdrop_content').removeClass('drapdrop_area');
 		    stuff = $('#flyer_photo').html( image );
 		}
 		$('#dragdrop_content').fadeIn();

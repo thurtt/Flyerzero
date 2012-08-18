@@ -5,11 +5,15 @@
         or<br /><br />
     </div>
     Choose a file to upload:<br /><br />
-    <div class="fileinput-button">
-	  <div id="browse_button" class="normal_hack" >Browse</div>
-	  <input id="image_upload" name="event[photo]" type="file">
-    </div>
-    <div id="chosen_file">No file chosen</div>
+    <table id="browse_table">
+      <tr>
+          <td class="fileinput-button">
+      	     <div id="browse_button" class="normal_hack" >Browse</div>
+      	     <input id="image_upload" name="event[photo]" type="file">
+          </td>
+          <td id="chosen_file">No file chosen</td>
+      </tr>
+    </table>
     <div id="no_preview">Sorry, flyer preview is not supported by your browser :(</div>
   </div>
   <div id="flyer_photo">
@@ -17,5 +21,7 @@
         <%= image_tag( @event.photo.url("medium") )%>
     <% end %>
   </div>
-
+  <div id="flyer_error_box">
+        <div id="flyer_error_text"></div>
+  </div>
 </div>
