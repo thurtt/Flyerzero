@@ -1,10 +1,27 @@
 var main_url = '';
 
+function refreshHeight(){
+	return $('td.fc-widget-content').first().height();
+}
+function refreshWidth(){
+	return $('td.fc-widget-content').first().width();
+}
+function refreshSize(){
+	$('div.fc-item').each( function(){
+    	    $(this).css('height', refreshHeight());
+    	    $(this).css('width', refreshWidth());
+    	    $(this).css('backgroundSize', '100%');
+	});
+}
+
 function loadCalendar(_url){
 	
 	
     refresh_url = _url;
     $('body').append("<div class='container'><div id='calendar'></div></div><div class='container'><div id='day_detail'></div></div>");
+    $(window).resize(function() {
+    		    refreshSize();
+    });
     
     $('#calendar').fullCalendar({
     		    
@@ -19,6 +36,9 @@ function loadCalendar(_url){
     eventRender: function(event, element, view) {
     	    element.html("<div class='fc-item'><span class='myday'>"+ (event['expiry'].split('-')[2] ) + "</span></div>");
     	    element.find("div").css('background',"url("+event['imgURL']+")");
+    	    element.find("div").css('height', refreshHeight());
+    	    element.find("div").css('width', refreshWidth());
+    	    element.find("div").css('backgroundSize', '100%');
     },
     events: function(start, end, callback) {
     	    $('.fc-widget-content').css('color','black');
