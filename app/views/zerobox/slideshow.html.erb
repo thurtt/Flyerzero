@@ -6,7 +6,7 @@
 		<%= flyer.expiry.strftime('%a, %d %b %Y') %>
 	    </div>
 	    <div class="flyer_<%=@size%>">
-		<%= image_tag(flyer.photo.url(@size), :size=>size_in_pixels(@size)) unless flyer.photo.nil? %>
+		<%= image_tag("#{request.protocol}#{request.host_with_port}#{flyer.photo.url(@size)}", :size=>size_in_pixels(@size)) unless flyer.photo.nil? %>
 	    </div>
 	    <div id="" class="footer_<%=@size%> gradientbg">
 		 <%= foursquare_venue(flyer) %>
