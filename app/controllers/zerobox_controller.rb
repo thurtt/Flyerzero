@@ -40,7 +40,7 @@ class ZeroboxController < ApplicationController
 	  	  	  box.name = "New Box"
 	  	  	  box.idhash = params[:hash]
 	  	  	  #box.config = {:venue_id => '4b6f5e6ef964a5207aed2ce3'}.to_json
-	  	  	  box.config = {:ll => "38.0303546973,-78.4798640013", :radius => 5}.to_json
+	  	  	  box.config = {:ll => "38.0303546973,-78.4798640013", :radius => 60}.to_json
 	  	  end
 	  	  box.lasthit = Time.now()
 	  	  box.save
@@ -76,6 +76,13 @@ class ZeroboxController < ApplicationController
   
   def edit
   	  @box = Box.find(params[:id])
+  	  config_hash = ActiveSupport::JSON.decode(@box.config)
+  	  if config_hash["venue_id"] && config_hash["ll"]
+		  @venue = Event.new()
+		  @venue.venue_id = config_hash["venue_id"]
+		  @venue.lat = config_hash["ll"].split(',')[0]
+		  @venue.lng = config_hash["ll"].split(',')[1]
+	  end
   end
   
   def update

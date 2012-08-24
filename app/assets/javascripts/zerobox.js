@@ -158,7 +158,9 @@ function box_updateSearchLocation(){
     $('#venue_search_location').show();
 }
 function updateConfig(){
-	$.post('/zerobox/update/', {id: $('#box_id').val(), box: {config: configTOjson()} }, function(data){});
+	$.post('/zerobox/update/', {id: $('#box_id').val(), box: {config: configTOjson()} }, function(data){
+			$('.whole_search').fadeOut('slow', function(){} );
+	});
 }
 function configTOjson(){
 	jsontext = '{';
