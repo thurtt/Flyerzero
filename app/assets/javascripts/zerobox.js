@@ -43,7 +43,7 @@ $(document).ready(function() {
 		});
 		
 		$('#venue_actual').click(function() { $('.whole_search').show(); });
-		$('#save_changes').click(function() { alert(configTOjson()); });
+		$('#save_changes').click(function() { updateConfig(); });
 });
 
 
@@ -156,6 +156,9 @@ function box_updateSearchLocation(){
     }
     $('#venue_search_location_edit').hide();
     $('#venue_search_location').show();
+}
+function updateConfig(){
+	$.post('/zerobox/update/', {id: $('#box_id').val(), box: {config: configTOjson()} }, function(data){});
 }
 function configTOjson(){
 	jsontext = '{';

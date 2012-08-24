@@ -115,7 +115,7 @@ li:hover{
 
 <div id="content">
 	<h1>Flyer Zero Box (edit)</h1>
-	
+	<input type="hidden" id="box_id" value="<%=@box.id%>">
 	<table id="box_list" cellspacing=0 cellpadding=0>
 		<tr>
 			<td class="header big"><br />Box Name:</td><td class="big"><br /><%= best_in_place @box, :name, :type => :input, :path => "/zerobox/update/#{@box.id}" %></td>
@@ -131,18 +131,19 @@ li:hover{
 						    <span id="venue_search_location_edit"><input name="location" value="<%=session[:city]%>, <%=session[:state]%>"></span>
 				</div>
 				<div><input class="input_text" id="event_loc" placeholder="Search for venues"><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></div>
-				<input type="checkbox" id="nearby" value="nearby" checked /> <span class="subtext">Show only events nearby</span><br />
+				<input type="checkbox" id="nearby" value="nearby" checked /> <span class="subtext">Show events nearby</span><br />
 				
-				<button id="save_changes">Save Changes</button>
+				<button id="save_changes">Save Configuration</button>
 				</div>
 				<br /><br />
 			</td>
 		</tr>
 	</table>
+	<!-- <%=raw @box.config%> -->
 	<div id="lastseen">Last seen @ <%=@box.lasthit%></div>
 	<div id="foursquare_search_error">There was a problem connecting to the Foursquare venue search service.:(</div>
 	<br /><br />
-	<a href="javascript:history.go(-1);">Go Back</a>
+	<a href="/zerobox/list">Go Back</a>
 	<br /><br />
 	</div>
 </div>
