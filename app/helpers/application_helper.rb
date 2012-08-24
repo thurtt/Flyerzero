@@ -10,7 +10,7 @@ module ApplicationHelper
 		return Digest::MD5.hexdigest(address)
 	end
 
-	def foursquare_venue( event )
+	def foursquare_venue( event, options = {} )
 		if not event or not event.venue_id
 		      venue_info = {
 			  :name=>"",
@@ -32,7 +32,7 @@ module ApplicationHelper
 					      :icon=> proc do
 						      if venue["categories"].length > 0
 							    icon_info = venue["categories"][0]["icon"]
-							    icon = icon_info["prefix"] + icon_info["sizes"][0].to_s + icon_info["name"]
+							    icon = icon_info["prefix"] + icon_info["sizes"][2].to_s + icon_info["name"]
 						      else
 							    icon = nil
 						      end
@@ -42,7 +42,7 @@ module ApplicationHelper
 			      venue_info[:location] = venue["location"].has_key?("address") ? venue["location"]["address"] : ""
 
 			      # add cross street if necessary
-			      if ( venue["location"].has_key?("crossStreet") )
+			      if ( venue["location"].has_key?("crossStreet") && options[:xstreet] != false)
 				    venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
 			      end
 		      else

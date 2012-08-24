@@ -1,16 +1,72 @@
+<style>
+body{
+	background:black;
+}
+
+div.flyer_holder{
+	float:left;
+	width:398px;
+	padding-top:50px;
+}
+
+div.flyer_holder img{
+	margin: auto;
+}
+.venue_name{
+	color:white;
+	font-size:30px;
+	font-weight:700;
+	font-family: verdana;
+	padding-top:40px;
+	letter-spacing:3px
+}
+.venue_location{
+	color:#bbb;
+	font-size:26px;
+	font-family: verdana;
+	letter-spacing:2px
+}
+img.venue_icon {
+	height:110px;
+	width: 100px;
+}
+div.side_panel{
+	float:left;
+	width:398px;
+	color:white;
+	padding-top:50px;
+}
+.flyer_date{
+	color:white;
+	font-size:36px;
+	font-family: verdana;
+	letter-spacing:3px
+}
+</style>
+
+<div style="width:800px; height:600px;">
 
 <div id="widget" class="slideshow_container">
-    <% @flyers.each do |flyer| %>
-	<div>
-	    <div class="header_<%=@size%> gradientbg">
-		<%= flyer.expiry.strftime('%a, %d %b %Y') %>
-	    </div>
-	    <div class="flyer_<%=@size%>">
-		<%= image_tag("#{request.protocol}#{request.host_with_port}#{flyer.photo.url(@size)}", :size=>size_in_pixels(@size)) unless flyer.photo.nil? %>
-	    </div>
-	    <div id="" class="footer_<%=@size%> gradientbg">
-		 <%= foursquare_venue(flyer) %>
-	    </div>
-	</div>
-    <% end %>
+	<% @flyers.each do |flyer| %>
+		<div>
+			<div class="flyer_holder">
+			<%= image_tag("#{request.protocol}#{request.host_with_port}#{flyer.photo.url(@size)}", :size=>"370x485") unless flyer.photo.nil? %>
+			</div>
+			
+			<div class="side_panel">
+				<table class="location_table">
+					<tr>
+						<td><%= foursquare_venue(flyer, {:xstreet => false}) %></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan=2 class="flyer_date"><%= flyer.expiry.strftime('%a, %d %b %Y') %></td>
+					</tr>
+				</table>
+				<img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C<%=flyer.lat%>,<%=flyer.lng%>&zoom=14&size=370x320&key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=true" class="bullet_map"/>
+			</div>
+		</div>
+	<% end %>
+</div>
+
 </div>
