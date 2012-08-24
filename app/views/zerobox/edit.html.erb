@@ -1,0 +1,150 @@
+<style>
+body{
+	background:#222
+}
+a:link{color:#F9E101; text-decoration:none;}
+a:visited{color:#F9E101; text-decoration:none;}
+a:hover{color:#F9E101; text-decoration:none;}
+h1{
+	color:black;
+	background:#F9E101;
+	padding:10px;
+	border-radius:10px;
+	font-size:3.0em;
+}
+
+#box_list{
+	padding:20px;
+	border-radius:10px;
+	margin:auto;
+	font-size:1.3em;
+}
+#box_list td.header{ 
+	text-align:right;
+	padding:7px;
+	border-right:1px solid black;
+}
+#box_list td{
+	padding:7px;
+	padding-left:20px;
+	padding-right:20px;
+}
+#box_list td.ali{
+	vertical-align:top;
+}
+
+#box_list tr{
+	border-radius:5px;
+}
+
+#box_list tr.box:hover{ 
+	padding:7px;
+	background:#777;
+	color:white;
+	cursor:pointer;
+}
+.header{
+	padding-bottom:10px;
+	
+}
+.big{
+	font-size:1.4em;
+}
+
+#content{
+	background:white;
+	padding:20px;
+	margin:20px;
+	border-radius:20px;
+	text-align:center;
+}
+#footer {
+	text-align:center;
+	font-size:0.8em;
+	color:#777;
+}
+#foursquare_search_error{
+	display:none;
+	color:red;
+}
+#event_loc{
+	background-image: url("/assets/search.png");
+	background-repeat: no-repeat;
+	width: 328px;
+	padding-left: 25px;
+	display:none;
+}
+input {
+	border: 1px solid #777;
+	padding: 5px;
+}
+#search_wait{
+	display:none;
+}
+#venue_search_location{cursor:pointer;}
+#venue_search_location_edit{display:none;}
+ul{
+	list-style:none;
+	background:white;
+	width:400px;
+	border: 1px solid #222;
+	border-radius:10px;
+	padding:10px;
+}
+li{
+	padding:5px;
+	cursor:pointer;
+}
+li:hover{
+	background:#f7f7f7;
+}
+.venue_name{ font-size:1.2em; }
+#save_changes { display:none; }
+.whole_search { 
+	display:none; 
+	padding:20px;
+	border:1px solid #222;
+	background:white;
+	border-radius:10px;
+	position:absolute;
+}
+.subtext{
+	font-size:0.7em;
+}
+</style>
+
+<div id="content">
+	<h1>Flyer Zero Box (edit)</h1>
+	
+	<table id="box_list" cellspacing=0 cellpadding=0>
+		<tr>
+			<td class="header big"><br />Box Name:</td><td class="big"><br /><%= best_in_place @box, :name, :type => :input, :path => "/zerobox/update/#{@box.id}" %></td>
+		</tr><tr>
+			<td class="header">Box ID:</td><td><%=@box.idhash%></td>
+		</tr><tr>
+			<td class="header" valign="top">Config:</td>
+			<td>
+				<div id="venue_actual"><%= foursquare_venue( @event ) %></div>
+				<div class="whole_search">
+				<div class="search_area">
+						    <span id="venue_search_location">Set Search Area</span>
+						    <span id="venue_search_location_edit"><input name="location" value="<%=session[:city]%>, <%=session[:state]%>"></span>
+				</div>
+				<div><input class="input_text" id="event_loc" placeholder="Search for venues"><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></div>
+				<input type="checkbox" id="nearby" value="nearby" checked /> <span class="subtext">Show only events nearby</span><br />
+				
+				<button id="save_changes">Save Changes</button>
+				</div>
+				<br /><br />
+			</td>
+		</tr>
+	</table>
+	<div id="lastseen">Last seen @ <%=@box.lasthit%></div>
+	<div id="foursquare_search_error">There was a problem connecting to the Foursquare venue search service.:(</div>
+	<br /><br />
+	<a href="javascript:history.go(-1);">Go Back</a>
+	<br /><br />
+	</div>
+</div>
+<br />
+<div id="footer">Looking for <a href="/">Flyer Zero</a>?</div>

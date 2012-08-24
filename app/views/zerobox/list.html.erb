@@ -1,0 +1,82 @@
+<style>
+body{
+	background:#222
+}
+a:link{color:#F9E101; text-decoration:none;}
+a:visited{color:#F9E101; text-decoration:none;}
+a:hover{color:#F9E101; text-decoration:none;}
+h1{
+	color:black;
+	background:#F9E101;
+	padding:10px;
+	border-radius:10px;
+	font-size:3.0em;
+}
+
+#box_list{
+	padding:20px;
+	background:#f7f7f7;
+	border-radius:10px;
+	margin:auto;
+	font-size:1.3em;
+}
+#box_list td{ 
+	padding:10px;
+}
+
+
+#box_list tr{
+	border-radius:5px;
+}
+
+#box_list tr.box:hover{ 
+	padding:7px;
+	background:#777;
+	color:white;
+	cursor:pointer;
+}
+.header{
+	font-size:1.4em;
+	padding-bottom:10px;
+	
+}
+#content{
+	background:white;
+	padding:20px;
+	margin:20px;
+	border-radius:20px;
+	text-align:center;
+}
+#footer {
+	text-align:center;
+	font-size:0.8em;
+	color:#777;
+}
+</style>
+
+<div id="content">
+	<h1>Flyer Zero Boxes</h1>
+	
+	<table id="box_list" cellspacing=0 cellpadding=0>
+	
+		<tr class="header">
+			<td>Name</td>
+			<td>ID</td>
+			<td>Config</td>
+			<td>Last Seen</td>
+		</tr>
+		
+	<%for box in @boxes%>
+		<tr class="box" onclick="window.location.href = '/zerobox/edit/<%=box.id%>';">
+			<td><%=box.name%></td>
+			<td><%=box.idhash%></td>
+			<td><%=box.config%></td>
+			<td><%=box.lasthit%></td>
+		</tr>
+	<%end%>
+	</table>
+	<br /><br />
+	</div>
+</div>
+<br />
+<div id="footer">Looking for <a href="/">Flyer Zero</a>?</div>

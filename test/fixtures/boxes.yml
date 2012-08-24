@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  idhash: MyString
+  config: MyText
+  lasthit: 2012-08-24 11:40:58
+
+two:
+  name: MyString
+  idhash: MyString
+  config: MyText
+  lasthit: 2012-08-24 11:40:58

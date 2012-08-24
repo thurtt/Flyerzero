@@ -17,6 +17,7 @@ gem 'rest-client'
 gem 'webshims-rails'
 gem 'sitemap_generator'
 gem "historyjs-rails"
+gem 'best_in_place'
 gem 'whenever', :require => false
 
 # Gems used only for assets and not required
