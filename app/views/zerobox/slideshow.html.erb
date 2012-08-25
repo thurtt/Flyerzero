@@ -5,7 +5,7 @@ body{
 
 div.flyer_holder{
 	float:left;
-	width:398px;
+	width:390px;
 	padding-top:50px;
 }
 
@@ -34,7 +34,7 @@ img.venue_icon {
 }
 div.side_panel{
 	float:left;
-	width:398px;
+	width:390px;
 	color:white;
 	padding-top:50px;
 }
@@ -46,7 +46,7 @@ div.side_panel{
 }
 </style>
 
-<div style="width:800px; height:600px;">
+<div style="width:790px; padding-top:20px; padding-left:5px;">
 
 <div id="widget" class="slideshow_container">
 	<% @flyers.each do |flyer| %>
@@ -65,7 +65,7 @@ div.side_panel{
 						<td colspan=2 class="flyer_date"><%= flyer.expiry.strftime('%a, %d %b %Y') %></td>
 					</tr>
 				</table>
-				<img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C<%=flyer.lat%>,<%=flyer.lng%>&zoom=14&size=370x320&key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=true" class="bullet_map"/>
+				<img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C<%=flyer.lat%>,<%=flyer.lng%>&zoom=16&size=370x320&key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=true" class="bullet_map"/>
 			</div>
 		</div>
 	<% end %>
