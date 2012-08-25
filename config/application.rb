@@ -48,6 +48,6 @@ module Flyerzero
     # don't load the app while precompiling
     config.assets.initialize_on_precompile = false
 
-    config.assets.precompile += ['zerobox.js', 'zerobox.css','fullcalendar.min.js', 'fullcalendar.css', 'zeroCalendar.js']
+    config.assets.precompile += ['zerobox.js', 'zerobox.css','fullcalendar.min.js', 'fullcalendar.css', 'zeroCalendar.js', 'jquery-ui-1.8.17.custom.min.js']
   end
 end
