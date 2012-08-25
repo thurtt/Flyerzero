@@ -55,7 +55,7 @@ class ZeroboxController < ApplicationController
 		  @flyers = Event.by_ll_and_radius(config_hash["ll"], config_hash["radius"]).is_valid.is_current if config_hash["radius"]
 	
 		  # A venue oriented slideshow
-		  @flyers = Event.by_venue(config_hash["venue_id"]).is_valid.is_current if config_hash["venue_id"]
+		  @flyers = Event.by_venue(config_hash["venue_id"]).is_valid.is_current if config_hash["venue_id"] && !config_hash["radius"]
 		  
 	  end
 
