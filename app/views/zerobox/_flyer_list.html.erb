@@ -1,0 +1,20 @@
+<% @flyers.each do |flyer| %>
+	<div>
+		<div class="flyer_holder">
+		<%= image_tag("#{request.protocol}#{request.host_with_port}#{flyer.photo.url(@size)}", :size=>"370x485") unless flyer.photo.nil? %>
+		</div>
+		
+		<div class="side_panel">
+			<table class="location_table">
+				<tr>
+					<td><%= foursquare_venue(flyer, {:xstreet => false}) %></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan=2 class="flyer_date"><%= flyer.expiry.strftime('%a, %d %b %Y') %></td>
+				</tr>
+			</table>
+			<img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C<%=flyer.lat%>,<%=flyer.lng%>&zoom=15&size=370x320&key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=true" class="bullet_map"/>
+		</div>
+	</div>
+<% end %>

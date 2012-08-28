@@ -58,10 +58,13 @@ class ZeroboxController < ApplicationController
 		  @flyers = Event.by_venue(config_hash["venue_id"]).is_valid.is_current if config_hash["venue_id"] && !config_hash["radius"]
 		  
 	  end
-
-	  respond_to do |format|
-		  format.html { render :template=>"zerobox/slideshow"}
-	  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter]) }
+	  if params[:update]
+	  		render :partial=>"zerobox/flyer_list"
+	  else
+		  respond_to do |format|
+			  format.html { render :template=>"zerobox/slideshow"}
+		  	  format.json { render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter]) }
+		  end
 	  end
   end
   

@@ -3,16 +3,16 @@
 
 refresh_url = '';
 var mainVenue;
+var showSplash = false;
+var splashCounter = 0;
 
 $(document).ready(function() {
-    $('.slideshow_container').cycle({
-		fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...
-		before: function(currSlideElement, nextSlideElement, options, forwardFlag) {
-		    $('#header').html(currSlideElement.getAttribute('data-date'));
-		    venue_id = currSlideElement.getAttribute('data-venue-id');
-		}
-	});
 
+	// Start the slideshow
+	startSlideshow();
+
+    // Start the timer
+    startTiming(); 
     
     jQuery(".best_in_place").best_in_place();
     
@@ -171,4 +171,62 @@ function configTOjson(){
 	}
 	jsontext += '}';
 	return jsontext;
+}
+
+function startTiming() {
+	showSplash = false;
+	// initial timer
+	setTimeout(function(){showSplash = true;}, 20000);
+}
+
+function slideTransition() {
+	if(showSplash) {
+		$('#splash').fadeIn('slow');
+		$('.slideshow_container').cycle('pause');
+		splashCounter++;
+		if(splashCounter >= 30) {
+			splashCounter = 0;
+			loadNewFlyers();
+		} else {
+			// restart the show after 5 seconds
+			restartSlideshow();
+		}
+	}
+}
+function loadNewFlyers() {
+	// var baseUrl = 'http://www.flyerzero.com/zerobox/box';
+	var baseUrl = 'http://localhost:3000/zerobox/box';
+	var updateFlag = '&update=1';
+	$.ajax( {url: baseUrl + window.location.search + updateFlag})
+		.done(function(data) {
+			$('.slideshow_container').cycle('destroy');
+			$('.slideshow_container').html(data);	
+			setTimeout(function() {
+				$('#splash').fadeOut('slow');
+				startTiming();
+				startSlideshow();
+			}, 5000);		
+		})
+		.fail(function(data) {
+			restartSlideshow();
+		});
+}
+
+function startSlideshow() {
+    $('.slideshow_container').cycle({
+		fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+		before: function(currSlideElement, nextSlideElement, options, forwardFlag) {
+		    $('#header').html(currSlideElement.getAttribute('data-date'));
+		    venue_id = currSlideElement.getAttribute('data-venue-id');
+		    slideTransition();
+		}
+	});
+}
+
+function restartSlideshow() {
+	setTimeout(function(){
+		$('#splash').fadeOut('slow');
+		$('.slideshow_container').cycle('resume');
+		startTiming();
+	}, 5000);
 }

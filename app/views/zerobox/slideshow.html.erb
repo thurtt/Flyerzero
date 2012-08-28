@@ -44,31 +44,63 @@ div.side_panel{
 	font-family: verdana;
 	letter-spacing:3px
 }
+div#splash {
+	width: 800px;
+	height: 600px;
+	background-color: #000000;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	//display: none;
+	z-index: 150;
+	color: #ffffff;
+}
+div.left_panel{
+	float:left;
+	width:398px;
+	padding-top:50px;
+	text-align: center;
+}
+span.splash_header {
+	font: bold 2.8em Verdana, Geneva, sans-serif;
+	color: #f9e101;
+}
+span.splash_footer {
+	color:#bbb;
+	font-size:26px;
+	font-family: verdana;
+	letter-spacing:2px
+}
+table.splash_table {
+	color: #ffffff;
+	font-size: 1.3em;
+}
 </style>
 
 <div style="width:790px; padding-top:20px; padding-left:5px;">
 
 <div id="widget" class="slideshow_container">
-	<% @flyers.each do |flyer| %>
-		<div>
-			<div class="flyer_holder">
-			<%= image_tag("#{request.protocol}#{request.host_with_port}#{flyer.photo.url(@size)}", :size=>"370x485") unless flyer.photo.nil? %>
-			</div>
-			
-			<div class="side_panel">
-				<table class="location_table">
-					<tr>
-						<td><%= foursquare_venue(flyer, {:xstreet => false}) %></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td colspan=2 class="flyer_date"><%= flyer.expiry.strftime('%a, %d %b %Y') %></td>
-					</tr>
-				</table>
-				<img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C<%=flyer.lat%>,<%=flyer.lng%>&zoom=15&size=370x320&key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=true" class="bullet_map"/>
-			</div>
-		</div>
-	<% end %>
+	<%= render :partial=>"flyer_list" %>
 </div>
+
+<div id="splash">
+	<div class="left_panel">
+		<span class="splash_header">Flyer Zero</span>
+		<img src="<%= request.protocol + request.host_with_port %>/assets/med_robot.png">
+		<span class="splash_footer">See your flyer here!</span>
+	</div>
+	<div class="side_panel">
+		<table class="splash_table">
+			<tr>
+				<td>Submit your flyer at flyerzero.com. It's easy, and it's free.</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan=2 class="flyer_date">Get Flyer Zero Mobile</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
 
 </div>
