@@ -194,8 +194,8 @@ function slideTransition() {
 	}
 }
 function loadNewFlyers() {
-	// var baseUrl = 'http://www.flyerzero.com/zerobox/box';
-	var baseUrl = 'http://localhost:3000/zerobox/box';
+	var baseUrl = 'http://www.flyerzero.com/zerobox/box';
+	//var baseUrl = 'http://localhost:3000/zerobox/box';
 	var updateFlag = '&update=1';
 	$.ajax( {url: baseUrl + window.location.search + updateFlag})
 		.done(function(data) {
