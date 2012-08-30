@@ -205,7 +205,7 @@ function loadNewFlyers() {
 				$('#splash').fadeOut('slow');
 				startTiming();
 				startSlideshow();
-			}, 5000);		
+			}, 8000);		
 		})
 		.fail(function(data) {
 			restartSlideshow();
@@ -215,6 +215,7 @@ function loadNewFlyers() {
 function startSlideshow() {
     $('.slideshow_container').cycle({
 		fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+		timeout: 8000,
 		before: function(currSlideElement, nextSlideElement, options, forwardFlag) {
 		    $('#header').html(currSlideElement.getAttribute('data-date'));
 		    venue_id = currSlideElement.getAttribute('data-venue-id');
@@ -228,5 +229,5 @@ function restartSlideshow() {
 		$('#splash').fadeOut('slow');
 		$('.slideshow_container').cycle('resume');
 		startTiming();
-	}, 5000);
+	}, 8000);
 }
