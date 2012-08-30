@@ -61,9 +61,14 @@ div.left_panel{
 	padding-top:50px;
 	text-align: center;
 }
-span.splash_header {
+div.splash_header {
 	font: bold 2.8em Verdana, Geneva, sans-serif;
 	color: #f9e101;
+	padding-top:75px;
+}
+div.splash_teaser{
+	color:#ddd;
+	font: bold 1.4em Verdana, Geneva, sans-serif;
 }
 span.splash_footer {
 	color:#bbb;
@@ -71,9 +76,11 @@ span.splash_footer {
 	font-family: verdana;
 	letter-spacing:2px
 }
-table.splash_table {
-	color: #ffffff;
-	font-size: 1.3em;
+div.teaser{
+	text-align:center;
+}
+.centered{
+	margin:auto;
 }
 </style>
 
@@ -83,23 +90,11 @@ table.splash_table {
 	<%= render :partial=>"flyer_list" %>
 </div>
 
-<div id="splash">
-	<div class="left_panel">
-		<span class="splash_header">Flyer Zero</span>
-		<img src="<%= request.protocol + request.host_with_port %>/assets/med_robot.png">
-		<span class="splash_footer">See your flyer here!</span>
-	</div>
-	<div class="side_panel">
-		<table class="splash_table">
-			<tr>
-				<td>Submit your flyer at flyerzero.com. It's easy, and it's free.</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan=2 class="flyer_date">Get Flyer Zero Mobile</td>
-			</tr>
-		</table>
-	</div>
+<div id="splash" class="teaser">
+	<div class="splash_header">Flyer Zero</div><br />
+	<div class="splash_teaser">Submit your flyer at flyerzero.com.<br /> It's easy, and it's free.</div>
+	<br /><br />
+	<img src="<%= request.protocol + request.host_with_port %>/assets/mobile_advert.png" class="centered">
 </div>
 
 
