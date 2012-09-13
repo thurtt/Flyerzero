@@ -5,6 +5,7 @@ refresh_url = '';
 var mainVenue;
 var showSplash = false;
 var splashCounter = 0;
+var transitionTime = 8000;
 
 $(document).ready(function() {
 
@@ -176,7 +177,7 @@ function configTOjson(){
 function startTiming() {
 	showSplash = false;
 	// initial timer
-	setTimeout(function(){showSplash = true;}, 20000);
+	setTimeout(function(){showSplash = true;}, 60000);
 }
 
 function slideTransition() {
@@ -188,7 +189,6 @@ function slideTransition() {
 			splashCounter = 0;
 			loadNewFlyers();
 		} else {
-			// restart the show after 5 seconds
 			restartSlideshow();
 		}
 	}
@@ -205,7 +205,7 @@ function loadNewFlyers() {
 				$('#splash').fadeOut('slow');
 				startTiming();
 				startSlideshow();
-			}, 8000);		
+			}, transitionTime);		
 		})
 		.fail(function(data) {
 			restartSlideshow();
@@ -215,7 +215,7 @@ function loadNewFlyers() {
 function startSlideshow() {
     $('.slideshow_container').cycle({
 		fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...
-		timeout: 8000,
+		timeout: transitionTime,
 		before: function(currSlideElement, nextSlideElement, options, forwardFlag) {
 		    $('#header').html(currSlideElement.getAttribute('data-date'));
 		    venue_id = currSlideElement.getAttribute('data-venue-id');
@@ -229,5 +229,5 @@ function restartSlideshow() {
 		$('#splash').fadeOut('slow');
 		$('.slideshow_container').cycle('resume');
 		startTiming();
-	}, 8000);
+	}, transitionTime);
 }

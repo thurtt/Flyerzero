@@ -95,10 +95,10 @@ function validateForm(){
     }
 
     // check for a valid file type
-    if(!typeCheck.test($('#chosen_file').html())){
-	alert('Sorry, we only support image file types of jpg, png, and gif :(');
-	addError( $('#dragdrop_content') );
-	validated = false;
+    if(!editFlyer && !typeCheck.test($('#chosen_file').html())){
+		alert('Sorry, we only support image file types of jpg, png, and gif :(');
+		addError( $('#dragdrop_content') );
+		validated = false;
     }
 
     // check for a valid email address
