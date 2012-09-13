@@ -255,7 +255,7 @@ function initialize_map() {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 	map.setCenter(new google.maps.LatLng(38.025208, -78.488517), 1);
-	var timeoutVal = 10 * 1000 * 1000;
+	var timeoutVal = 10 * 1000;
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation,{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 });
 }
 
@@ -392,14 +392,23 @@ function foundLocation(position) {
 	loadFlyerData(latitude, longitude);
 }
 
-function noLocation() {
+function noLocation(error) {
 
 	user_latitude = 38.025208;
 	user_longitude = -78.488517;
+	findCountry(user_latitude, user_longitude);
 
 	latitude = 38.025208;
 	longitude = -78.488517;
-	loadFlyerData(38.025208, -78.488517);
+	addUser();
+	
+	loadFlyerData(latitude, longitude);
+	
+	if(error.code == 1) {
+		alert('Looks like you\'ve declined location services! We need that. Meanwhile, here\'s a different zero!');
+	} else {
+		alert('We\'re having trouble finding your location, so here\'s a different zero!');
+	}
 }
 
 function MoveTo( id, x, y, func ){
