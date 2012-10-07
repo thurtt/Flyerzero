@@ -22,9 +22,17 @@ div#userzero {
 	text-align:left;
 	font-size: 1.1em;
 	z-index:200;
-	color:black;
 	border-top:1px solid #444444;
 	background-color:#f9e101;
+	
+	background: white;
+	background: url('/assets/header.jpg');
+	background-size: 100% 100%;
+	color:#222;
+	text-shadow: yellow 0.08em 0.08em 0.08em;
+	
+	border-top:1px solid #cda801;
+	border-bottom:1px solid yellow;
 }
 span#submit_link{
 	cursor:pointer;
@@ -89,9 +97,14 @@ span.control_links span.menu_item{
 span.menu_item:hover{
 	background-color: #222222;
 	color: #dddddd;
+	text-shadow:none;
 	cursor:pointer;
 	padding-left:25px;
 	padding-right: 25px;
+}
+span.menu_barrier{
+	color:#f9e101;
+	text-shadow: yellow 0.08em 0.08em 0.08em;
 }
 
 div#board_page{
@@ -214,11 +227,22 @@ div#add_link:hover {
 
 .yellow_text {
 	background-color:#f9e101;
-	border-right:1px solid #222222;
-	border-left:1px solid #222222;
-	border-bottom:1px solid #222222;
+	border-right:1px solid #cda801;
+	border-left:1px solid #cda801;
+	border-bottom:1px solid #cda801;
 	color: #555555;
-	text-shadow: #222222 0.03em 0.03em 0.03em}
+	text-shadow: #222222 0.03em 0.03em 0.03em;
+	
+	
+	background: url('/assets/header.jpg');
+	background-size: 100% 100%;
+	color:#222;
+	text-shadow: yellow 0.03em 0.03em 0.03em;
+	
+	border-top:1px solid #cda801;
+	border-bottom:1px solid #cda801;
+	}
+	
 }
 
 img.recent {
