@@ -50,6 +50,7 @@ namespace :deploy do
 end
 
 task :update_permissions do
+	sudo "chown -R fzu:pg4957917 #{latest_release}/public/system/photos/*"
     sudo "chmod -R g+w #{latest_release}/public/system/photos/*"
 end
 
@@ -58,7 +59,7 @@ task :refresh_sitemaps do
 end
 
 task :refresh_paperclip do
-  run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake paperclip:refresh:missing_styles"
+  sudo "cd #{latest_release} && RAILS_ENV=#{rails_env} rake paperclip:refresh:missing_styles"
 end
 
-after "deploy", "deploy:migrate", "update_permissions", "refresh_paperclip", "refresh_sitemaps"
+after "deploy", "deploy:migrate", "refresh_paperclip", "update_permissions", "refresh_sitemaps"
