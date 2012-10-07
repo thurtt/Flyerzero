@@ -129,7 +129,7 @@ function loadFlyerData(lat, lng) {
 
 		$('#content').html(data);
 
-		$('img.show_on_map').click( function(){
+		$('.show_on_map').click( function(){
 			$('#submission_page').hide("fast", function() {});
 			$('#board_page').fadeOut("slow", function() {});
 				$('#board_link').show();
@@ -300,7 +300,7 @@ function addAddressToMap(lat, lng, data, person) {
         var locationmarker;
         var distance = 100;
 	var div = document.createElement('DIV');
-        div.innerHTML = '<div class="map_flyer"><img src="' + data["large"] + '" class="map_flyer"><div class="arrow-down"></div></div>';
+        div.innerHTML = '<div class="map_flyer"><div class="map_flyer_contents" style="position:relative; background-image: url(\'' + data["large"] + '\'); background-size: cover;"><div class="arrow-down"></div></div>';
 
         locationmarker = new RichMarker({
           map: map,
@@ -311,7 +311,11 @@ function addAddressToMap(lat, lng, data, person) {
           content: div
         });
         info = '<div style="text-align:center">';
-        info += '<a href="' + data["original"] + '" target="_new"><img src="' + data["large"] + '" class="map_flyer_info"></a>';
+        info += '<a href="' + data["original"] + '" target="_new">';
+        info += '<div style="position:relative; background-image: url(\'' + data["large"] + '\'); background-size: cover;" class="map_flyer_info">';
+        info += '<div class="flyer_date">' + data["expiry"] + '</div>';
+        info += '</div>';
+        info += '</a>';
         if ( person ) {
         }
         else {

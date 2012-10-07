@@ -9,8 +9,9 @@
 					gravatar: '<%=gravatar_url(flyer.email, :size=>"40")%>'<%if Achievement.find_by_email(flyer.email)%>, 
 					profile: '<%=Achievement.find_by_email(flyer.email).id%>'<%end%>, 
 					flyer_id: '<%=flyer.id%>', small: '<%=flyer.photo.url( :small )%>', 
-					large: '<%= flyer.photo.url( :board_cropped ) != nil ? flyer.photo.url( :board_cropped ) : flyer.photo.url( :medium )%>', 
+					large: '<%= flyer.photo.url( :medium ) != nil ? flyer.photo.url( :medium ) : flyer.photo.url( :medium )%>', 
 					original: '<%=flyer.photo.url( :large )%>', 
+					expiry:'<%=flyer.expiry%>',
 					text: '<%=sanitize flyer.media.gsub("\n",'').gsub("'",'"'), :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'
 				}, 
 				false);
@@ -30,14 +31,16 @@
 </script>
 
 
-
 <div id="nearby" class="content">
 	<div class="header textual">Zero Board</div>
 	<div class="flyers">
 			<div id="mini_dragdrop_area">Submit Yours!</div>
 		<%for flyer in @now%>
 			<div class="f_element">
-			<%= image_tag(flyer.photo.url(:board_cropped), :size=>"130x130", :class=> "show_on_map", :flyer_id=>flyer.id) unless flyer.photo.nil? %>
+			<div class="show_on_map" flyer_id="<%=flyer.id%>" style="position:relative; background-image: url('<%=flyer.photo.url(:medium)%>'); background-size: cover; height:130px; width:130px; margin:10px;">
+				<div class="flyer_date"><%=flyer.expiry%></div>
+			</div>
+			<% image_tag(flyer.photo.url(:medium), :size=>"130x130", :class=> "show_on_map", :flyer_id=>flyer.id) unless flyer.photo.nil? %>
 			</div>
 		<%end%>
 		<div class="spacer"></div>
