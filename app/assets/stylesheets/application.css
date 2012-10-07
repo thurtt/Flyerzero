@@ -93,7 +93,7 @@ div.map_data {
 div.map_data div.alert_header{
 	border:3px dashed #777;
 	font-size:1.5em;
-	height:246px !important;
+	height:194px !important;
 }
 
 div.map_data iframe {
@@ -104,11 +104,11 @@ div.map_data iframe {
 }
 
 img.map_flyer{
-	height:100px;
+	height:80px;
 	width:80px;
 }
 img.map_flyer_info{
-	height:250px;
+	height:200px;
 	width:200px;
 	margin:auto;
 }

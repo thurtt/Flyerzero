@@ -4,7 +4,7 @@ class ProfileController < ApplicationController
 		@flyers = Event.where(:email=>@profile.email, :validated=>1).order('expiry desc')
 		
 		respond_to do |format|
-			format.json{render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter]) }
+			format.json{render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter, :map_cropped_photo, :board_cropped_photo]) }
 			format.html{render}
 		end
 
@@ -18,7 +18,7 @@ class ProfileController < ApplicationController
 			
 		@flyers = Event.where(:email=>params[:email], :validated=>1).order('expiry desc')
 		
-		render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter]) 
+		render :json=>@flyers.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :gravatar, :promoter, :map_cropped_photo, :board_cropped_photo]) 
 	end
 	
 end

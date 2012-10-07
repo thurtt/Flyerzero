@@ -8,6 +8,8 @@ class Event < ActiveRecord::Base
 	validates_presence_of :validation_hash
 	has_attached_file :photo, :styles => {
 			:thumb=> "130x163#",
+			:map_cropped=> "130x130#",
+			:board_cropped=> "250x250#",
 			:small  => "130x163>",
 			:medium => "400x500>",
 			:large =>   "600x750>" }
@@ -32,7 +34,15 @@ class Event < ActiveRecord::Base
 		return true if expiry < DateTime.now.beginning_of_day + 2.day
 		return false
 	end
-
+	
+	def board_cropped_photo
+		photo.url(:map_cropped)
+	end
+	
+	def map_cropped_photo
+		photo.url(:board_cropped)
+	end
+	
 	def map_photo
 		photo.url(:small)
 	end

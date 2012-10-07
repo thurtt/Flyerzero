@@ -2,7 +2,18 @@
 	clearMap();
 	<%if @now.length > 0%>
 		<%for flyer in @now.reverse%>
-			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, { get_distance_from: <%=flyer.get_distance_from%> , fbevent: '<%=flyer.fbevent%>', gravatar: '<%=gravatar_url(flyer.email, :size=>"40")%>'<%if Achievement.find_by_email(flyer.email)%>, profile: '<%=Achievement.find_by_email(flyer.email).id%>'<%end%>, flyer_id: '<%=flyer.id%>', small: '<%=flyer.photo.url( :small )%>', large: '<%=flyer.photo.url( :medium )%>', original: '<%=flyer.photo.url( :large )%>', text: '<%=sanitize flyer.media.gsub("\n",'').gsub("'",'"'), :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'}, false);
+			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, 
+				{ 
+					get_distance_from: <%=flyer.get_distance_from%> , 
+					fbevent: '<%=flyer.fbevent%>', 
+					gravatar: '<%=gravatar_url(flyer.email, :size=>"40")%>'<%if Achievement.find_by_email(flyer.email)%>, 
+					profile: '<%=Achievement.find_by_email(flyer.email).id%>'<%end%>, 
+					flyer_id: '<%=flyer.id%>', small: '<%=flyer.photo.url( :small )%>', 
+					large: '<%= flyer.photo.url( :board_cropped ) != nil ? flyer.photo.url( :board_cropped ) : flyer.photo.url( :medium )%>', 
+					original: '<%=flyer.photo.url( :large )%>', 
+					text: '<%=sanitize flyer.media.gsub("\n",'').gsub("'",'"'), :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'
+				}, 
+				false);
 			markers["<%=flyer.id%>"] = marker;
 			oMarkers.push(marker);
 		<%end%>
@@ -26,7 +37,7 @@
 			<div id="mini_dragdrop_area">Submit Yours!</div>
 		<%for flyer in @now%>
 			<div class="f_element">
-			<%= image_tag(flyer.photo.url(:small), :size=>"130x163", :class=> "show_on_map", :flyer_id=>flyer.id) unless flyer.photo.nil? %>
+			<%= image_tag(flyer.photo.url(:board_cropped), :size=>"130x130", :class=> "show_on_map", :flyer_id=>flyer.id) unless flyer.photo.nil? %>
 			</div>
 		<%end%>
 		<div class="spacer"></div>

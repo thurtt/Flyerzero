@@ -15,7 +15,7 @@
   <%event = Event.find(params[:flyer])%>
   <meta property="og:title" content="Flyer Zero Event"/>
   <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
-  <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:medium)%>"/>
+  <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:large)%>"/>
   <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= foursquare_venue_name event.venue_id %>" />
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
@@ -27,6 +27,7 @@
   <meta property="og:image" content="http://www.flyerzero.com/assets/user.png"/>
   <meta name="google-site-verification" content="ZT5zfsirjSt9UFCOg_XcbTvceY4BKmxrdFkFbG7X-UM" />
   <%end%>
+  <meta property="og:type" content="website" />
 
   <script>
   <% if defined? params[:id] and params[:id] == "about" %>
