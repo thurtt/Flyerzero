@@ -12,11 +12,15 @@
   <%= javascript_include_tag "http://gettopup.com/releases/latest/top_up-min.js" %>
 
   <%if params[:flyer]%>
-  <%event = Event.find(params[:flyer])%>
-  <meta property="og:title" content="Flyer Zero Event"/>
+  <%
+  	event = Event.find(params[:flyer])
+  	fsVenueName = foursquare_venue_name(event.venue_id)
+  %>
+  <meta property="og:title" content="<%= fsVenueName %>"/>
   <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
   <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:large)%>"/>
-  <meta property="og:description" content="Check out this event on <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= foursquare_venue_name event.venue_id %>" />
+  <meta property="og:description" content="Check out this flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>" />
+  <meta property="og:type" content="flyerzeromobile:event" />
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
   </script>
@@ -26,9 +30,9 @@
   <meta property="og:url" content="http://www.flyerzero.com/"/>
   <meta property="og:image" content="http://www.flyerzero.com/assets/user.png"/>
   <meta name="google-site-verification" content="ZT5zfsirjSt9UFCOg_XcbTvceY4BKmxrdFkFbG7X-UM" />
+  <meta property="og:type" content="website" />
   <%end%>
   <meta property="fb:app_id" content="288588701253698" /> 
-  <meta property="og:type" content="flyerzeromobile:event" />
 
   <script>
   <% if defined? params[:id] and params[:id] == "about" %>
