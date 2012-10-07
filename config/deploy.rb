@@ -59,7 +59,7 @@ task :refresh_sitemaps do
 end
 
 task :refresh_paperclip do
-  sudo "cd #{latest_release} && RAILS_ENV=#{rails_env} rake paperclip:refresh:missing_styles"
+  run "cd #{latest_release} && #{sudo} RAILS_ENV=#{rails_env} && rake paperclip:refresh:missing_styles"
 end
 
-after "deploy", "deploy:migrate", "refresh_paperclip", "update_permissions", "refresh_sitemaps"
+after "deploy", "deploy:migrate", "refresh_paperclip", "update_permissions",  "refresh_sitemaps"
