@@ -26,14 +26,14 @@ class MobileController < ApplicationController
 			f.distance_from_object = ll
 		end
 
-		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from, :map_cropped_photo, :board_cropped_photo])
+		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from])
 	end
 
 	def flyer
 		Gabba::Gabba.new("UA-31288505-1", "http://www.flyerzero.com").page_view("Mobile", "mobile/flyer")
 		if params[:id]
 			@flyer = Event.find(params[:id]) if Event.exists?(params[:id])
-			render :json=>@flyer.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :map_cropped_photo, :board_cropped_photo])
+			render :json=>@flyer.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info])
 		end
 	end
 

@@ -1,9 +1,8 @@
 ---
 :Event:
   :photo:
-  - :board_cropped
+  - :cropped
   - :large
-  - :map_cropped
   - :medium
   - :small
   - :thumb
