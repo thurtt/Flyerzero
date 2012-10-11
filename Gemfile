@@ -18,7 +18,6 @@ gem 'webshims-rails'
 gem 'sitemap_generator'
 gem "historyjs-rails"
 gem 'best_in_place'
-gem 'soundcloud'
 gem 'opengraph'
 #, '0.2.0'
 gem 'whenever', :require => false
