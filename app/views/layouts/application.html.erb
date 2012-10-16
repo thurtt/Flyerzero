@@ -86,30 +86,65 @@
 
     <div id="map_canvas" style="width: 100%; height: 100%; position:absolute; top:0; left:0;"></div>
     
-          <div id="map_overlay">
-              <span id="flyer_distance">Loading...</span><br/>
-              <img id="map_navigation" src="/assets/map_overlay.png" usemap="#gmapui" style="display:none;">
-                  <map name="gmapui">
-                      <area id="previous" shape="rect" coords="6,55,55,6" alt="Previous Event" />
-                      <area id="zoomIn" shape="rect" coords="56,25,106,0" alt="Zoom In" />
-                      <area id="zoomOut" shape="rect" coords="56,56,106,32" alt="Zoom Out" />
-                      <area id="next" shape="rect" coords="107,55,157,6" alt="Next Event" />
-                  </map>
-          </div>
+
           
-    <%=image_tag 'mainlogo-text.png', :class=>"branding"%>
+    
     <div id="userzero" class=''>
-    	<span style="padding:3px;padding-left:10px; float:left;">Your Zero: <span id="address" class="box menu_item">Unknown.</span>
-    	<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-    	<span class="control_links" style="padding:3px; padding-right:10px; float:right;">
-    		<span id='map_link' class="box menu_item" style="display:none;">The Zero Map</span>
-    		<span id='board_link' class="box menu_item">The Zero Board</span> <span class="menu_barrier">|</span>
-    		<span id='submit_link' class="box menu_item">Submit a Flyer</span>
-    		<div class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></div>
-    	</span>
+      <div id='submit_link' class="box menu_item left_link">Submit a Flyer</div>
+      <%=image_tag 'mainlogo-text.png', :class=>"branding", :size=>"237x45"%>
+      <span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
+    		<div id='map_link' class="box menu_item right_link" style="display:none;">The Zero Map</div>
+    		<div id='board_link' class="box menu_item right_link">The Zero Board</div>
+    		
     	</div>
-    	<% if notice %>
-		<div id="notice" class='box' style="display:none;"><div class="text"><%=raw notice%></div></div>
+      <div id="map_overlay">
+        <span id="flyer_distance">Loading...</span><br/>
+      </div>
+      <div id="bottom_bar">
+
+          <div id="address_container">
+            <div id="address_title">
+              Your Zero
+            </div>
+            <div id="address" class="menu_item">
+              Unknown.        
+            </div>
+            <span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
+          </div>
+          <table id="navigation_table">
+              <tr>
+                <td rowspan="2" id="previous">
+                  Prev
+                </td>
+                <td id="zoomIn">
+                  +
+                </td>
+                <td rowspan="2" id="next">
+                  Next
+                </td>
+              </tr>
+              <tr>
+                <td id="zoomOut">
+                  -
+                </td>
+              </tr>
+          </table>
+          <table id="venue_table">
+              <tr>
+                  <td id="vt_icon">
+                    <img width="32px" height="32px" src="" />
+                  </td>
+                  <td id="vt_name">
+                  </td>
+              </tr>
+              <tr>
+                  <td colspan="2" id="vt_location">
+                  </td>
+              </tr>
+          </table>
+      </div>
+  <% if notice %>
+		<div id="notice" class='box' style="display:none;margin-top:42px"><div class="text"><%=raw notice%></div></div>
 
 		<script>
 			$('#notice').slideDown(600);

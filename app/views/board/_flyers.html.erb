@@ -3,8 +3,7 @@
 </div>
 
 <div id="submission_page">
-	<div style="width:990px; margin:0 auto;height: 100%;padding-bottom:40px;" id="form_area">
-		<div class="yellow_text" style="font-size:3.0em;">Submit your flyer.</div>
+	<div style="width:990px; margin:50px auto;height: 100%;padding-bottom:40px;" id="form_area">
 		<div id="form_content">
 			<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true" ) do |f| %>
 				<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>

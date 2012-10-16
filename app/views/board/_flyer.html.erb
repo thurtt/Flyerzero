@@ -1,7 +1,10 @@
 <script>
 	clearMap();
 	<%if @now.length > 0%>
-		<%for flyer in @now.reverse%>
+		<%for flyer in @now.reverse
+			venue = reverse_venue_lookup( flyer.venue_id )
+		%>
+
 			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, 
 				{ 
 					get_distance_from: <%=flyer.get_distance_from%> , 
@@ -12,7 +15,17 @@
 					large: '<%= flyer.photo.url( :medium ) %>', 
 					original: '<%=flyer.photo.url( :large )%>', 
 					expiry:'<%=flyer.expiry%>',
-					text: '<%=sanitize flyer.media.gsub("\n",'').gsub("'",'"'), :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>'
+					text: '<%=sanitize flyer.media.gsub("\n",'').gsub("'",'"'), :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>',
+					venue_name: '<%=venue["name"]%>',
+					venue_location: '<%= venue["location"].has_key?("address") ? venue["location"]["address"] : "" %>',
+					venue_icon: '<%=proc do
+						      			if venue["categories"].length > 0
+							    			icon_info = venue["categories"][0]["icon"]
+							    			icon = icon_info["prefix"] + icon_info["sizes"][2].to_s + icon_info["name"]
+						      			else
+							    			icon = nil
+						      			end
+					      			end.call %>'
 				}, 
 				false);
 			markers["<%=flyer.id%>"] = marker;

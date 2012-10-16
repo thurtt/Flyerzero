@@ -53,7 +53,15 @@ $(document).ready(function() {
 
 	$('#address').click( function(){
 		$('#address').fadeOut("fast", function() {
-			$('#change_location').fadeIn("fast", function() {});
+			$('#change_location').fadeIn("fast", function() {
+				$('#new_location').focus();
+			});
+		});
+	});
+
+	$('#new_location').blur( function(){
+		$('#change_location').fadeOut('fast', function() {
+			$('#address').fadeIn("fast", function(){});
 		});
 	});
 	$('img.branding').click( function(){
@@ -77,16 +85,16 @@ $(document).ready(function() {
 			}
 		}
 	});
-	$('area#zoomIn').unbind();
-	    $('area#zoomOut').unbind();
-	    $('area#previous').unbind();
-	    $('area#next').unbind();
+	$('td#zoomIn').unbind();
+	$('td#zoomOut').unbind();
+	$('td#previous').unbind();
+	$('td#next').unbind();
 
 
-	    $('area#zoomIn').click( function(){ZoomIn();});
-	    $('area#zoomOut').click( function(){ZoomOut();});
-	    $('area#previous').click( function(){PreviousMarker();});
-	    $('area#next').click( function(){NextMarker();});
+	$('td#zoomIn').click( function(){ZoomIn();});
+	$('td#zoomOut').click( function(){ZoomOut();});
+	$('td#previous').click( function(){PreviousMarker();});
+	$('td#next').click( function(){NextMarker();});
 
 
 	initialize_map();
@@ -365,6 +373,9 @@ function addAddressToMap(lat, lng, data, person) {
 	locationmarker.flyer_id = data["flyer_id"];
         locationmarker.distance = distance;
         locationmarker.person = person;
+        locationmarker.venue_name = data["venue_name"];
+        locationmarker.venue_location = data["venue_location"];
+        locationmarker.venue_icon = data["venue_icon"];
 
         google.maps.event.addListener(locationmarker, 'click', function() {
                 closeInfoWindows();

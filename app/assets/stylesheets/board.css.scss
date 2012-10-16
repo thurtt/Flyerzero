@@ -17,7 +17,7 @@ a:active {color:#f9e101;text-decoration:none;}  /* selected link */
 div#userzero {
 	position: absolute;
 	width:100%;
-	bottom:0px;
+	top:0px;
 	left:0px;
 	text-align:left;
 	font-size: 1.1em;
@@ -33,15 +33,18 @@ div#userzero {
 	
 	border-top:1px solid #cda801;
 	border-bottom:1px solid yellow;
+	padding: 10px;
+	height: 20px;
 }
 span#submit_link{
 	cursor:pointer;
 }
 
 img.branding{
-	position:absolute;
-	bottom:30px;
-	left:0px;
+	position: absolute;
+	left: 50%;
+	margin-left: -119px;
+	top: -3px;
 	z-index:200;
 	cursor:pointer;
 }
@@ -89,22 +92,40 @@ button.change_location:hover{
 	color: white;
 }
 
-span.control_links span.menu_item{
-	padding-left:25px;
-	padding-right: 25px;
+div#userzero div.menu_item{
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 1.0em;
+	padding: 0px 25px 5px 25px;
+	color: black;
+	font-weight: 600;
+	text-shadow: white 0.05em 0.05em 0.2em;
+	//letter-spacing: 1px;
 }
 
-span.menu_item:hover{
-	background-color: #222222;
-	color: #dddddd;
-	text-shadow:none;
+div#userzero div.menu_item:hover{
+	color: white !important;
+	text-shadow: none !important;
 	cursor:pointer;
-	padding-left:25px;
-	padding-right: 25px;
+	text-shadow: black 0.05em 0.05em 0.1em !important;
+	padding: 0px 25px 5px 25px;
+}
+
+
+div.left_link {
+	position: relative;
+	margin-left: 20px;
+	float: left;
+}
+
+div.right_link {
+	position: relative;
+	margin-right: 30px;
+	float: right;
 }
 span.menu_barrier{
-	color:#f9e101;
-	text-shadow: yellow 0.08em 0.08em 0.08em;
+	//color:#f9e101;
+	color: #111111;
+	text-shadow: white 0.08em 0.08em 0.08em;
 }
 
 div#board_page{
@@ -135,6 +156,11 @@ div.content div.flyers img{
 }
 
 div.content div.header{
+	text-shadow:1px 1px #777;
+	color: #ddd;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+ 
+	padding-top: 10px;
 	font-size:2.0em;
 	color:#dddddd;
 	padding-bottom:20px;
@@ -271,7 +297,7 @@ div.spacer{
 }
 div#map_overlay{
     position:absolute;
-    bottom:40px;
+    bottom:100px;
     width:100%;
     text-align:center;
 }
@@ -286,4 +312,103 @@ span#flyer_distance{
     border-radius: 10px;
     margin:15px;
     
+}
+
+div#bottom_bar {
+	width: 100%;
+	height: 90px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	text-shadow:1px 1px #777;
+	color: #ddd;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+ 
+	background: rgb(53,53,53); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(53,53,53,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(53,53,53,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353535', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+	
+}
+
+table#navigation_table {
+	width: 300px;
+	height: 50px;
+	table-layout: fixed;
+	border: 1px solid #444;
+	padding: 0px;
+	cursor: pointer;
+	font-size: 1.3em;
+	color: #DDD;
+	border-spacing:0;
+	border-collapse:collapse;
+	position: absolute;
+	left: 50%;
+	margin-left: -150px;
+	text-align: center;
+	bottom: 33px;
+}
+
+table#navigation_table td {
+	-webkit-user-select: none;  
+ 	-moz-user-select: none;    
+  	-ms-user-select: none;      
+  	user-select: none;
+	border: 1px solid #444;
+	margin: 0px;
+}
+
+table#navigation_table td#zoomIn {
+	width: 25px;
+}
+
+div#address_container {
+	width: 400px;
+	padding: 10px;
+}
+
+div#address_container div#address_title {
+	font-size: 1.7em;
+}
+
+div#address_container div#address {
+	cursor: pointer;
+}
+div#address_container div#address:hover {
+	color: white !important;
+	//font-weight: 600;
+	cursor:pointer;
+	text-shadow: white 0.1em 0.1em 0.1em !important;
+}
+
+#fb_likie {
+	left: 34%;
+	top: 8px;
+	position: absolute;
+}
+
+
+table#venue_table {
+	right: 10px;
+	display: none;
+	position: absolute;
+	bottom: 21px;
+}
+
+table#venue_table td#vt_icon {
+	width: 40px;
+
+}
+
+table#venue_table td#vt_name {
+	font-size: 1.7em;
+
+}
+
+table#venue_table td#vt_location {
+
 }
