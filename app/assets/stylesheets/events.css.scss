@@ -309,7 +309,7 @@ div#dragdrop_text {
 .decision_box{
     border: 1px solid #999999;
     width: 230px;
-    height: 300px;
+    height: 260px;
     float: left;
     margin-left: 20px;
     margin-right: 20px;
@@ -338,7 +338,12 @@ div#dragdrop_text {
 #fresh_event{
     border: 1px dashed #777777;
     width: 130px;
-    height: 163px;
+    height: 130px;
+}
+#clone_event {
+    background-size: cover; 
+    height:130px; 
+    width:130px;
 }
 #fresh_event .flyer_text{
     width: 80px;

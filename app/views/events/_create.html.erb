@@ -3,6 +3,6 @@
 <script>
     var dragdropPartial = '<%= escape_javascript( render(:partial => "dragdrop") )%>';
     var eventId = '<%= event_id %>';
-    $('#clone_event img').attr( 'src', '<%= photo %>' );
     submitState = 'created';
+    $('#clone_event').css('background-image', "url('<%=photo%>')");
 </script>

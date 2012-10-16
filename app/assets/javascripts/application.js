@@ -186,6 +186,7 @@ function loadFlyerData(lat, lng) {
 		$('#fresh_event').click(function(){
 			$('#dragdrop').html( dragdropPartial );
 			clearForm();
+			$('#event_event_id').val('');
 			attachFileUploader();
 			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
 		})
@@ -203,18 +204,6 @@ function loadFlyerData(lat, lng) {
 		// this will automatically bring up the submission form if we're
 		// editing something
 		setEditMode();
-
-		if( aboutEnable == true ){
-		    showAbout();
-		}
-
-		// controls for the about page
-		$('#prev_button').click( function(){
-		   $('#jmpress').jmpress( 'prev' );
-		});
-		$('#next_button').click( function(){
-		    $('#jmpress').jmpress( 'next' );
-		});
 
 		$('#venue_search_location').click(function(){
 		    $(this).hide();
