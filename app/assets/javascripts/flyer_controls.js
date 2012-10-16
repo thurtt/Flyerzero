@@ -65,6 +65,7 @@ function SetViewedMarkerNoClick(marker){
         currentMarker.setZIndex(9998);
     }
     currentMarker = marker;
+    setVenueInfo(marker.venue_name, marker.venue_location, marker.venue_icon);
 }
 
 function SetViewedMarker(marker){
