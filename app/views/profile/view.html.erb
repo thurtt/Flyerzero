@@ -20,7 +20,7 @@
 	Promotion History<br /><br />
 	<%for flyer in @flyers%>
 		<%if !flyer.photo(:small).include?('/missing.png')%>
-		<%= link_to image_tag(flyer.photo(:small), :size=>"130x163"), flyer.photo(:large), :target=>"_new"%>
+		<%= link_to image_tag(flyer.photo(:cropped), :size=>"130x130"), flyer.photo(:large), :target=>"_new"%>
 		<%end%>
 	<%end%>
 	</div>

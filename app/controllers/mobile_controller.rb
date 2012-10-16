@@ -5,28 +5,56 @@ class MobileController < ApplicationController
 	end
 
 	def flyers
+		pageSize = 25
+		if params[:per]
+			pageSize = params[:per].to_i
+		end
+		_page = 1
+		if params[:page]
+			_page = params[:page].to_i
+		end
+		
+		_version = "1.0"
+		if params[:ver]
+			_version = params[:ver]
+		end
+		
 		Gabba::Gabba.new("UA-31288505-1", "http://www.flyerzero.com").page_view("Mobile", "mobile/flyers")
 		if params[:lat] != nil && params[:lat] != ''
 			ll = Geokit::LatLng.new(params[:lat], params[:lng])
 		end
 
 
-		@now = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+		@now = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
+		@count = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
 		if @now.length < 20
-			@now = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+			@now = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
+			@count = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
 		end
 		if @now.length < 20
-			@now = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+			@now = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
+			@count = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
 		end
 		if @now.length < 1
-			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page)
+			@count = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
 		end
 
 		for f in @now
 			f.distance_from_object = ll
 		end
-
-		render :json=>@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from])
+		
+		if _version != "1.0"
+			responseArray = { :events => JSON.parse(@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from])),
+				:total_pages=> (@count.size / pageSize.to_f).ceil, 
+				:current_page => _page, 
+				:per_page=>pageSize,
+				:api_version=>_version}
+		else
+			responseArray = JSON.parse(@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from]))
+		end
+		
+		render :json=>responseArray
 	end
 
 	def flyer

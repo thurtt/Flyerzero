@@ -327,13 +327,13 @@ function addAddressToMap(lat, lng, data, person) {
         if ( person ) {
         }
         else {
-		if ( data["text"] != '' ){
-
-			info += '<div style="float:right;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe").first()).html() + '</div>';
+		if ( $(data["text"]).filter("iframe").length == 0 ){
+			info += '<div style="float:right;" class="map_data"><div class="alert_header"><br /><br /><br />This promoter hasn\'t<br />included any media yet!<br /><br /></div></div>';
+		
 		}
 		else {
-
-			info += '<div style="float:right;" class="map_data"><div class="alert_header"><br /><br /><br />This promoter hasn\'t<br />included any media yet!<br /><br /></div></div>';
+			info += '<div style="float:right;" class="map_data">' + $("<div></div>").append($(data["text"]).filter("iframe").first()).html() + '</div>';
+		
 		}
 
 		if (data["get_distance_from"] != undefined){
