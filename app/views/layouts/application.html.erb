@@ -16,11 +16,16 @@
   	event = Event.find(params[:flyer])
   	fsVenueName = foursquare_venue_name(event.venue_id)
   %>
-  <meta property="og:title" content="<%= fsVenueName %>"/>
   <meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:flyer]%>"/>
   <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:large)%>"/>
-  <meta property="og:description" content="Check out this flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>" />
-  <meta property="og:type" content="flyerzeromobile:event" />
+  <meta property="og:description" content="Check out this Flyer Zero event flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>." />
+  <%if params[:act]%>
+  	<meta property="og:title" content="an event at <%= fsVenueName %>"/>
+  	<meta property="og:type" content="flyerzeromobile:<%=params[:act]%>" />
+  <%else%>
+  	<meta property="og:title" content="Event Flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>"/>
+  	<meta property="og:type" content="flyerzeromobile:flyer" />
+  <%end%>
   <script>
   	focusFlyer = '<%=params[:flyer]%>';
   </script>
