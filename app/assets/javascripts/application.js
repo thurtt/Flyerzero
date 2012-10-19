@@ -362,10 +362,7 @@ function addAddressToMap(lat, lng, data, person) {
 	locationmarker.flyer_id = data["flyer_id"];
         locationmarker.distance = distance;
         locationmarker.person = person;
-        locationmarker.venue_name = data["venue_name"];
-        locationmarker.venue_location = data["venue_location"];
-        locationmarker.venue_icon = data["venue_icon"];
-
+        locationmarker.venue_id = data["venue_id"];
         google.maps.event.addListener(locationmarker, 'click', function() {
                 closeInfoWindows();
                 if ( person == false) {

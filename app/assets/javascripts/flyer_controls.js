@@ -65,7 +65,7 @@ function SetViewedMarkerNoClick(marker){
         currentMarker.setZIndex(9998);
     }
     currentMarker = marker;
-    setVenueInfo(marker.venue_name, marker.venue_location, marker.venue_icon);
+    setVenueInfo(marker);
 }
 
 function SetViewedMarker(marker){
@@ -79,7 +79,7 @@ function SetViewedMarker(marker){
     }
     currentMarker = marker;
     google.maps.event.trigger(marker, 'click');
-    setVenueInfo(marker.venue_name, marker.venue_location, marker.venue_icon);
+    setVenueInfo(marker);
 }
 
 function ZoomIn(){
@@ -100,10 +100,28 @@ function formatDistance(inMiles){
     }
 }
 
-function setVenueInfo(name, address, icon) {
+function setVenueInfo(marker) {
     $('table#venue_table').hide();
-    $('td#vt_icon img').attr('src', icon);
-    $('td#vt_name').html(name);
-    $('td#vt_location').html(address);
+    if (!marker.venue_name) {
+        $.getJSON('tools/reverse_venue', { 'venue_id': marker.venue_id}, function(data) {
+            marker.venue_name = data.venue_name;
+            if (marker.venue_name.length > 20) {
+                marker.venue_name = marker.venue_name.slice(0, 20);
+                marker.venue_name += '...';
+            }
+
+            marker.venue_location = data.venue_location;
+            marker.venue_icon = data.venue_icon;
+            showVenueInfo(marker);
+        });
+    } else {
+        showVenueInfo(marker);
+    }
+}
+
+function showVenueInfo(marker) {
+    $('td#vt_icon img').attr('src', marker.venue_icon);
+    $('td#vt_name').html(marker.venue_name);
+    $('td#vt_location').html(marker.venue_location);
     $('table#venue_table').fadeIn(function() {});
 }
