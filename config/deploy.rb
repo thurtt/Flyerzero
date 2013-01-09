@@ -26,7 +26,7 @@ role :app, "www.flyerzero.com"                          # This may be the same a
 role :db,  "www.flyerzero.com", :primary => true # This is where Rails migrations will run
 
 # global rvm integration
-$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+#$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
 require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, '1.9.2-p290@rails313'
 set :rvm_type, :system
@@ -55,11 +55,11 @@ task :update_permissions do
 end
 
 task :refresh_sitemaps do
-  run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
+  run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake sitemap:refresh"
 end
 
 task :refresh_paperclip do
-  run "cd #{latest_release}; export RAILS_ENV=#{rails_env} && rake paperclip:refresh:missing_styles"
+  run "cd #{latest_release}; export RAILS_ENV=#{rails_env} && bundle exec rake paperclip:refresh:missing_styles"
 end
 
 after "deploy", "deploy:migrate", "refresh_paperclip", "update_permissions",  "refresh_sitemaps"
