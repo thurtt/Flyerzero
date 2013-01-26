@@ -32,7 +32,7 @@ class EventsController < ApplicationController
 			end
 	
 			if imageurl
-				#@event.image_from_url(imageurl)
+				@event.image_from_url(imageurl)
 			end
 			
 			@event.validated = true
