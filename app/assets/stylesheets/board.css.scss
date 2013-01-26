@@ -1,43 +1,78 @@
 // Place all the styles related to the board controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-body { overflow: hidden !important; }
 body.primary {
+background-color:#fafafa;
+font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+ 
+p{
+	padding:10px;
+	padding-right:30px;
+}
 
 a:link {color:#f9e101;text-decoration:none;}      /* unvisited link */
 a:visited {color:#f9e101;text-decoration:none;}  /* visited link */
 a:hover {color:#f9e101;text-decoration:none;}  /* mouse over link */
 a:active {color:#f9e101;text-decoration:none;}  /* selected link */
 
+#icon{
+	position:absolute;
+	top:5px;
+	left:10px;
+	background:#222;
+	border-radius:8px;
+	padding:10px;
+}
+.iconimage{
+	border-radius:7px;
+}
 
-
+#main_container{
+	width:900px;
+	margin:auto;
+	-moz-box-shadow: 0 0 5px 2px #aaa;
+	-webkit-box-shadow: 0 0 5px 2px #aaa;
+	box-shadow: 0 0 5px 2px #aaa;
+	margin-top:50px;
+	background:white;
+	border-radius:10px;
+}
+#main_panel{
+	background:white;
+	width:100%;
+}
+#title_text{
+	color:#fff;
+	/*padding-left:135px;*/
+	font-size:6.0em;
+	font-weight:700;
+	float:left;
+	line-height: 100px;
+}
 
 /* prototype stuff */
 
 div#userzero {
-	position: absolute;
-	width:100%;
-	top:0px;
-	left:0px;
+	margin:auto;
 	text-align:left;
-	font-size: 1.1em;
 	z-index:200;
-	border-top:1px solid #444444;
-	background-color:#f9e101;
-	
-	background: white;
-	background: url('/assets/header.jpg');
-	background-size: 100% 100%;
-	color:#222;
-	text-shadow: yellow 0.08em 0.08em 0.08em;
-	
-	border-top:1px solid #cda801;
-	border-bottom:1px solid yellow;
-	padding: 10px;
-	height: 20px;
+	/*background-color:#f9e101;*/
+	background-color:#222;
+
+	color:#eee;
+	height: 100px;
+	/*border-top-right-radius:10px;
+	border-top-left-radius:10px;*/
+	position:relative;
 }
-span#submit_link{
+.submit_link{
 	cursor:pointer;
+}
+div#support{
+	width:200px;
+	float:right;
+	
+	line-height: 100px;
 }
 
 img.branding{
@@ -57,16 +92,9 @@ div#content {
 }
 div#submission_page{
 	text-align:center;
-	position:absolute;
-	top:0px;
-	left:0px;
+	
 	width:100%;
-	height:100%;
-	overflow:scroll;
 	vertical-align: middle;
-	background-color:#fcfcfc;
-	z-index:100;
-	display:none;
 }
 
 span#address {
@@ -129,26 +157,27 @@ span.menu_barrier{
 }
 
 div#board_page{
-	text-align:center;
-	position:absolute;
-	top:0px;
-	left:0px;
-	width:100%;
-	height:100%;
-	overflow:scroll;
 	vertical-align: middle;
-	background-color:#222222;
-	z-index:100;
-	display:none;
+	background-color:white;
+	height:121px;
+	overflow:hidden;
 }
 div.content{
 	text-align:left;
-	padding:40px;
-	padding-bottom:80px;
 }
 
 div.content div.flyers {
-	padding:20px;
+
+
+background: #636363;
+background: -moz-radial-gradient(center, ellipse cover,  #636363 0%, #000000 100%);
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#636363), color-stop(100%,#000000));
+background: -webkit-radial-gradient(center, ellipse cover,  #636363 0%,#000000 100%);
+background: -o-radial-gradient(center, ellipse cover,  #636363 0%,#000000 100%);
+background: -ms-radial-gradient(center, ellipse cover,  #636363 0%,#000000 100%);
+background: radial-gradient(ellipse at center,  #636363 0%,#000000 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#636363', endColorstr='#000000',GradientType=1 );
+
 }
 
 div.content div.flyers img{
@@ -173,16 +202,25 @@ div#corner_spot{
 	z-index:200;
 }
 
-div#footer {
-	font-size:2.0em;
+div#main_footer {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+ 
+	font-size:0.8em;
+	
 	text-align:center;
-	padding:40px;
 	color:#dddddd;
+	margin:auto;
+	height:60px;
+	line-height:60px;
+	background:#222;
+	/*border-bottom-right-radius:10px;
+	border-bottom-left-radius:10px;
+	margin-bottom:40px;*/
 }
 
 
-div#content div.container{
-	float:left;
+ div.container{
+	
 	padding:10px;
 }
 
@@ -198,14 +236,13 @@ div#kickstarter {
 .slideshow img.first { display: block }
 
 div#submit {
-    width: 550px;
-    height: 500px;
+   /* width: 550px;*/
     text-align: left;
 }
 
 div#dragdrop {
-    width: 400px;
-    height: 500px;
+    width: 300px;
+    height: 400px;
 }
 
 div#kicktitle {
@@ -285,9 +322,9 @@ img.soon {
 }
 
 div.f_element{
-	float:left;
 	width:220px;
 	text-align:center;
+	border:1px solid red;
 }
 div.spacer{
 	float:left;
@@ -296,61 +333,41 @@ div.spacer{
 	text-align:center;
 }
 div#map_overlay{
-    position:absolute;
-    bottom:100px;
     width:100%;
     text-align:center;
 }
 span#flyer_distance{
     font-size:1.6em;
     color:white;
-    background: url('/assets/transparent.png');
-    padding-top:3px;
-    padding-bottom:3px;
-    padding-left:20px;
-    padding-right:20px;
-    border-radius: 10px;
-    margin:15px;
     
 }
 
 div#bottom_bar {
-	width: 100%;
-	height: 90px;
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-	text-shadow:1px 1px #777;
-	color: #ddd;
+	margin:auto;
+	height: 100px;
+	color: #111;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
  
-	background: rgb(53,53,53); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(53,53,53,1) 0%, rgba(14,14,14,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(53,53,53,1)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(53,53,53,1) 0%,rgba(14,14,14,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353535', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+	background:white;
 	
+	opacity:.80;
+	position:absolute;
+	top:300px;
+	left:0px;
+	width:100%;
+	border-top:1px solid #ddd;
+	border-bottom:1px solid #ddd;
 }
 
 table#navigation_table {
 	width: 300px;
-	height: 50px;
-	table-layout: fixed;
 	border: 1px solid #444;
 	padding: 0px;
 	cursor: pointer;
 	font-size: 1.3em;
 	color: #DDD;
-	border-spacing:0;
-	border-collapse:collapse;
-	position: absolute;
-	left: 50%;
-	margin-left: -150px;
 	text-align: center;
-	bottom: 33px;
+	margin:auto;
 }
 
 table#navigation_table td {
@@ -386,17 +403,12 @@ div#address_container div#address:hover {
 }
 
 #fb_likie {
-	left: 34%;
-	top: 8px;
-	position: absolute;
 }
 
 
 table#venue_table {
-	right: 10px;
-	display: none;
-	position: absolute;
-	bottom: 21px;
+	float:right;
+	display:none;
 }
 
 table#venue_table td#vt_icon {

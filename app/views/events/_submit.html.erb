@@ -1,17 +1,9 @@
+<%=f.hidden_field :email %>
+
 <div id="add_panel">
 	<table>
 		<tr>
-			<td><h1>Whose Shindig? (email)</h1></td>
-		</tr>
-		<tr>
-			<td>
-			  <%=f.email_field :email, :placeholder=>"Your email address", :class=>"input_text",
-			    :data=>{:help=>"We will send you an email that will allow you to activate, edit, or delete your event. Your event won't appear on Flyer Zero until you activate it."}
-			  %>
-			</td>
-		</tr>
-		<tr>
-			<td><h1>When?</h1></td>
+			<td><h3>When?</h3></td>
 		</tr>
 		<tr>
 			<td><%=f.text_field :expiry, :placeholder=>"Event date", :class=>"input_text",
@@ -19,7 +11,7 @@
 			%></td>
 		</tr>
 		<tr>
-			<td><h1>Where is it?</h1></td>
+			<td><h3>Where is it?</h3></td>
 		</tr>
 		<tr>
 			<td class="search_area">
@@ -41,7 +33,7 @@
 		</tr>
 		<tr>
 			<td>
-				<h1>Have Media?</h1>
+				<h3>Have Media?</h3>
 				<!--[if IE]><span class="create_helper">Include your Youtube, Soundcloud, or reverbnation iframes here!</span><![endif]-->
 
 			</td>

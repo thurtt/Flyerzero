@@ -9,7 +9,6 @@
 
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=false"></script>
   <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker.js"></script>
-  <%= javascript_include_tag "http://gettopup.com/releases/latest/top_up-min.js" %>
 
   <%if params[:flyer]%>
   <%
@@ -82,71 +81,101 @@
    }
   </script>
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '288588701253698', // App ID from the App Dashboard
+     // channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File for x-domain communication
+      status     : true, // check the login status upon init?
+      cookie     : true, // set sessions cookies to allow your server to access the session?
+      xfbml      : true  // parse XFBML tags on this page?
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+
+  };
+  
+/*(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+*/
 
-    <div id="map_canvas" style="width: 100%; height: 100%; position:absolute; top:0; left:0;"></div>
+(function(d, debug){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document, /*debug*/ false));
+   </script>
+
+<div id="zmain_container" style="position:relative;">
+
+
+    <div id="userzero" class='main_panel'>
+    	<!-- <div id="icon"><%=image_tag "app_icon.png", :size=>"100x100", :class=> "iconimage"%></div> -->
+    	<a href="/"><div id="title_text">FLYERZERO</div></a>
+      	<div id="support"><a href="mailto:support@openformfoundation.org">Need Support? We got you.</a></div>
+      <!--
+      <div id='submit_link' class="box menu_item right_link" style="display:none;">Submit a Flyer</div>
+      //-->
+    </div>
+    <div id="map_canvas" style="width: 100%; height: 300px; margin:auto; background:white;" class="main_panel"></div>
     
 
-          
-    <div id="userzero" class=''>
-      <div id='submit_link' class="box menu_item left_link">Submit a Flyer</div>
-      <%=image_tag 'mainlogo-text.png', :class=>"branding", :size=>"237x45"%>
-      <span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
-    		<div id='map_link' class="box menu_item right_link" style="display:none;">The Zero Map</div>
-    		<div id='board_link' class="box menu_item right_link">The Zero Board</div>
-    		
-    	</div>
-      <div id="map_overlay">
-        <span id="flyer_distance">Loading...</span><br/>
-      </div>
-      <div id="bottom_bar">
+      <div id="bottom_bar" class="main_panel">
 
-          <div id="address_container">
-            <div id="address_title">
-              Your Zero
-            </div>
-            <div id="address" class="menu_item">
-              Unknown.        
-            </div>
-            <span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-          </div>
-          <table id="navigation_table">
-              <tr>
-                <td rowspan="2" id="previous">
-                  Prev
-                </td>
-                <td id="zoomIn">
-                  +
-                </td>
-                <td rowspan="2" id="next">
-                  Next
-                </td>
-              </tr>
-              <tr>
-                <td id="zoomOut">
-                  -
-                </td>
-              </tr>
-          </table>
-          <table id="venue_table">
-              <tr>
-                  <td id="vt_icon">
-                    <img width="32px" height="32px" src="" />
-                  </td>
-                  <td id="vt_name">
-                  </td>
-              </tr>
-              <tr>
-                  <td colspan="2" id="vt_location">
-                  </td>
-              </tr>
-          </table>
+	      <table style="width:100%;">
+		<tr>
+			<td style="width:400px;">
+				  <div id="address_container">
+				    <div id="address_title">
+				      Your Zero
+				    </div>
+				    <div id="address" class="menu_item">
+				      Unknown.        
+				    </div>
+				    <span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
+				  </div>
+			</td>
+			<td>
+			      <div id="map_overlay">
+				<span id="flyer_distance">Loading...</span><br/>
+			      </div>
+			      <!--
+				  <table id="navigation_table">
+				      <tr>
+					<td id="previous">
+					  Prev
+					</td>
+					<td id="next">
+					  Next
+					</td>
+				      </tr>
+				  </table> //-->
+			</td>
+			<td style="width:400px; text-align:right;">
+				  <table id="venue_table">
+				      <tr>
+					  <td id="vt_icon">
+					    <img width="32px" height="32px" src="" />
+					  </td>
+					  <td id="vt_name">
+					  </td>
+				      </tr>
+				      <tr>
+					  <td colspan="2" id="vt_location">
+					  </td>
+				      </tr>
+				  </table>
+			</td>
+		  </tr>
+		 </table>
       </div>
   <% if notice %>
 		<div id="notice" class='box' style="display:none;margin-top:42px"><div class="text"><%=raw notice%></div></div>
@@ -159,8 +188,21 @@
 
 <%= yield %>
 
+<div id="main_footer">
+
+<a href="/">Flyer Zero</a> is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint. &copy;2012
+
+<span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
+  
+      
+</div>
+
+</div>
+
 <!-- Google Analytics -->
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
+
+<!-- End Google Analytics -->
 
 </body>
 </html>

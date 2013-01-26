@@ -1,8 +1,9 @@
 <h1>Event successfully created!</h1>
-<p>Be sure to check your email and click on the activation link to activate your new event.</p>
+<p>Want to submit another?</p>
 <script>
     var dragdropPartial = '<%= escape_javascript( render(:partial => "dragdrop") )%>';
     var eventId = '<%= event_id %>';
     submitState = 'created';
     $('#clone_event').css('background-image', "url('<%=photo%>')");
+    reloadLocation();
 </script>

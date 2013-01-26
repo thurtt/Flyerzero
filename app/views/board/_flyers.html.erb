@@ -1,22 +1,42 @@
-<div id="board_page">
-	<%= render :partial=>"flyer"%>
-</div>
 
-<div id="submission_page">
-	<div style="width:990px; margin:50px auto;height: 100%;padding-bottom:40px;" id="form_area">
-		<div id="form_content">
-			<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true" ) do |f| %>
-				<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>
-				<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
-			<%end%>
-		</div>
-		<%= render :partial=>"events/message_panel" %>
+
+<script>
+	clearMap();
+	<%if @now.length > 0%>
+		<%for flyer in @now.reverse %>
+
+			marker = addAddressToMap(<%=flyer.lat%>,<%=flyer.lng%>, 
+				{ 
+					get_distance_from: <%=flyer.get_distance_from%> , 
+					fbevent: '<%=flyer.fbevent%>', 
+					gravatar: '<%=gravatar_url(flyer.email, :size=>"40")%>'<%if Achievement.find_by_email(flyer.email)%>, 
+					profile: '<%=Achievement.find_by_email(flyer.email).id%>'<%end%>, 
+					flyer_id: '<%=flyer.id%>', small: '<%=flyer.photo.url( :small )%>', 
+					large: '<%= flyer.photo.url( :medium ) %>', 
+					original: '<%=flyer.photo.url( :large )%>', 
+					expiry:'<%=flyer.expiry%>',
+					text: '<%=sanitize flyer.media.gsub("\n",'').gsub("'",'"'), :tags => %w(iframe), :attributes => %w(id class style src height width scrolling frameborder)%>',
+					venue_id: '<%= flyer.venue_id %>'
+				}, 
+				false);
+			markers["<%=flyer.id%>"] = marker;
+			oMarkers.push(marker);
+		<%end%>
+	<%end%>
+
+	latitude = parseFloat( '<%= session[:ll].split(',')[0] %>' );
+	longitude = parseFloat( '<%= session[:ll].split(',')[1] %>' );
+	addUser();
+	$('#address').html('<%=session[:origin]%>');
+	<% if @flyer %>
+		map.setCenter(markers["<%=@flyer.id%>"].getPosition());
+		SetViewedMarker(markers["<%=@flyer.id%>"]);
+	<%end%>
+</script>
+
+
+<% if @now.length > 0%>
+	<div id="board_page">
+		<%= render :partial=>"flyer"%>
 	</div>
-
-</div>
-
-<div id="about_page">
-
-	<%= render :partial=>"about" %>
-
-</div>
+<% end %>

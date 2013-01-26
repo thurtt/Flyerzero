@@ -1,3 +1,5 @@
+require "open-uri"
+
 class Event < ActiveRecord::Base
 	include ApplicationHelper
 	
@@ -6,6 +8,7 @@ class Event < ActiveRecord::Base
 	validates_presence_of :email
 	validates_presence_of :expiry
 	validates_presence_of :validation_hash
+	#validates_uniqueness_of :fbevent
 	has_attached_file :photo, :styles => {
 			:thumb=> "100x",
 			:small  => "200x",
@@ -26,6 +29,10 @@ class Event < ActiveRecord::Base
 		    where(:email=>result.email).order('expiry') }
 	scope :by_venue, lambda{|venue_id| where(:venue_id=>venue_id).order('expiry')}
 
+	def image_from_url(url)
+		#self.photo = open(url)
+	end
+  
 	def get_distance_from(point = nil)
 		point ||= distance_from_object
 		return distance_from(point)

@@ -7,12 +7,94 @@
 	  var editFlyer = false;
       <% end %>
 </script>
-<div id="logo"> </div>
 
-<div id="content">
+<div id="content" class="main_panel"></div>
+
+<div class="main_panel" style="height:280px;color:#888; padding:20px; border-top:1px solid #ddd;">
+<div style="margin:20px">
+
+<style>
+.pimp_item{
+	color:#888;
+	width:50%;
+	float:left;
+	
+}
+.pimp_item .title{
+	font-size:2.0em; font-weight:700; color:#222;
+}
+.pimp_item .info{
+}
+</style>
+
+<div class="pimp_item">
+	<div class="title">Submit a Flyer</div>
+	<div class="info">
+			<p>Submit your flyer to Flyer Zero now. It's super easy!</p>
+			<p>All you need to get started is an email address, an event, and of course a great flyer!</p>
+			<p><button id="my-button" class="submit_link">Share One Now</button></p>
+			<p><button id="share_test">Share on FB</button></p>
+	</div>
 </div>
-<div id="footer">
-<strong>Flyer Zero</strong> is a kickass <%= link_to "Open Form Foundation", "http://www.openformfoundation.org/"%></strong> joint.
-<br /><br /><br />
-<%=image_tag "cycle.gif", :size=>"64x64", :style=>"height:64px; width: 64px; margin:auto;display:block;"%>
+
+<div class="pimp_item">
+	<div class="title">Flyer Zero Mobile</div>
+	<div class="info">
+			<p><%=image_tag "flyerzero_mobile_iphone.png", :style=>"float:right"%>
+			Flyer Zero has gone mobile! Get it now!</p>
+			<p>
+			Download Flyer Zero Mobile and find events nearby, no matter where you are.
+			</p>
+			<p>
+				<a href="https://itunes.apple.com/us/app/flyer-zero/id541665284"><%=image_tag "itunes_appstore.png"%></a>
+				<a href="https://play.google.com/store/apps/details?id=com.flyerzero.mobile"><%=image_tag "google_appstore.png", :style=>"height:40px"%></a>
+			</p>
+	</div>
 </div>
+
+<table style="width:100%; display:none;">
+	<tr>
+		<td style="width:50%;font-size:2.0em; font-weight:700; color:#222;" class="submit_link">Submit a Flyer</td>
+		<td style="width:50%;font-size:2.0em; font-weight:700; color:#222;">Flyer Zero Mobile</td>
+	</tr>
+	<tr>
+		<td valign='top'>
+			<p>Submit your flyer to Flyer Zero now. It's super easy!</p>
+			<p>All you need to get started is an email address, an event, and of course a great flyer!</p>
+			<p><button id="my-button" class="submit_link">Share One Now</button></p>
+		</td>
+		<td valign='top'>
+			<p><%=image_tag "flyerzero_mobile_iphone.png", :style=>"float:right"%>
+			Flyer Zero has gone mobile! Get it now!</p>
+			<p>
+			Download Flyer Zero Mobile and find events nearby, no matter where you are.
+			</p>
+			<p>
+				<a href="https://itunes.apple.com/us/app/flyer-zero/id541665284"><%=image_tag "itunes_appstore.png"%></a>
+				<a href="https://play.google.com/store/apps/details?id=com.flyerzero.mobile"><%=image_tag "google_appstore.png", :style=>"height:40px"%></a>
+			</p>
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+	<div id="submission_page">
+		<div id="form_area">
+			<div id="form_content">
+				<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true" ) do |f| %>
+					<table style="width:680px; margin:auto;">
+						<tr>
+						<td valign='top'>
+							<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>
+						</td>
+						<td valign='top'>
+							<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
+						</td>
+						</tr>
+					</table>
+				<%end%>
+			</div>
+			<%= render :partial=>"events/message_panel" %>
+		</div>
+
+	</div>

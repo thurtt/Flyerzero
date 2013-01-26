@@ -6,24 +6,40 @@ class EventsController < ApplicationController
 	# POST /events
 	# POST /events.json
 	def create
+		
+		
 		event_id = nil
+		imageurl = nil
+		
 		event_id = params[:event][:event_id] if params[:event][:event_id].length > 0
+		imageurl = params[:imgurl] if params[:imgurl]
 
+		
+		
 		@event = Event.new(params[:event])
 		partial = "create"
-
-		if event_id
-		      # attach the photo to our event if we have a valid event id
-		      parentEvent = Event.find(event_id)
-		      @event.photo = parentEvent.photo
-		      @event.validation_hash = parentEvent.validation_hash
+		
+		if Event.find_by_fbevent(params[:event][:fbURL]) && params[:event][:fbURL] != nil
+			partial = "errors"
 		else
-		      @event.validation_hash = rand(36**16).to_s(36)
-		end
-
-
-		if not @event.save
-		      partial = "errors"
+			if event_id
+			      # attach the photo to our event if we have a valid event id
+			      parentEvent = Event.find(event_id)
+			      @event.photo = parentEvent.photo
+			      @event.validation_hash = parentEvent.validation_hash
+			else
+			      @event.validation_hash = rand(36**16).to_s(36)
+			end
+	
+			if imageurl
+				#@event.image_from_url(imageurl)
+			end
+			
+			@event.validated = true
+			
+			if not @event.save
+			      partial = "errors"
+			end
 		end
 
 		event_id = @event.id if not event_id

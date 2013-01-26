@@ -37,7 +37,12 @@ class BoardController < ApplicationController
 	end
 
 	def index
-
+		if params[:validation] and params[:event_id]
+			@event = Event.find_by_id_and_validation_hash( params[:event_id], params[:validation] )
+			@event = Event.new() if not @event
+		else
+			@event = Event.new()
+		end
 	end
 
 	def authenticate

@@ -17,6 +17,11 @@ div#add_panel {
 #add_panel table{
 	width: 100%;
 }
+#submission_page {
+	background:white;
+	border-radius:10px;
+	width:900px;
+}
 
 #submission_page h1 {
     font-size: 1.1em;
@@ -60,7 +65,7 @@ input#image_upload{
 div#dragdrop_text {
 	position: relative;
 	top: 50%;
-	width: 350px;
+	width: 150px;
 	height: 200px;
 	margin-left: auto;
 	margin-right: auto;
@@ -157,7 +162,6 @@ div#dragdrop_text {
 }
 
 #message_content .textbox{
-    height: 100px;
     font-size: 1.2em;
     text-align: center;
 }
@@ -181,9 +185,22 @@ div#dragdrop_text {
     height: 500px;
     display: none;
 }
+#form_area{
+   display:none;
+   width:750px;
+   /*margin:auto;*/
+   background:white;
+   border-radius:15px;
+   padding:10px;
+   
+   -moz-box-shadow:0px 0px 25px 7px #999;
+   -webkit-box-shadow:0px 0px 25px 7px #999;
+   box-shadow:0px 0px 25px 7px #999;
+
+}
 
 #form_content{
-   //display: none;
+   
 }
 #response_container{
    display: none;
@@ -231,8 +248,9 @@ div#dragdrop_text {
 
 .buttons {
 	text-align:center;
-    float: left;
+    /*float: left;*/
     margin-left: 15px;
+    display:inline-block;
 }
 
 .buttons input{
@@ -319,9 +337,11 @@ div#dragdrop_text {
     background:#e5e5e5;
     position: relative;
 }
+
 .decision_box h1{
     font-size: 1.2em;
     font-weight: 800;
+    text-align:center;
 }
 
 .decision {
@@ -346,6 +366,7 @@ div#dragdrop_text {
     width:130px;
 }
 #fresh_event .flyer_text{
+	text-align:center;
     width: 80px;
     height: 30px;
     top: 50%;

@@ -6,9 +6,101 @@ var venue_search_ll = '';
 var typeCheck = /\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i;
 
 
+// **** for init ****
+function initSubmitForm(){
+	// clear out any old form stuff
+	clearForm();
+	$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
+		$('#add_panel input#event_expiry').attr('readonly', 'readonly');
+
+		$('#mini_dragdrop_area').unbind();
+		$('#mini_dragdrop_area').click( function(){
+			$('#submission_page').fadeIn("slow", function() {});
+			$('#board_page').fadeOut("slow", function() {});
+		});
+
+		// submit for new event
+		$('#submit_event').unbind();
+		$('#submit_event').click(submitEvent);
+
+		
+		$('#clear_form').unbind();
+		$('#clear_form').click( function(){
+			clearForm();
+			clearUploadArea();
+		});
+		
+		// clear out flyer error box
+		$('#flyer_error_box').unbind();
+		$('#flyer_error_box').click(function(){$('#flyer_error_box').fadeOut('fast')});
+
+		// autocomplete for event location
+		$( "#event_loc" ).autocomplete({
+			minLength: 3,
+			source: function(req, add){venueSearch(req, add);},
+			select: function(e, ui) {selectVenue(e, ui)},
+			open: function(event, ui){useVenue(event, ui)}
+		});
+
+		// used for drag and drop file uploads
+		attachFileUploader();
+
+		$('#clone_event').unbind();
+		$('#clone_event').click( function(){
+			attachFileUploader();
+			$('#event_event_id').val( eventId );
+			$('#message_content').fadeOut();
+			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
+		});
+
+		$('#fresh_event').unbind();
+		$('#fresh_event').click(function(){
+			$('#dragdrop').html( dragdropPartial );
+			clearForm();
+			$('#event_event_id').val('');
+			attachFileUploader();
+			$('#message_content').fadeOut();
+			
+			$('#response_container').fadeOut( function(){$('#form_content').fadeIn()});
+		})
+		
+		// some hacks for our file input hack...meta hacks
+		$('#image_upload').mouseover( function(){
+			$('#browse_button').removeClass('normal_hack');
+			$('#browse_button').addClass('hover_hack');
+		});
+		$('#image_upload').mouseout( function(){
+			$('#browse_button').removeClass('hover_hack');
+			$('#browse_button').addClass('normal_hack');
+		});
+
+		// this will automatically bring up the submission form if we're
+		// editing something
+		setEditMode();
+		$('#venue_search_location').unbind();
+		$('#venue_search_location').click(function(){
+		    $(this).hide();
+		    $('#venue_search_location_edit').show();
+		    $('#venue_search_location_edit input').select();
+		    $('#venue_search_location_edit input').focus();
+		});
+
+		$('#venue_search_location_edit input').blur(function(){
+		    updateSearchLocation();
+		});
+
+		$('#venue_search_location_edit input').keypress( function(event){
+		    var keycode = (event.keyCode ? event.keyCode : event.which);
+		    if(keycode == '13'){
+			updateSearchLocation();
+		    }
+		});
+}
+
+
 // *** Form Cleanup ****
 function clearForm(){
-    $('#event_email').val('');
+    //$('#event_email').val('');
     $('#event_expiry').val('');
     $('#event_loc').val('');
     $('#event_fbevent').val('');
@@ -239,7 +331,7 @@ function createImagePreview( fileObj ) {
 		}
 		$('#dragdrop_content').fadeIn();
 	    },
-	    {maxWidth: 400, maxHeight: 500}
+	    {maxWidth: 300, maxHeight: 400}
       );
 }
 
