@@ -1,0 +1,35 @@
+<script>
+      <% if defined?( @edit ) && @edit %>
+	  var editFlyer = true;
+	  var validation = '<%= @validation =%>';
+	  var eventId = '<%= @event_id %>';
+      <% else %>
+	  var editFlyer = false;
+      <% end %>
+      query_flyers = false;
+</script>
+
+<div id="content">
+	<div id="submission_page" style="padding-top:20px; padding-bottom:55px;">
+		<div id="form_area">
+			<div id="form_content">
+				<%=form_for( @event, :url=>{ :controller=>"events",:action=>"create" }, :remote=>"true" ) do |f| %>
+					<table style="">
+						<tr>
+						<td valign='top'>
+							<div id="dragdrop" class="container"><%= render :partial=>"events/dragdrop" %></div>
+						</td>
+						<td valign='top'>
+							<div id="submit" class="container"><%= render :partial=>"events/submit", :locals=>{ :f=>f } %></div>
+						</td>
+						</tr>
+					</table>
+				<%end%>
+			</div>
+			<%= render :partial=>"events/message_panel" %>
+		</div>
+	</div>
+		
+
+
+</div>

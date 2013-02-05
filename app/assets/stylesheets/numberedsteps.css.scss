@@ -1,0 +1,29 @@
+  div.stepnumber {
+  position:absolute;
+  top:-10px;
+  left:-30px;
+  background:#333;
+  width: 3em; 
+  height: 3em; 
+  -webkit-border-radius: 1.5em; 
+  -moz-border-radius: 1.5em;
+  border-radius:1.5em;
+  }
+  div.steptext {
+  	font-size:1.5em;
+    font-weight:bold;
+    padding-left:30px;
+    padding-bottom:20px;
+    paddint-top:50px;
+    color:#222;
+  }
+  p.stepnumber {
+    color:white;
+    font-size:2em;
+    line-height:1.5em;
+    font-weight:bold;
+    text-align: center; margin-top: 0.0em;
+  }
+  .stepcontainer{
+  	position:relative;
+  }

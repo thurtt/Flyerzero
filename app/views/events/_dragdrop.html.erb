@@ -1,27 +1,37 @@
-<div id="dragdrop_content" class="drapdrop_area">
-  <div id="dragdrop_text">
-    <div id="dragdrop_support">
-        Drag your flyer here<br /><br />
-        or<br /><br />
-    </div>
-    Choose a file to upload:<br /><br />
-    <table id="browse_table">
-      <tr>
-          <td class="fileinput-button">
-      	     <div id="browse_button" class="normal_hack" >Browse</div>
-      	     <input id="image_upload" name="event[photo]" type="file">
-          </td>
-          <td id="chosen_file">No file chosen</td>
-      </tr>
-    </table>
-    <div id="no_preview">Sorry, flyer preview is not supported by your browser :(</div>
-  </div>
-  <div id="flyer_photo">
-    <% if @event.photo.file? %>
-        <%= image_tag( @event.photo.url("medium") )%>
-    <% end %>
-  </div>
-  <div id="flyer_error_box">
-        <div id="flyer_error_text"></div>
-  </div>
+
+<div class="dd_collection">
+
+	<div class="stepnumber"><p class="stepnumber">1</p></div>
+	<div class="steptext">Upload an image.</div>
+
+				
+	<div id="dragdrop_content" class="drapdrop_area">
+	
+	  <div id="dragdrop_text">
+	    <div id="dragdrop_support">
+		Drag your image here<br /><br />
+		or<br /><br />
+	    </div>
+	    Choose a file to upload:<br /><br />
+	    <table id="browse_table">
+	      <tr>
+		  <td class="fileinput-button">
+		     <div id="browse_button" class="normal_hack" >Browse</div>
+		     <input id="image_upload" name="event[photo]" type="file">
+		  </td>
+		  <td id="chosen_file">No file chosen</td>
+	      </tr>
+	    </table>
+	    <div id="no_preview">Sorry, flyer preview is not supported by your browser :(</div>
+	  </div>
+	  <div id="flyer_photo">
+	    <% if @event.photo.file? %>
+		<%= image_tag( @event.photo.url("medium") )%>
+	    <% end %>
+	  </div>
+	  <div id="flyer_error_box">
+		<div id="flyer_error_text"></div>
+	  </div>
+	</div>
+
 </div>

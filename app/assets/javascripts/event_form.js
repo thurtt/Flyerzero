@@ -9,7 +9,7 @@ var typeCheck = /\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i;
 // **** for init ****
 function initSubmitForm(){
 	// clear out any old form stuff
-	clearForm();
+	//clearForm();
 	$('#add_panel input#event_expiry').datepicker({ dateFormat: 'D, dd M yy', nextText: '', prevText: '' });
 		$('#add_panel input#event_expiry').attr('readonly', 'readonly');
 
@@ -124,40 +124,44 @@ function clearUploadArea(){
 
 
 // **** Form Submission ****
-function submitEvent(){
+function submitEvent(e){
+	e.preventDefault();
+	console.log('hi');
     clearErrors();
-    if( validateForm() ){
-	if( editFlyer && !uploadData.submit ){
-		$.post( $('form').attr('action'), $('form').serialize(), function(data){processResponse(data)});
-	} else {
-		uploadData.submit();
-	}
-	$('#message_text').html('');
-	$('#create_wait').show();
-	$('#form_content').fadeOut(function(){
-		$('#message_content').fadeIn();
-	});
-    }
+    facebook_login(function(response){
+    		    if( validateForm() ){
+			    
+    		    	    	
+				if( editFlyer && !uploadData.submit ){
+					console.log("submitting with post");
+					$.post( $('form').attr('action'), $('form').serialize(), function(data){processResponse(data)});
+				} else {
+					console.log("submitting...");
+					uploadData.submit();
+				}
+				$('#message_text').html('');
+				$('#create_wait').show();
+				$('#form_content').fadeOut(function(){
+					$('#message_content').fadeIn();
+				});
+		    }
+    });
 }
 
 function processResponse( text ){
+	console.log("processResponse()");
     $('#response_container').hide();
     $('#create_wait').fadeOut(function(){
 	    $('#message_text').html( text );
 	    switch(submitState){
 
 		case 'created':
-		    $('#response_container').fadeIn();
+		    location.href='/item?event_id=' + eventId;
 		    break;
 
 		case 'updated':
-		    $('#decision_widget').hide();
-		    $('#response_container').fadeIn();
-		    $('#message_content').delay( 4000 ).fadeOut(function(){
-			reHost = /(http:\/\/.+?)\/|$/;
-			root = reHost.exec(document.URL)[1];
-			window.location.replace( root + '/?flyer=' + flyerId);
-		    });
+		    
+		    location.href='/item?event_id=' + eventId;
 		    break;
 
 		case 'error':

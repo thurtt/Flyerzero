@@ -1,3 +1,11 @@
+.dd_collection{
+	position:absolute;
+	width:400px;
+	hight:500px;
+	margin-top:38px;
+	color:#777
+}
+
 div#add_panel {
 	/*position: relative;*/
 	width:450px;
@@ -7,20 +15,18 @@ div#add_panel {
 }
 
 #add_panel .input_text {
-	border:1px solid #777777;
+	border:1px solid #ddd;
 	padding:5px;
     /*font-size: 1.1em;*/
     margin-left: 20px;
     width: 350px;
+    border-radius:5px;
 }
 
 #add_panel table{
 	width: 100%;
 }
 #submission_page {
-	background:white;
-	border-radius:10px;
-	width:900px;
 }
 
 #submission_page h1 {
@@ -30,12 +36,15 @@ div#add_panel {
 }
 
 div#dragdrop_content {
-    height: inherit;
 }
 
 div.drapdrop_area{
     text-align: center;
-    border: 2px dashed #777777;
+    border: 2px dashed #ddd;
+    height:500px;
+    width:400px;
+    margin-top:10px;
+    margin-left:10px;
 }
 
 div#dragdrop_content #no_preview{
@@ -62,10 +71,14 @@ input#image_upload{
    /*visibility: hidden;*/
 }
 
+div#dragdrop {
+    width: 450px;
+    height: 500px;
+}
 div#dragdrop_text {
 	position: relative;
 	top: 50%;
-	width: 150px;
+	width: 250px;
 	height: 200px;
 	margin-left: auto;
 	margin-right: auto;
@@ -133,8 +146,7 @@ div#dragdrop_text {
 
 .ui-datepicker{
     background: #ffffff;
-    border: 1px solid black;
-    margin-top: 2px;
+    border: 1px solid #777;
     border-radius: 5px;
 }
 .ui-datepicker-calendar{
@@ -181,21 +193,15 @@ div#dragdrop_text {
 #message_content{
     margin-left: auto;
     margin-right: auto;
-    width: 585px;
     height: 500px;
     display: none;
 }
 #form_area{
-   display:none;
-   width:750px;
-   /*margin:auto;*/
+   width:910px;
+   margin:auto;
    background:white;
    border-radius:15px;
    padding:10px;
-   
-   -moz-box-shadow:0px 0px 25px 7px #999;
-   -webkit-box-shadow:0px 0px 25px 7px #999;
-   box-shadow:0px 0px 25px 7px #999;
 
 }
 
