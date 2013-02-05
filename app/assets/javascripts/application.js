@@ -115,9 +115,7 @@ function registerEvents(){
 	$('.shareFacebook').click(function(){
 		      //$(this).parent().popup('close');
 		      _flyer_id = $(this).attr('flyer_id');
-		      facebook_login(function(){
-				      facebook_share(_flyer_id);
-		      });
+		       facebook_share(_flyer_id);
 		      
 		      });
 	

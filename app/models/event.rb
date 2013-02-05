@@ -4,6 +4,8 @@ class Event < ActiveRecord::Base
 	include ApplicationHelper
 	
 	belongs_to :event
+	has_many :visitors
+	
 	acts_as_mappable
 	validates_presence_of :email
 	validates_presence_of :expiry

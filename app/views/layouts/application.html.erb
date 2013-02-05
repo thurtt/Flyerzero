@@ -42,7 +42,11 @@
     }
 };
 
-
+  <%if session[:authenticated]%>
+  	var init_login = true;
+  <%else%>
+  	var init_login = false;
+  <%end%>
   </script>
 
 </head>
@@ -71,7 +75,6 @@ window.fbAsyncInit = function() {
     });
 
     // Additional initialization code such as adding Event Listeners goes here
-
   };
 
 
@@ -89,9 +92,9 @@ window.fbAsyncInit = function() {
 			<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
 			<strong>|</strong> 
 			<%if session[:authenticated]%>
-				<span class="acts_as_link" id="logout">Logout from FB</span>
+				<span class="acts_as_link" id="logout">Disconnect from FB</span>
 				<%else%>
-				<span class="acts_as_link" id="login">Login with FB</span>
+				<span class="acts_as_link" id="login">Connect with FB</span>
 				<%end%>
 	</div>
 	<div id="header">
