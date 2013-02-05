@@ -60,8 +60,22 @@ class EventsController < ApplicationController
 			end
 			
 			@event.validated = true
-			type = @event.fbevent ? "facebook" : "foursqaure"
-			Venue.add_venue_if_necessary(@event.venue_id, type)
+			venueData = {}
+			if @event.fbevent
+				venueData = { :facebook_id=>@event.venue_id, :lat=>@event.lat, :lng=>@event.lng, :name=>@event.venue_name}
+			else 
+				foursquareVenue = reverse_venue_lookup(@event.venue_id)
+				venueData = { :name => foursquareVenue["name"],
+							  :foursquare_id => foursquareVenue["id"], 
+							  :address => foursquareVenue["location"]["address"],
+							  :city => foursquareVenue["location"]["city"],
+							  :state => foursquareVenue["location"]["state"],
+							  :zip => foursquareVenue["location"]["postalCode"],
+							  :country => foursquareVenue["location"]["country"],
+							  :lat=> foursquareVenue["location"]["lat"], 
+							  :lng=>foursquareVenue["location"]["lng"]}
+			end
+			Venue.add_venue_if_necessary(venueData)
 			
 			#let's just enforce this here.
 			@event.email = session[:email]
