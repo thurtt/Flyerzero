@@ -406,8 +406,6 @@ function selectVenue(e, ui){
     // whichever item is selected, we need to record lat and lng info for it
     $.each(venueList, function(i, val){
 	    if( formatLocationText( val.name, val.address, val.cross_street) == ui.item.value){
-		$('#venue_icon').attr( 'src',  val.icon );
-		$('#venue_icon').show();
 		$('#venue_name').html( val.name );
 		$('#venue_location').html( ( val.address ? val.address : '' ) + ( val.cross_street ? ' ( ' + val.cross_street + ' )' : '' ));
 		$('#event_lat').val( val.lat );

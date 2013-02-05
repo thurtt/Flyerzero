@@ -1,9 +1,10 @@
 class Venue < ActiveRecord::Base
 	validates :name, :lat, :lng, :presence => true
+	scope :by_facebook_id_or_foursquare_id, lambda{|facebook_id, foursquare_id| where(['facebook_id = ? || foursqaure_id <= ?', facebook_id, foursquare_id])}
 
-	def add_venue_if_necessary(venue, type)
+	def self.add_venue_if_necessary(venue, type)
 		# check to see if the venue already exists
-		venueItem = Venue.find_by_facebook_id_or_foursquare_id(venue["id"], venue["id"])
+		venueItem = Venue.by_facebook_id_or_foursquare_id(venue["id"], venue["id"])
 
 		if venueItem == nil
 			venueName = venue["name"]
@@ -19,7 +20,7 @@ class Venue < ActiveRecord::Base
 			# venue that was added by another service
 
 			# get all nearby venues
-			area = min_max_coordinates(point, .003)
+			area = min_max_coordinates(point, 0.003)
 			closeVenues = where('lat > ? && lat < ? && lng > ? && lng < ?', area[:lat_min], area[:lat_max], area[:lng_min], area[:lng_max])
 
 			# do some sort of name match
