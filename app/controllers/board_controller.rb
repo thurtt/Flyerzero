@@ -3,6 +3,26 @@ class BoardController < ApplicationController
 	before_filter :findme, :only=>[:index]
 	before_filter :updateme, :only=>[:flyers]
 
+	def authenticateme
+		access_token = params[:v]
+		
+		endpoint = 'https://graph.facebook.com/me?access_token=' + access_token
+		response = RestClient.get endpoint
+		
+		user = (ActiveSupport::JSON.decode(response))
+		
+		session[:email] = user["email"]
+		session[:authenticated] = true
+		render :text=>"//AUTHENTICATED:" + session[:email]
+	end
+	
+	def deauthenticateme
+		session[:authenticated] = false
+		session[:email] = ''
+		
+		render :text=>"//DE-AUTHENTICATED"
+	end
+	
 	def findme
 
 		if session[:origin]

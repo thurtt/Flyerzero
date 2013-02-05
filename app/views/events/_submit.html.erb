@@ -1,27 +1,61 @@
 <%=f.hidden_field :email %>
 
+<br /><br />
 <div id="add_panel">
 	<table>
+		
 		<tr>
-			<td><h3>When?</h3></td>
+			<td>
+				<div class="stepcontainer">
+					<div class="stepnumber"><p class="stepnumber">2</p></div>
+					<div class="steptext">Name or comment about this image.</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+ 			<td style="">
+ 				<%=f.text_area :media, :placeholder=>"Name or comment about this image.", :class=>"input_text", :rows=>4%>
+ 				<br /><br /><br /><br />
+ 			</td>
+		</tr>
+		
+		
+		<tr>
+			<td>
+				<div class="stepcontainer">
+					<div class="stepnumber"><p class="stepnumber">3</p></div>
+					<div class="steptext">When is this relevant?</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<%=f.text_field :expiry, :placeholder=>"Now? In a month?", :class=>"input_text"%>
+				<br /><br /><br /><br />
+			</td>
 		</tr>
 		<tr>
-			<td><%=f.text_field :expiry, :placeholder=>"Event date", :class=>"input_text",
-			:data=>{:help=>"Enter the date for the event here. If you have a flyer with multiple dates, just add the first date here, and you will get a chance to use the flyer for other events after you create the first one."}
-			%></td>
-		</tr>
-		<tr>
-			<td><h3>Where is it?</h3></td>
+			<td>
+				<div class="stepcontainer">
+					<div class="stepnumber"><p class="stepnumber">4</p></div>
+					<div class="steptext">Tag this with a location.</div>
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<td class="search_area">
-			    Zero in on:
+				Zero in on:
 			    <span id="venue_search_location"><%=session[:city]%>, <%=session[:state]%></span>
 			    <span id="venue_search_location_edit"><input name="location" value="<%=session[:city]%>, <%=session[:state]%>"></span>
 			</td>
 		</tr>
 		<tr>
-			<td><input class="input_text" id="event_loc" placeholder="Search for venues" data-help="Search uses the power of Foursquare&reg; to find venues in your area. You can change the search location by clicking on the city name and typing in the name of a new place."><%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %></td>
+			<td>
+				<input class="input_text" id="event_loc" placeholder="Search for venues">
+				<%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %>
+			</td>
 		</tr>
 		<tr>
 			<td><div id="foursquare_search_error">There was a problem connecting to the Foursquare venue search service. Unfortunately, you will not be able to submit a flyer until the service is back up. :(</div></td>
@@ -31,26 +65,13 @@
 			      <%= foursquare_venue( @event ) %>
 			</td>
 		</tr>
-		<tr>
+		
+		<!-- <tr>
 			<td>
-				<h3>Have Media?</h3>
-				<!--[if IE]><span class="create_helper">Include your Youtube, Soundcloud, or reverbnation iframes here!</span><![endif]-->
-
+				<%=f.text_field :fbevent, :placeholder=>"Put your Facebook or Google+ event URL here!", :class=>"input_text"%>
 			</td>
 		</tr>
-		<tr>
- 			<td><%=f.text_area :media, :placeholder=>"Embeded youtube, soundcloud, or reverbnation links here!", :class=>"input_text", :rows=>4,
-			:data=>{:help=>"If you have samples of music your music on a site like soundcloud or reverberation, video of your event, or any other media that you would like to include with your flyer, you can add the iframe html code here. Each site has a different way to generate the code, but it&apos;s usually tied to a &quot;share&quot; link on the site."}
-			%></td>
-		</tr>
-		<tr>
-			<td>
-				<!--[if IE]><span class="create_helper">Add your facebook or Google+ event URL here!</span><![endif]-->
-				<%=f.text_field :fbevent, :placeholder=>"Put your Facebook or Google+ event URL here!", :class=>"input_text",
-				:data=>{:help=>"If you have created an event on Facebook or Google+, you can include the URL to your event here, and a link to it will be included with your flyer."}
-				%>
-			</td>
-		</tr>
+		//-->
 		<tr>
 		  <td><div class="buttons"><input value="Create" id="submit_event" type="button" %></div><div class="buttons"><input value="Start Over" id="clear_form" type="button" %></div></td>
 		</tr>
@@ -62,15 +83,4 @@
 	<% end %>
 
 
-</div>
-<div id="submit_help">
-    <div class="help_bubble">
-	<table style="border-collapse:collapse;">
-	    <tr>
-	    <td id="help_icon"><%= image_tag "hal.png"%></td>
-	    <td id="help_contents"></td>
-	    </tr>
-	</table>
-    </div>
-    <div class="help_arrow"></div>
 </div>

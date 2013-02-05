@@ -1,10 +1,28 @@
-
-<div id="nearby" class="content">
-	<div class="flyers">
-			<!-- <div id="mini_dragdrop_area">Submit Yours!</div> //-->
-		<%for flyer in @now%>
-			<%= image_tag(flyer.photo.url(:cropped), :size=>"100x100", :class=> "show_on_map", :flyer_id=>flyer.id) unless flyer.photo.nil? %>
-		<%end%>
-	</div>
-</div>
-<script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+<table class="event_container">
+	<tr>
+		<td class="left_side" width="200"> 
+			<div class="date_head">
+				<span style="font-weight:bold"><%=flyer.expiry.strftime("%A")%></span><br />
+				<%=flyer.expiry.strftime("%B")%><br />
+				<%=flyer.expiry.strftime("%d")%><br />
+			</div>
+		</td>
+		<td class="middle_side">
+			<a href="<%=flyer.photo.url(:large)%>"><%= image_tag(flyer.photo.url(:medium), :flyer_id=>flyer.id) unless flyer.photo.nil? %></a>
+		</td>
+		<td class="right_side" width="200">
+			<ul>
+				<li class="media"><a href="/item/?event_id=<%=flyer.id%>"><%=flyer.media%></a></li>
+				<li class="shareFacebook acts_as_link" flyer_id="<%=flyer.id%>">Share on Facebook</li>
+				<li class="shareTwitter acts_as_link" flyer_id="<%=flyer.id%>">Share on Twitter</li>
+				<li lat="<%=flyer.lat%>" lng="<%=flyer.lng%>" class="getDirections acts_as_link">Get Directions</li>
+				
+				<%if flyer.email == session[:email]%>
+				<br /><br />
+				<li event_id="<%=flyer.id%>" class="editItem acts_as_link">Edit This</li>
+				<li event_id="<%=flyer.id%>" class="deleteItem acts_as_link">Delete This</li>
+				<%end%>
+			</ul>
+		</td>
+	</tr>
+</table>

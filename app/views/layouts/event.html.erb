@@ -2,62 +2,69 @@
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# flyerzeromobile: http://ogp.me/ns/fb/flyerzeromobile#">
   <title>Flyer Zero</title>
-
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
-  
-  <!--
+
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=false"></script>
   <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker.js"></script>
-  //-->
+
   
-  <meta property="og:title" content="Flyer Zero"/>
-  <meta property="og:description" content="1 part Flyer. 1 part Foursquare. 1 part Google Maps. 2 parts Kung Fu." />
-  <meta property="og:url" content="http://www.flyerzero.com/"/>
-  <meta property="og:image" content="http://www.flyerzero.com/assets/Icon0_512.png"/>
-  <meta name="google-site-verification" content="ZT5zfsirjSt9UFCOg_XcbTvceY4BKmxrdFkFbG7X-UM" />
-  <meta property="og:type" content="website" />
+    <%
+  	event = Event.find(params[:event_id])
+  	fsVenueName = foursquare_venue_name(event.venue_id)
+  %>
+  <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:large)%>"/>
+  <meta property="og:description" content="Check out this Flyer Zero event flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>." />
+  <%if params[:act]%>
+  	<meta property="og:url" content="http://www.flyerzero.com/?act=<%=params[:act]%>&flyer=<%=params[:event_id]%>"/>
+  	<meta property="og:title" content="An event at <%= fsVenueName %>!"/>
+  	<meta property="og:type" content="flyerzeromobile:<%=params[:act]%>" />
+  <%else%>
+  	<meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:event_id]%>"/>
+  	<meta property="og:title" content="Event Flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>"/>
+  	<meta property="og:type" content="flyerzeromobile:flyer" />
+  <%end%>
+  
   <meta property="fb:app_id" content="288588701253698" /> 
-
-<script>
-  
-
-  var isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i) ? true : false;
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i) ? true : false;
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-    }
-};
-
-
+  <script>
+  	query_flyers = false;
+  	
+	  var isMobile = {
+	    Android: function() {
+		return navigator.userAgent.match(/Android/i) ? true : false;
+	    },
+	    BlackBerry: function() {
+		return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+	    },
+	    iOS: function() {
+		return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+	    },
+	    Windows: function() {
+		return navigator.userAgent.match(/IEMobile/i) ? true : false;
+	    },
+	    any: function() {
+		return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+	    }
+	};
+	
   </script>
 
 </head>
-<body>
-<script>
-  <!-- load intent -->
-  if( isMobile.any() ){
-  ifrm = document.createElement("IFRAME");
-   ifrm.setAttribute("src", "flyerzero://event/<%=params[:flyer]%>");
-   ifrm.style.width = "0px";
-   ifrm.style.height = "0px";
-   ifrm.style.display = "none";
-   document.body.appendChild(ifrm);
-   }
+<body class="primary">
+   <script>
+	<!-- load intent -->
+	if( isMobile.any() ){
+		ifrm = document.createElement("IFRAME");
+		ifrm.setAttribute("src", "flyerzero://event/<%=params[:flyer]%>");
+		ifrm.style.width = "0px";
+		ifrm.style.height = "0px";
+		ifrm.style.display = "none";
+		document.body.appendChild(ifrm);
+	 }
   </script>
+  
 <div id="fb-root"></div>
 <script>
 window.fbAsyncInit = function() {
@@ -84,16 +91,7 @@ window.fbAsyncInit = function() {
    }(document, /*debug*/ false));
 </script>
 
-	<div id="address_container" style="display:none;">
-			<div id="address">Unknown.</div>
-			<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-			<strong>|</strong> 
-			<%if session[:authenticated]%>
-				<span class="acts_as_link" id="logout">Logout from FB</span>
-				<%else%>
-				<span class="acts_as_link" id="login">Login with FB</span>
-				<%end%>
-	</div>
+
 	<div id="header">
 		<a href="/">
 		<div style="color:white;">FLYER</div>
@@ -101,16 +99,19 @@ window.fbAsyncInit = function() {
 		</a>
 	</div>
 	
+
 	<%= yield %>
 
 	<div id="footer">
 		<a href="/">Flyer Zero</a> is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint. &copy;2012
 		<span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
 	</div>
-
 <!-- Google Analytics -->
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
 
 <!-- End Google Analytics -->
+
 </body>
 </html>
+
+

@@ -1,426 +1,55 @@
-// Place all the styles related to the board controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-body.primary {
-background-color:#fafafa;
-font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
- 
-p{
-	padding:10px;
-	padding-right:30px;
-}
-
-a:link {color:#f9e101;text-decoration:none;}      /* unvisited link */
-a:visited {color:#f9e101;text-decoration:none;}  /* visited link */
-a:hover {color:#f9e101;text-decoration:none;}  /* mouse over link */
-a:active {color:#f9e101;text-decoration:none;}  /* selected link */
-
-#icon{
-	position:absolute;
-	top:5px;
-	left:10px;
-	background:#222;
-	border-radius:8px;
-	padding:10px;
-}
-.iconimage{
-	border-radius:7px;
-}
-
-#main_container{
-	width:900px;
-	margin:auto;
-	-moz-box-shadow: 0 0 5px 2px #aaa;
-	-webkit-box-shadow: 0 0 5px 2px #aaa;
-	box-shadow: 0 0 5px 2px #aaa;
-	margin-top:50px;
-	background:white;
-	border-radius:10px;
-}
-#main_panel{
-	background:white;
-	width:100%;
-}
-#title_text{
-	color:#fff;
-	/*padding-left:135px;*/
-	font-size:6.0em;
-	font-weight:700;
-	float:left;
-	line-height: 100px;
-}
-
-/* prototype stuff */
-
-div#userzero {
-	margin:auto;
-	text-align:left;
-	z-index:200;
-	/*background-color:#f9e101;*/
-	background-color:#222;
-
-	color:#eee;
-	height: 100px;
-	/*border-top-right-radius:10px;
-	border-top-left-radius:10px;*/
-	position:relative;
-}
-.submit_link{
-	cursor:pointer;
-}
-div#support{
-	width:200px;
-	float:right;
-	
-	line-height: 100px;
-}
-
-img.branding{
-	position: absolute;
-	left: 50%;
-	margin-left: -119px;
-	top: -3px;
-	z-index:200;
-	cursor:pointer;
-}
-div#logo {
+.flyers{
 	text-align:center;
-	height:100px;
 }
 
-div#content {
-}
-div#submission_page{
-	text-align:center;
-	
-	width:100%;
-	vertical-align: middle;
-}
-
-span#address {
-	cursor:pointer;
-}
-span#change_location {
-	display:none;
-}
-input#new_location {
-	width:300px;
-	border:1px solid #777777;
-	padding:3px;
-}
-button.change_location {
-	border:1px solid #555555;
-	padding:3px;
-	background-color: #222222;
-	color: #dddddd;
-}
-
-button.change_location:hover{
-	cursor:pointer;
-	color: white;
-}
-
-div#userzero div.menu_item{
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	font-size: 1.0em;
-	padding: 0px 25px 5px 25px;
-	color: black;
-	font-weight: 600;
-	text-shadow: white 0.05em 0.05em 0.2em;
-	//letter-spacing: 1px;
-}
-
-div#userzero div.menu_item:hover{
-	color: white !important;
-	text-shadow: none !important;
-	cursor:pointer;
-	text-shadow: black 0.05em 0.05em 0.1em !important;
-	padding: 0px 25px 5px 25px;
-}
-
-
-div.left_link {
+.event_container{
+	clear: right;
 	position: relative;
-	margin-left: 20px;
-	float: left;
-}
-
-div.right_link {
-	position: relative;
-	margin-right: 30px;
-	float: right;
-}
-span.menu_barrier{
-	//color:#f9e101;
-	color: #111111;
-	text-shadow: white 0.08em 0.08em 0.08em;
-}
-
-div#board_page{
-	vertical-align: middle;
-	background-color:white;
-	height:121px;
-	overflow:hidden;
-}
-div.content{
-	text-align:left;
-}
-
-div.content div.flyers {
-
-
-background: #636363;
-background: -moz-radial-gradient(center, ellipse cover,  #636363 0%, #000000 100%);
-background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#636363), color-stop(100%,#000000));
-background: -webkit-radial-gradient(center, ellipse cover,  #636363 0%,#000000 100%);
-background: -o-radial-gradient(center, ellipse cover,  #636363 0%,#000000 100%);
-background: -ms-radial-gradient(center, ellipse cover,  #636363 0%,#000000 100%);
-background: radial-gradient(ellipse at center,  #636363 0%,#000000 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#636363', endColorstr='#000000',GradientType=1 );
-
-}
-
-div.content div.flyers img{
-	padding: 10px;
-}
-
-div.content div.header{
-	text-shadow:1px 1px #777;
-	color: #ddd;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
- 
-	padding-top: 10px;
-	font-size:2.0em;
-	color:#dddddd;
+	margin:auto;
+	width:800px;
+	padding-top: 50px;
 	padding-bottom:20px;
+
 }
-
-div#corner_spot{
-	position:absolute;
-	left:0px;
-	top:0px;
-	z-index:200;
-}
-
-div#main_footer {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
- 
-	font-size:0.8em;
-	
-	text-align:center;
-	color:#dddddd;
-	margin:auto;
-	height:60px;
-	line-height:60px;
-	background:#222;
-	/*border-bottom-right-radius:10px;
-	border-bottom-left-radius:10px;
-	margin-bottom:40px;*/
-}
-
-
- div.container{
-	
-	padding:10px;
-}
-
-div#flyer {
-	width:400px;
+.left_side{
+	width:200px;
 	text-align:right;
+	vertical-align:top;
 }
-div#kickstarter {
-	width:550px;
+.date_head{
+	background:#333;
+	/*background: #31056e;*/
+	color:#f7f7f7;
+	font-size:2em;
+	padding:7px;
+	margin-right:20px;
+	border-radius:3px;
+}
+.middle_side img{
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	min-width:40px;
+}
+
+.right_side{
 	text-align:left;
+	width:200px;
+	vertical-align:top;
 }
-.slideshow img { display: none }
-.slideshow img.first { display: block }
-
-div#submit {
-   /* width: 550px;*/
-    text-align: left;
-}
-
-div#dragdrop {
-    width: 300px;
-    height: 400px;
-}
-
-div#kicktitle {
-	font-size: 2em;
-	color: #fcfcfc;
-}
-
-div.kickdesc {
-	margin-top: 15px;
-	margin-bottom: 15px;
-	text-align: left;
-}
-/* end of prototype stuff */
-
-div#add_link {
-	position:absolute;
-	right:0px;
-	top:200px;
-	border-left:1px solid #444444;
-	border-top:1px solid #444444;
-	border-bottom:1px solid #444444;
-	border-top-left-radius:7px;
-	border-bottom-left-radius:7px;
-	padding:10px;
-	background-image: url('/assets/trans-white.png');
-	z-index:200;
-
-}
-#add_link span{
-	position:absolute;
-	display:block;
-	top:0;
-	left:0;
-	height:100%;
-	width:100%;
-	background: url('/assets/text_grunge.png');
-}
-div.fzbutton table{
-	margin:auto;
-}
-
-div#add_link:hover {
-    cursor: pointer;
-}
-
-.yellow_text {
-	background-color:#f9e101;
-	border-right:1px solid #cda801;
-	border-left:1px solid #cda801;
-	border-bottom:1px solid #cda801;
-	color: #555555;
-	text-shadow: #222222 0.03em 0.03em 0.03em;
-	
-	
-	background: url('/assets/header.jpg');
-	background-size: 100% 100%;
-	color:#222;
-	text-shadow: yellow 0.03em 0.03em 0.03em;
-	
-	border-top:1px solid #cda801;
-	border-bottom:1px solid #cda801;
-	}
-	
-}
-
-img.recent {
-	opacity:1;
-	filter:alpha(opacity=100); /* For IE8 and earlier */
-}
-
-img.soon {
-	opacity:0.7;
-	filter:alpha(opacity=70); /* For IE8 and earlier */
-}
-.show_on_map{
-	cursor:pointer;
-}
-
-div.f_element{
-	width:220px;
-	text-align:center;
-	border:1px solid red;
-}
-div.spacer{
-	float:left;
-	height:100px;
-	width:90%;
-	text-align:center;
-}
-div#map_overlay{
-    width:100%;
-    text-align:center;
-}
-span#flyer_distance{
-    font-size:1.6em;
-    color:white;
-    
-}
-
-div#bottom_bar {
-	margin:auto;
-	height: 80px;
-	color: #111;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
- 
-	background:white;
-	
-	opacity:.80;
-	position:absolute;
-	top:320px;
-	left:0px;
-	width:100%;
-	border-top:1px solid #ddd;
-	border-bottom:1px solid #ddd;
-}
-
-table#navigation_table {
-	width: 300px;
-	border: 1px solid #444;
-	padding: 0px;
-	cursor: pointer;
-	font-size: 1.3em;
-	color: #DDD;
-	text-align: center;
-	margin:auto;
-}
-
-table#navigation_table td {
-	-webkit-user-select: none;  
- 	-moz-user-select: none;    
-  	-ms-user-select: none;      
-  	user-select: none;
-	border: 1px solid #444;
+.event_container ul{
+	list-style-type: none;
+	padding-left: 20px;
 	margin: 0px;
 }
 
-table#navigation_table td#zoomIn {
-	width: 25px;
-}
-
-div#address_container {
-	width: 400px;
-	padding: 10px;
-}
-
-div#address_container div#address_title {
-	font-size: 1.7em;
-}
-
-div#address_container div#address {
-	cursor: pointer;
-}
-div#address_container div#address:hover {
-	color: white !important;
-	//font-weight: 600;
-	cursor:pointer;
-	text-shadow: white 0.1em 0.1em 0.1em !important;
-}
-
-#fb_likie {
-}
-
-
-table#venue_table {
-	float:right;
-	display:none;
-}
-
-table#venue_table td#vt_icon {
-	width: 40px;
+.event_container ul li{
+	width:200px;
+	color:#555;	
+	line-height: 20px;
+	padding: 5px 10px;
+	background: url("http://static.tumblr.com/xcxngn2/cX9ld1v64/li-border.png") repeat-x scroll right bottom transparent;
 
 }
-
-table#venue_table td#vt_name {
-	font-size: 1.7em;
-
-}
-
-table#venue_table td#vt_location {
-
+li.media{
+	font-size:1.3em;
+	font-weight: bold;
 }

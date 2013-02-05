@@ -56,6 +56,9 @@ Flyerzero::Application.routes.draw do
     #match "flyers" => "mobile#flyers", :constraints=> {:user_agent => /mobile.+?safari/i }
     match "flyers" => "board#flyers"
     match "about" => "board#about"
+    match "item" => "events#view"
+    match "submit" => "events#submit"
+    match "delete" => "events#delete"
 
 
   # See how all your routes lay out with "rake routes"
