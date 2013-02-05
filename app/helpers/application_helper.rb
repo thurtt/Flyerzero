@@ -82,3 +82,13 @@ def reverse_venue_lookup( venue_id )
 	end
     return venue
 end
+
+def min_max_coordinates(point, distance)
+	# min and max longitude are easy peasy
+	lat_min = point[:lat] - distance
+	lat_max = point[:lat] + distance
+	lng_min = point[:lng] - arcsin(sin(distance)/cos(point[:lat]))
+	lng_max = point[:lng] + arcsin(sin(distance)/cos(point[:lat]))
+
+	return {:lat_min=>lat_min, :lat_max=>lat_max, :lng_min=>lng_max, :lng_max=>lng_min}
+end

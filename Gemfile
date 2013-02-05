@@ -21,6 +21,7 @@ gem 'best_in_place'
 gem 'opengraph'
 #, '0.2.0'
 gem 'whenever', :require => false
+gem 'fuzzy_match'
 
 # Gems used only for assets and not required
 # in production environments by default.

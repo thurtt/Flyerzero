@@ -36,23 +36,8 @@ class EventsController < ApplicationController
 			end
 			
 			@event.validated = true
-
-			# if there is no venue in our db, copy the one from foursquare
-			if Venue.find_by_id(@event.venue_id) == nil
-				foursquareVenue = reverse_venue_lookup(@event.venue_id)
-				puts foursquareVenue.to_s
-				venue = Venue.new
-				venue.name = foursquareVenue["name"]
-				venue.lat = foursquareVenue["location"]["lat"]
-				venue.lng = foursquareVenue["location"]["lng"]
-				venue.foursquare_id = foursquareVenue["id"]
-				venue.address = foursquareVenue["location"]["address"]
-				venue.city = foursquareVenue["location"]["city"]
-				venue.state = foursquareVenue["location"]["state"]
-				venue.zip = foursquareVenue["location"]["postalCode"]
-				venue.country = foursquareVenue["location"]["country"]
-				venue.save
-			end
+			type = @event.fbevent ? "facebook" : "foursqaure"
+			Venue.add_venue_if_necessary(@event.venue_id, type)
 			
 			if not @event.save
 			      partial = "errors"
