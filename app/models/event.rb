@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
 	has_many :visitors
 	
 	acts_as_mappable
+	acts_as_taggable
 	validates_presence_of :email
 	validates_presence_of :expiry
 	validates_presence_of :validation_hash
