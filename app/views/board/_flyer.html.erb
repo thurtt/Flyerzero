@@ -9,6 +9,7 @@
 		</td>
 		<td class="middle_side">
 			<a href="<%=flyer.photo.url(:large)%>"><%= image_tag(flyer.photo.url(:medium), :flyer_id=>flyer.id) unless flyer.photo.nil? %></a>
+		
 		</td>
 		<td class="right_side" width="200">
 			<ul>
@@ -25,4 +26,20 @@
 			</ul>
 		</td>
 	</tr>
+	<tr>
+		<td class="left_side" width="200"> </td>
+		<td class="middle_side">
+			<%for visitor in flyer.visitors%>
+			<div class="visit">
+				<div class="visitor"><%=visitor.name%></div>
+				<%=visitor.comment%>
+				<div class="date"><%=visitor.created_at.strftime("%m/%d/%y")%></div>
+			</div>
+			<%end%>
+			
+			<span style="font-size:0.8em; color:#888;"><%=flyer.visitors.length%> people have been to see this.</span>
+		</td>
+		<td class="right_side" width="200"></td>
+	</tr>
+	
 </table>

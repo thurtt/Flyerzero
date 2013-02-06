@@ -1,0 +1,40 @@
+div.visit{
+	text-align:left;
+	margin:10px;
+	padding:5px;
+	font-size:0.7em;
+	line-height:20px;
+	border:1px solid #f2f2f2;
+	background:#f7f7f7;
+	border-radius:5px;
+}
+
+div.visit div.visitor{
+	display:inline-block;
+	border-radius:5px;
+	padding-left:5px;
+	padding-right:5px;
+	margin-right:5px;
+	color:white;
+	background:#408dd2;
+	float:left;
+	line-height:20px;
+}
+div.visit div.date{
+	display:inline-block;
+	float:right;
+	font-style:italic;
+	color:#aaa;
+}
+div.visit div.comment{
+	display:inline-block;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	border:1px solid #ddd;
+	border-left:0px;
+	background:#f6f6f6;
+	padding:5px;
+	color:#777;
+	margin-left:0px;
+	line-height:20px;
+}

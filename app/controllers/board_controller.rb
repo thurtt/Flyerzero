@@ -12,8 +12,9 @@ class BoardController < ApplicationController
 		user = (ActiveSupport::JSON.decode(response))
 		
 		session[:email] = user["email"]
+		session[:name] = user["name"]
 		session[:authenticated] = true
-		render :text=>"//AUTHENTICATED:" + session[:email]
+		render :text=>"//AUTHENTICATED:" + session[:name]
 	end
 	
 	def deauthenticateme

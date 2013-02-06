@@ -149,4 +149,18 @@ class EventsController < ApplicationController
 		      redirect_to "/" and return
 		end
 	end
+	
+	def visit
+		message = "Visitation failed."
+		
+		#session[:name].split(' ')[0]
+		#session[:email]
+		visitor = Visitor.new(params[:visitor])
+		visitor.email = session[:email] # you can't spoof us here
+		visitor.name = visitor[:name].split(' ')[0] #or here, but it doesn't matter.
+		if visitor.save
+			message="Visitation complete!"
+		end
+		render :text=>message
+	end
 end
