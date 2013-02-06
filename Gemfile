@@ -22,6 +22,7 @@ gem 'opengraph'
 #, '0.2.0'
 gem 'whenever', :require => false
 gem 'fuzzy_match'
+gem 'acts-as-taggable-on'
 
 # Gems used only for assets and not required
 # in production environments by default.
