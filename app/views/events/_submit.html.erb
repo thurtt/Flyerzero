@@ -48,6 +48,7 @@
 			<td>
 				<input class="input_text" id="event_loc" placeholder="Search for venues">
 				<%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %>
+				<br /><br />
 			</td>
 		</tr>
 		<tr>
@@ -56,6 +57,8 @@
 		<tr>
 			<td class="offset" style="height:50px;">
 			      <%= foursquare_venue( @event ) %>
+			      
+			<br /><br /><br /><br />
 			</td>
 		</tr>
 		<!-- <tr>
