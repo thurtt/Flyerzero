@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 	before_filter :authenticate, :except=>[ :view ]
+	protect_from_forgery :except => [ :create, :update ]
 	
 	def index
 	end
