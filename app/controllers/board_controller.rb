@@ -99,7 +99,8 @@ class BoardController < ApplicationController
 			@filter = params[:hashtag]
 			@now = @now.tagged_with(params[:hashtag])
 		end
-
+		
+		@now = @now.page(params[:page])
 		for f in @now
 			f.distance_from_object = session[:ll]
 		end
