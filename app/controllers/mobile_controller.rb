@@ -24,21 +24,11 @@ class MobileController < ApplicationController
 			ll = Geokit::LatLng.new(params[:lat], params[:lng])
 		end
 
+		
+		@count = Event.by_ll_and_radius_three_ranges(ll, 5, 25, 60)
+		@now = @count.page(_page).per(pageSize)
 
-		@now = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
-		@count = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
-		if @now.length < 20
-			@now = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
-			@count = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
-		end
-		if @now.length < 20
-			@now = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
-			@count = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
-		end
-		if @now.length < 1
-			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(_page).per(pageSize)
-			@count = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')
-		end
+		
 
 		for f in @now
 			f.distance_from_object = ll

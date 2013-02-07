@@ -24,17 +24,17 @@ class Event < ActiveRecord::Base
 	attr_accessor :distance_from_object
 
 	scope :is_current, lambda {where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry')}
-	scope :is_valid, lambda {|_page| where('validated > 0').order('expiry DESC').page(_page)}
+	scope :is_valid, lambda {where('validated > 0').order('expiry DESC')}
 	scope :in_range, lambda {|start, stop| where(['expiry >= ? && expiry <= ?', start, stop]).order('expiry')}
 	scope :by_ll_and_radius, lambda {|ll, radius| within(radius, :origin => ll)}
 	scope :by_promoter, lambda {|promoter_hash|
 		result = Achievement.find_by_gravatar_hash(promoter_hash)
 		where(:email=>result.email).order('expiry') }
 	scope :by_venue, lambda{|venue_id| where(:venue_id=>venue_id).order('expiry')}
-	scope :by_ll_and_radius_three_ranges, lambda { |ll, rad1, rad2, rad3, _page|
-		result = Event.by_ll_and_radius(ll, rad1).is_valid(_page)
-		result = Event.by_ll_and_radius(ll, rad2).is_valid(_page) if result.length < 20
-		result = Event.by_ll_and_radius(ll, rad3).is_valid(_page) if result.length < 20
+	scope :by_ll_and_radius_three_ranges, lambda { |ll, rad1, rad2, rad3|
+		result = Event.by_ll_and_radius(ll, rad1).is_valid
+		result = Event.by_ll_and_radius(ll, rad2).is_valid if result.length < 20
+		result = Event.by_ll_and_radius(ll, rad3).is_valid if result.length < 20
 		result = Event.is_valid if result.length < 1
 		return result
 	}
