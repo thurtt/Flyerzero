@@ -93,15 +93,11 @@ class BoardController < ApplicationController
 			@event = Event.new()
 		end
 
-		@now = Event.within(5, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
-		if @now.length < 20
-			@now = Event.within(25, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
-		end
-		if @now.length < 20
-			@now = Event.within(60, :origin => ll).where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
-		end
-		if @now.length < 1
-			@now = Event.where('validated > 0').where(['expiry > ?', Time.now().beginning_of_day - 1.day]).order('expiry').page(params[:page])
+		@now = Event.by_ll_and_radius_three_ranges(ll, 5, 25, 60)
+
+		if params[:hashtag]
+			@filter = params[:hashtag]
+			@now = @now.tagged_with(params[:hashtag])
 		end
 
 		for f in @now

@@ -125,6 +125,11 @@ function registerEvents(){
 		      window.open("http://twitter.com/home?status=http://www.flyerzero.com/item/?event_id=" + _flyer_id, '_blank');
 		      
 		      });
+
+	$('.hashtag').unbind();
+	$('.hashtag').click(function(e) {
+		loadFlyerData(latitude, longitude, $(e.target).attr('tag'));
+	});
 }
 function changeLocation( location ) {
 	$('input#new_location').val('Changing location...');
@@ -135,11 +140,14 @@ function changeLocation( location ) {
 	});
 }
 
-function loadFlyerData(lat, lng) {
+function loadFlyerData(lat, lng, hashtag) {
 	if (!query_flyers)
 		return;
 	
 	url = "/board/flyers/?lat="+lat+"&lng="+lng;
+	if(hashtag) {
+		url += "&hashtag=" + encodeURIComponent(hashtag); 
+	}
 	$('span#flyer_distance').html("Loading Flyers...");
 	$.get( url ,function(data) {
 
