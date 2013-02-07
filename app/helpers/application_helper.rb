@@ -92,3 +92,13 @@ def min_max_coordinates(point, distance)
 
 	return {:lat_min=>lat_min, :lat_max=>lat_max, :lng_min=>lng_max, :lng_max=>lng_min}
 end
+
+def linkify_hashtags(text, event_id, outerClass, innerClass)
+	result = "<span href=\"/item/?event_id=#{event_id}\" class=\"#{outerClass}\">#{text}</span>"  
+	text.scan(/\s(#[a-zA-Z0-9_]+)/) { |tags| 
+		tags.each { |tag| 
+			result = result.sub(tag, "<span tag=\"#{tag}\" class=\"#{innerClass} hashtag\">#{tag}</span>")
+		}
+	}
+	return result.html_safe
+end

@@ -94,6 +94,9 @@ button.change_location:hover{
 .acts_as_link:hover{
 	text-decoration:underline;
 }
+.acts_as_inner_link:hover {
+	color: #33CCFF;
+}
 
 
 .buttony{

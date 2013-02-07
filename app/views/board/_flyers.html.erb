@@ -9,6 +9,7 @@
 
 <% if @now.length > 0%>
 <div class="flyers">
+	<div class="current_filter"><%= @filter %></div>
 	<%for flyer in @now%>
 		<%= render :partial=>"flyer", :locals=>{:flyer=>flyer}%>
 	<%end%>

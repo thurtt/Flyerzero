@@ -13,7 +13,7 @@
 		</td>
 		<td class="right_side" width="200">
 			<ul>
-				<li class="media"><a href="/item/?event_id=<%=flyer.id%>"><%=flyer.media%></a></li>
+				<li class="media"><%=linkify_hashtags(flyer.media, flyer.id, "acts_as_link", "acts_as_inner_link")%></li>
 				<li class="shareFacebook acts_as_link" flyer_id="<%=flyer.id%>">Share on Facebook</li>
 				<li class="shareTwitter acts_as_link" flyer_id="<%=flyer.id%>">Share on Twitter</li>
 				<li lat="<%=flyer.lat%>" lng="<%=flyer.lng%>" class="getDirections acts_as_link">Get Directions</li>
