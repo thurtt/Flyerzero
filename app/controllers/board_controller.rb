@@ -93,14 +93,14 @@ class BoardController < ApplicationController
 			@event = Event.new()
 		end
 
-		@now = Event.by_ll_and_radius_three_ranges(ll, 5, 25, 60)
+		@now = Event.by_ll_and_radius_three_ranges(ll, 5, 25, 60, params[:page])
 
 		if params[:hashtag]
 			@filter = params[:hashtag]
 			@now = @now.tagged_with(params[:hashtag])
 		end
 		
-		@now = @now.page(params[:page])
+		#@now = @now.page(params[:page])
 		for f in @now
 			f.distance_from_object = session[:ll]
 		end
