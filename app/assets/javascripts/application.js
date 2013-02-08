@@ -157,6 +157,14 @@ function loadFlyerData(lat, lng, hashtag) {
 
 		$('#content').html(data);
 
+		$('.past:first').scrollTop(300);
+		
+		//$("#button").click(function() {
+		     $('html, body').animate({
+			 scrollTop: $(".past:first").offset().top
+		     }, 1000);
+		 //});
+		 
 		registerEvents();
 	});
 
