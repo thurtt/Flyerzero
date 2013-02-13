@@ -6,6 +6,8 @@
   <%= javascript_include_tag "application" %>
   <script src="http://widgets.twimg.com/j/2/widget.js"></script>
   <%= csrf_meta_tags %>
+  <script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
+  
   <%promoter = Achievement.find(params[:id])%>
 
   <%if promoter != nil%>
@@ -18,18 +20,29 @@
 </head>
 <body class="primary body_profile">
 
-    <%=image_tag 'mainlogo-text.png'%>
-
-    	<% if notice %>
-		<div id="notice" class='box' style="display:none;"><div class="text"><%=raw notice%></div></div>
-
-		<script>
-			$('#notice').slideDown(600);
-			$('#notice').delay( 5000 ).slideUp(600);
-		</script>
-	<%end%>
+	<div id="address_container" style="display:none;">
+			<div id="address">Unknown.</div>
+			<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
+			<strong>|</strong> 
+			<%if session[:authenticated]%>
+				<span class="acts_as_link" id="logout">Disconnect from FB</span>
+				<%else%>
+				<span class="acts_as_link" id="login">Connect with FB</span>
+				<%end%>
+	</div>
+	<div id="header">
+		<a href="/">
+		<div style="color:white;">FLYER</div>
+		<div style="color:#f9e101; position:absolute;top:30px;left:48px;">ZERO</div>
+		</a>
+	</div>
+	
 
 <%= yield %>
 
+	<div id="footer">
+		<a href="/">Flyer Zero</a> is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint. &copy;2012
+		<span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
+	</div>
 </body>
 </html>

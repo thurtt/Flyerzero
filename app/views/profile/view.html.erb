@@ -1,3 +1,7 @@
+<script>
+      var editFlyer = false;
+      query_flyers = false;
+</script>
 <div class="profile box">
 	<div class="visage">
 		<table width="100%">
@@ -17,10 +21,9 @@
 		</table>
 	</div>
 	<div class="flyers">
-	Promotion History<br /><br />
 	<%for flyer in @flyers%>
 		<%if !flyer.photo(:small).include?('/missing.png')%>
-		<%= link_to image_tag(flyer.photo(:cropped), :size=>"130x130"), flyer.photo(:large), :target=>"_new"%>
+		<%= link_to image_tag(flyer.photo(:cropped), :size=>"130x130"), flyer.photo(:large), :class=>"fancybox-effects-b", :title=>flyer.media%>
 		<%end%>
 	<%end%>
 	</div>

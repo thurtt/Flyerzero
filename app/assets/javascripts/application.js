@@ -10,6 +10,7 @@
 // require webshims/minified/extras/modernizr-custom
 // require webshims/minified/polyfiller
 // require history_jquery
+//= require fancybox
 
 var latitude;
 var longitude;
@@ -41,8 +42,53 @@ $(document).ready(function() {
 	registerEvents();
 	getUserLocation();
 	initSubmitForm();
-	
 
+	$(".fancybox").fancybox();
+	$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+	$(".fancybox-effects-c").fancybox({
+		wrapCSS    : 'fancybox-custom',
+		closeClick : true,
+
+		openEffect : 'none',
+
+		helpers : {
+			title : {
+				type : 'inside'
+			},
+			overlay : {
+				css : {
+					'background' : 'rgba(238,238,238,0.85)'
+				}
+			}
+		}
+	});
+
+	// Remove padding, set opening and closing animations, close if clicked and disable overlay
+	$(".fancybox-effects-d").fancybox({
+		padding: 0,
+
+		openEffect : 'elastic',
+		openSpeed  : 150,
+
+		closeEffect : 'elastic',
+		closeSpeed  : 150,
+
+		closeClick : true,
+
+		helpers : {
+			overlay : null
+		}
+	});
+	console.log("fancy");
 });
 
 // disable the default drag and drop behavior
@@ -132,6 +178,8 @@ function registerEvents(){
 	$('.hashtag').click(function(e) {
 		loadFlyerData(latitude, longitude, $(e.target).attr('tag'));
 	});
+	
+	
 }
 function changeLocation( location ) {
 	$('input#new_location').val('Changing location...');

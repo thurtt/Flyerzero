@@ -2,25 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .profile{
-	background: #fdfdfd;
-	padding:20px;
-	margin:20px;
 }
 .visage{
-	padding-bottom:20px;
+
+	padding:40px;
+	padding-top:90px;
 	border-bottom:1px solid #dddddd;
+	background:#f7f7f7;
 }
 
 .profile .flyers{
-	padding-top:20px;
 	font-size:3.0em;
+	padding:40px;
 	color:black;
 }
 .points{
 	background-color:#f9e101;
 	color:black;
-	font-size:3.0em;
+	font-size:2.0em;
 	padding:10px;
+	display:inline-block;
 }
 .tip{
 	font-size: 0.7em;
