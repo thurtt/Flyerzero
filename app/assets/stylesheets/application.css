@@ -33,7 +33,7 @@ body{
 	height:40px;
 	line-height:40px;
 	background-color: #f9e101;
-	z-index:2;
+	z-index:12;
 }
 #header a{
 	color:white;
@@ -48,7 +48,7 @@ body{
 	text-align:center;
 	float:right;
 	line-height:40px;
-	z-index:3;
+	z-index:13;
 	text-align:right;
 }
 #footer{
@@ -120,6 +120,7 @@ button.change_location:hover{
 
 #content{
 	padding-top:40px;
+	position:relative; z-index:11;
 }
 
 #promo{
@@ -130,6 +131,7 @@ button.change_location:hover{
 		padding-bottom:20px;
 		color:white;
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		position:relative;z-index:11;
 	
 }
 #promo .head{
@@ -165,5 +167,14 @@ button.change_location:hover{
 	border:1px solid #999;
 	color:white;
 	cursor:pointer;
+}
+#temporalShift{
+	width:150px;
+	height:800px;
+	position:fixed;
+	top:60px;
+	left:0px;
+	z-index:10;
+	display:none;
 }
 

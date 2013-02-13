@@ -100,7 +100,7 @@ class BoardController < ApplicationController
 			@now = @now.tagged_with(params[:hashtag])
 		end
 		
-		@now = @now.page(params[:page])
+		@now = @now.page(params[:page]).per(20)
 		
 		for f in @now
 			f.distance_from_object = session[:ll]
@@ -152,7 +152,7 @@ class BoardController < ApplicationController
 			   }
 		respond_to do |format|
 		      format.json{render :json=> venues}
-		      format.html{render :text=> "blah blah blah"}
+		      format.html{render :json=> venues}
 
 		end
 	end

@@ -79,7 +79,9 @@ class EventsController < ApplicationController
 			Venue.add_venue_if_necessary(venueData)
 
 			# pull out our hashtags and save them
-			@event.media.scan(/\s(#[a-zA-Z0-9_]+)/) { |tag| @event.tag_list << tag }
+			@event.media.scan(/\s(#[a-zA-Z0-9_]+)/) { |tag| 
+			puts tag
+			@event.tag_list << tag }
 			
 			#let's just enforce this here.
 			@event.email = session[:email]
