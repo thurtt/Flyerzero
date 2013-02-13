@@ -24,11 +24,11 @@ $(document).ready(function() {
 	$('div.slideshow img:first').addClass('first');
 	
 	
-	$('#new_location').blur( function(){
+	/*$('#new_location').blur( function(){
 		$('#change_location').fadeOut('fast', function() {
 			$('#address').fadeIn("fast", function(){});
 		});
-	});
+	});*/
 
 	$('input#new_location').keypress( function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -89,6 +89,7 @@ $(document).ready(function() {
 		}
 	});
 	console.log("fancy");
+	setUpLocationLinks();
 });
 
 // disable the default drag and drop behavior
@@ -109,22 +110,22 @@ function registerEvents(){
 			facebook_logout();
 	});
         
-        $('#address').unbind();
+        /*$('#address').unbind();
 	$('#address').click( function(){
 		$('#address').fadeOut("fast", function() {
 			$('#change_location').fadeIn("fast", function() {
 				$('#new_location').focus();
 			});
 		});
-	});
+	});*/
 
 	
-	$('button.change_location').unbind();
+	/*$('button.change_location').unbind();
 	$('button.change_location').click( function(){
 		if ( $('input#new_location').val() != '' ){
 			changeLocation( $('input#new_location').val() );
 		}
-	});
+	});*/
 	
 	$('.getDirections').unbind();
 	$('.getDirections').click(function(){
@@ -185,7 +186,7 @@ function changeLocation( location ) {
 	$('input#new_location').val('Changing location...');
 	$.get('/board/change_location/?location=' + location, function(data) {
 		focusFlyer = "";
-		$('#address').html(data);
+		$('#address').attr("title", data);
 		$('input#new_location').val('');
 	});
 }
@@ -201,10 +202,10 @@ function loadFlyerData(lat, lng, hashtag) {
 	$('span#flyer_distance').html("Loading Flyers...");
 	$.get( url ,function(data) {
 
-		$('#change_location').fadeOut("fast", function() {
+		/*$('#change_location').fadeOut("fast", function() {
 			$('#address').fadeIn("fast", function() {}); //make sure it is visible
 		}); // hide this.
-
+*/
 		$('#content').html(data);
 		
 		$('#temporalShift').show();
@@ -306,4 +307,36 @@ function getDirectionsTo(_lat, _lng){
     url = baseURL + "/maps?saddr=" + user_latitude + "," + user_longitude + "&daddr=" + _lat + "," + _lng;
     console.log(url);
     location.href=url;
+}
+
+function setUpLocationLinks() {
+    var locationLinks = $("#address");
+    var mapImage = $("#map_image");
+    var mapImageContainer = $("#map_image_container");
+    var mapFancybox = function() {
+       $.fancybox(
+            {
+                "showCloseButton" : true,
+                "hideOnContentClick" : true,
+                "titlePosition"  : "inside",
+                "content" : $("#map_image_container").html()
+            }
+        );
+        
+    }
+    locationLinks.click(
+        function() {
+            var clickedLink = $(this);
+            mapImage.attr("src", '').unbind('load');
+            mapImage.attr("src", clickedLink.attr("href")).load(
+                function() {
+                    mapFancybox();
+                }
+            );
+            if(mapImage.complete) {
+                mapImage.triggerHandler("load");
+            }
+            return false;
+        }
+    );
 }

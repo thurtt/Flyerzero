@@ -67,11 +67,13 @@ body{
 	cursor:pointer;
 	display:inline-block;
 }
+#address img{
+	vertical-align: middle;
+}
 #address:hover{
 	text-decoration:underline;
 }
 #change_location {
-	display:none;
 }
 #new_location {
 	width:300px;

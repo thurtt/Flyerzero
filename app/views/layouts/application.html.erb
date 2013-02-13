@@ -88,11 +88,10 @@ window.fbAsyncInit = function() {
 </script>
 
 	<div id="address_container" style="display:none;">
-			<div id="address">Unknown.</div>
-			<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-			<strong>|</strong> 
-			<%if session[:authenticated]%>
-				<span class="acts_as_link" id="logout">Disconnect from FB</span>
+			<a href="" id="address" title="Unknown."><%=image_tag "location.png", :size=>"25x25"%></a>
+			<!--<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
+			--><%if session[:authenticated]%>
+				<span class="acts_as_link" id="logout"><%image_tag "power.png", :size=>"25x25"%></span>
 				<%else%>
 				<span class="acts_as_link" id="login">Connect with FB</span>
 				<%end%>
@@ -102,6 +101,10 @@ window.fbAsyncInit = function() {
 		<div style="color:white;">FLYER</div>
 		<div style="color:#f9e101; position:absolute;top:30px;left:48px;">ZERO</div>
 		</a>
+	</div>
+	<div id="map_image_container" style="display:none;"><img id="map_image" src=''/><br/>
+	<div id="physical_address"></div>
+	<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
 	</div>
 	
 	<%= yield %>
