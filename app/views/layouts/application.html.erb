@@ -102,8 +102,8 @@ window.fbAsyncInit = function() {
 		<div style="color:#f9e101; position:absolute;top:30px;left:48px;">ZERO</div>
 		</a>
 	</div>
-	<div id="map_image_container" style="display:none;"><img id="map_image" src=''/><br/>
-	<div id="physical_address"></div>
+	<div id="map_image_container" style="display:none;"><img class="map_image" src=''/><br/>
+	<div class="physical_address"></div>
 	<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
 	</div>
 	
@@ -113,6 +113,7 @@ window.fbAsyncInit = function() {
 		<a href="/">Flyer Zero</a> is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint. &copy;2012
 		<span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
 	</div>
+	<div id="response_dump" style="display:none;"></div>
 
 <!-- Google Analytics -->
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
