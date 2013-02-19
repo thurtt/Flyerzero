@@ -11,6 +11,18 @@ class BoardController < ApplicationController
 		
 		user = (ActiveSupport::JSON.decode(response))
 		
+		profile = Achievement.find_by_email(user["email"])
+		
+		if profile.nil?
+			profile = Achievement.new()
+			profile.email = user["email"]
+			profile.points = 0
+			profile.currency = 0
+			profile.gravatar_hash = Digest::MD5.hexdigest(user["email"])
+			profile.save
+		end
+		
+		session[:profile] = profile.id
 		session[:email] = user["email"]
 		session[:name] = user["name"]
 		session[:authenticated] = true
@@ -19,6 +31,7 @@ class BoardController < ApplicationController
 	
 	def deauthenticateme
 		session[:authenticated] = false
+		session[:profile] = 0
 		session[:email] = ''
 		
 		render :text=>"//DE-AUTHENTICATED"

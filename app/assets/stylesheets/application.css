@@ -67,8 +67,12 @@ body{
 	cursor:pointer;
 	display:inline-block;
 }
-#address img{
+#address_container img{
 	vertical-align: middle;
+	opacity:0.3;
+}
+#address_container img:hover{
+	opacity:0.7;
 }
 #address:hover{
 	text-decoration:underline;

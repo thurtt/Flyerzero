@@ -87,14 +87,17 @@ window.fbAsyncInit = function() {
    }(document, /*debug*/ false));
 </script>
 
-	<div id="address_container" style="display:none;">
-			<a href="" id="address" title="Unknown."><%=image_tag "location.png", :size=>"25x25"%></a>
-			<!--<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-			--><%if session[:authenticated]%>
-				<span class="acts_as_link" id="logout"><%image_tag "power.png", :size=>"25x25"%></span>
-				<%else%>
-				<span class="acts_as_link" id="login">Connect with FB</span>
-				<%end%>
+	<div id="address_container">
+			<a href="" id="address" title="Change your location?" style="display:none;"><%=image_tag "location.png", :size=>"25x25"%></a>
+			<!--<a href="https://www.facebook.com/FlyerZero" title="Like us on Facebook?"><%=image_tag "facebook.png", :size=>"25x25"%></a>-->
+			<%if session[:authenticated]%>
+			<a href="/profile/view/<%=session[:profile]%>" title="Check out your profile?"><%=image_tag "happyface.png", :size=>"25x25"%></a>
+			<a href="/submit" title="Submit a picture?"><%=image_tag "submit.png", :size=>"25x25"%></a>
+			<span id="logout" title="Log out?"><%=image_tag "shutdown.png", :size=>"25x25"%></span>
+			
+			<%else%>
+			<span id="login" title="Log in with Facebook?"><%=image_tag "shutdown.png", :size=>"25x25"%></span>
+			<%end%>
 	</div>
 	<div id="header">
 		<a href="/">

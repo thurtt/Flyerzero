@@ -5,7 +5,7 @@
 	longitude = parseFloat( '<%= session[:ll].split(',')[1] %>' );
 	$('.physical_address').html('<%=session[:origin]%>');
 	$('#address').attr('href','https://maps.googleapis.com/maps/api/staticmap?center='+latitude+','+longitude+'&zoom=14&size=400x400&sensor=false');
-	$('#address_container').fadeIn("fast", function() {});
+	$('#address').fadeIn("fast", function() {});
 
 </script>
 
