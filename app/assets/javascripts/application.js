@@ -83,6 +83,21 @@ $(document).ready(function() {
 	});
 	console.log("fancy");
 	setUpLocationLinks();
+	$('#address_container a, span').hover(function(){
+			$('#menu_help').html($(this).attr('data-title'));
+	});
+	$("#address_container").hover(
+		function(){
+		  $('#menu_help').filter(':not(:animated)').animate({
+		     marginTop:'41px'
+		  },'fast');
+		// This only fires if the row is not undergoing an animation when you mouseover it
+		},
+		function() {
+		  $('#menu_help').animate({
+		     marginTop:'0px'
+		  },'fast');
+		});
 });
 
 // disable the default drag and drop behavior
@@ -91,14 +106,14 @@ $(document).bind('drop dragover', function (e) {
 });
 
 function registerEvents(){
-	$('#login').unbind();
+	$('#login').unbind('click');
 	$('#login').click(function(){
 			facebook_login(function(){
 				location.href="/";
 			});
 	});
 	
-	$('#logout').unbind();
+	$('#logout').unbind('click');
 	$('#logout').click(function(){
 			facebook_logout();
 	});
