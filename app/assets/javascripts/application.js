@@ -177,10 +177,16 @@ function registerEvents(){
 
 	$('.hashtag').unbind();
 	$('.hashtag').click(function(e) {
-		loadFlyerData(latitude, longitude, $(e.target).attr('tag'));
+		location.href = '/?hashtag=' + encodeURIComponent($(e.target).attr('tag'));
+		e.stopPropagation();
+	});
+
+	$('.title_link').unbind();
+	$('.title_link').click(function(e) {
+		location.href=$(e.target).attr('href');
 	});
 	
-	
+	console.log("your mom");
 }
 function changeLocation( location ) {
 	$('input#new_location').val('Changing location...');
@@ -191,7 +197,7 @@ function changeLocation( location ) {
 	});
 }
 
-function loadFlyerData(lat, lng, hashtag) {
+function loadFlyerData(lat, lng) {
 	if (!query_flyers)
 		return;
 	
@@ -229,9 +235,11 @@ function loadFlyerData(lat, lng, hashtag) {
 				$('#temporalImg').show();
 			}
 		});
-		$(jQuery.browser.webkit ? "body": "html").animate({
-			 scrollTop: $(".past:first").offset().top
-		}, 1);
+		if ( $(".past:first").size() > 0 ) {
+			$(jQuery.browser.webkit ? "body": "html").animate({
+				 scrollTop: $(".past:first").offset().top
+			}, 1);
+		}
 		registerEvents();
 	});
 

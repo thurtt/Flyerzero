@@ -88,7 +88,7 @@ module ApplicationHelper
 	end
 
 	def linkify_hashtags(text = "", event_id, outerClass, innerClass)
-		result = "<span href=\"/item/?event_id=#{event_id}\" class=\"#{outerClass}\">#{text}</span>"
+		result = "<span href=\"/item/?event_id=#{event_id}\" class=\"#{outerClass} title_link\">#{text}</span>"
 		text.scan(/\s(#[a-zA-Z0-9_]+)/) { |tags|
 			tags.each { |tag|
 				result = result.sub(tag, "<span tag=\"#{tag}\" class=\"#{innerClass} hashtag\">#{tag}</span>")
