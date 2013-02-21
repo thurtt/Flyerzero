@@ -207,26 +207,29 @@ function loadFlyerData(lat, lng, hashtag) {
 		$('#temporalShift').show();
 		
 		$(window).scroll(function () {
-			if ( $('body').scrollTop() < $(".future:last").offset().top ){
+				bod = $(jQuery.browser.webkit ? "body": "html");
+			if ( bod.scrollTop() < $(".future:last").offset().top ){
 				$('#temporalImg').attr('src','/assets/future_background.png');
 				$('#temporalImg').show();
 			}
-			else if ( $('body').scrollTop() > $(".past:eq(5)").offset().top ){
+			else if ( bod.scrollTop() > $(".past:eq(5)").offset().top ){
 				$('#temporalImg').attr('src','/assets/history_background.png');
 				$('#temporalImg').show();
 			}
-			else if ( $('body').scrollTop() > $(".past:first").offset().top ){
+			else if ( bod.scrollTop() > $(".past:first").offset().top ){
 				$('#temporalImg').attr('src','/assets/current_background.png');
 				$('#temporalImg').show();
 			}
-			if ( $('body').scrollTop() < $(".future:eq(0)").offset().top ){
+			if ( bod.scrollTop() < $(".future:eq(0)").offset().top ){
+				
 				$('#temporalImg').hide();
 			}
 			else {
+				
 				$('#temporalImg').show();
 			}
 		});
-		$('body').animate({
+		$(jQuery.browser.webkit ? "body": "html").animate({
 			 scrollTop: $(".past:first").offset().top
 		}, 1);
 		registerEvents();
