@@ -2,6 +2,20 @@ class Venue < ActiveRecord::Base
 	validates :lat, :lng, :presence => true
 	acts_as_mappable
 
+	def self.reverse_venue_lookup( venue_id )
+		endpoint = 'https://api.foursquare.com/v2/venues/' + venue_id
+		response = RestClient.get endpoint, {:params=>{
+											 :v=>'20120411',
+											 :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
+											 :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}																			 }
+		if response.code != 200
+			venue = nil
+		else
+			venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
+		end
+		return venue
+	end
+
 	def self.add_venue_if_necessary(venueId)
 		type, id = venueId.split(':')
 

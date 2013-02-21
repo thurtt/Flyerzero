@@ -6,7 +6,7 @@ class ToolsController < ApplicationController
 	def reverse_venue
 		result = {}
 		if params[:venue_id]
-			venue = reverse_venue_lookup( params[:venue_id] )
+			venue = Venue.reverse_venue_lookup( params[:venue_id] )
 			puts 'Venue Info: ' + venue.to_s
 			result[:venue_name] = venue["name"]
 			result[:venue_location] = venue["location"].has_key?("address") ? venue["location"]["address"] : ""

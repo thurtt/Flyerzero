@@ -23,20 +23,20 @@ module ApplicationHelper
 			venue_id = event.venue_id
 			type, id = venue_id.split(':')
 			if type == 'fs'
-				fs_venue = reverse_venue_lookup( id )
+				fs_venue = Venue.reverse_venue_lookup( id )
 				if fs_venue
 					venue_info = {
-						:name=>venue["name"],
-						:lat=>venue["location"]["lat"],
-						:lng=>venue["location"]["lng"],
-						:venue_id=>venue["id"],
+						:name=>fs_venue["name"],
+						:lat=>fs_venue["location"]["lat"],
+						:lng=>fs_venue["location"]["lng"],
+						:venue_id=>fs_venue["id"],
 					}
 					# address if applicable
-					venue_info[:location] = venue["location"].has_key?("address") ? venue["location"]["address"] : ""
+					venue_info[:location] = fs_venue["location"].has_key?("address") ? fs_venue["location"]["address"] : ""
 
 					# add cross street if necessary
-					if ( venue["location"].has_key?("crossStreet") && options[:xstreet] != false)
-						venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
+					if ( fs_venue["location"].has_key?("crossStreet") && options[:xstreet] != false)
+						venue_info[:location] += " (#{fs_venue["location"]["crossStreet"]})"
 					end
 				else
 					venue_info = {
@@ -65,7 +65,7 @@ module ApplicationHelper
 	def foursquare_venue_name( venue_id )
 		type, id = venue_id.split(':')
 		if type == 'fs'
-			venue_info = reverse_venue_lookup( id )
+			venue_info = Venue.reverse_venue_lookup( id )
 			if venue_info
 				return venue_info["name"]
 			end
@@ -75,20 +75,6 @@ module ApplicationHelper
 			return venue_info.name
 		end
 		return ''
-	end
-
-	def reverse_venue_lookup( venue_id )
-		endpoint = 'https://api.foursquare.com/v2/venues/' + venue_id
-		response = RestClient.get endpoint, {:params=>{
-											 :v=>'20120411',
-											 :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
-											 :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}																			 }
-		if response.code != 200
-			venue = nil
-		else
-			venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
-		end
-		return venue
 	end
 
 	def min_max_coordinates(point, distance)
