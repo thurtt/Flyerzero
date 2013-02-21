@@ -22,6 +22,13 @@ module ApplicationHelper
 		else
 			venue_id = event.venue_id
 			type, id = venue_id.split(':')
+			
+			# For backwards compatibility
+			if type == venue_id  && id.blank?
+				id = type
+				type = 'fs'
+			end
+
 			if type == 'fs'
 				fs_venue = Venue.reverse_venue_lookup( id )
 				if fs_venue
@@ -64,6 +71,13 @@ module ApplicationHelper
 
 	def foursquare_venue_name( venue_id )
 		type, id = venue_id.split(':')
+
+		# backwards compatibility
+		if type == venue_id  && id.blank?
+			id = type
+			type = 'fs'
+		end
+
 		if type == 'fs'
 			venue_info = Venue.reverse_venue_lookup( id )
 			if venue_info

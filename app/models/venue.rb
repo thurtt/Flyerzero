@@ -18,7 +18,7 @@ class Venue < ActiveRecord::Base
 
 	def self.add_venue_if_necessary(venueId)
 		type, id = venueId.split(':')
-
+		
 		if type == 'fs'
 			# check to see if the venue already exists
 			venueItem = Venue.find_by_foursquare_id(id)			
