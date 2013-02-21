@@ -185,4 +185,15 @@ button.change_location:hover{
 	z-index:10;
 	display:none;
 }
+#menu_help{
+	z-index:12;
+	position:fixed;
+	top:0px;right:0px;
+	color:#aaa;
+	font-size:1.0em;
+	font-weight:bold;
+	padding:5px; 
+	border-radius:5px;
+	/*background:#777;*/
+}
 
