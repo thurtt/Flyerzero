@@ -16,14 +16,14 @@
   	fsVenueName = foursquare_venue_name(event.venue_id)
   %>
   <meta property="og:image" content="http://www.flyerzero.com<%=event.photo(:large)%>"/>
-  <meta property="og:description" content="Check out this Flyer Zero event flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>." />
+  <meta property="og:description" content="<%=event.media%>" />
   <%if params[:act]%>
-  	<meta property="og:url" content="http://www.flyerzero.com/?act=<%=params[:act]%>&flyer=<%=params[:event_id]%>"/>
+  	<meta property="og:url" content="http://www.flyerzero.com/item/?act=<%=params[:act]%>&event_id=<%=params[:event_id]%>"/>
   	<meta property="og:title" content="An event at <%= fsVenueName %>!"/>
   	<meta property="og:type" content="flyerzeromobile:<%=params[:act]%>" />
   <%else%>
-  	<meta property="og:url" content="http://www.flyerzero.com/?flyer=<%=params[:event_id]%>"/>
-  	<meta property="og:title" content="Event Flyer for <%=event.expiry.to_formatted_s(:long_ordinal)%> at <%= fsVenueName %>"/>
+  	<meta property="og:url" content="http://www.flyerzero.com/item/?event_id=<%=params[:event_id]%>"/>
+  	<meta property="og:title" content="<%=event.media%>"/>
   	<meta property="og:type" content="flyerzeromobile:flyer" />
   <%end%>
   
