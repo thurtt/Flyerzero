@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205221851) do
+ActiveRecord::Schema.define(:version => 20130220161043) do
 
   create_table "achievements", :force => true do |t|
     t.string   "email"
@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20130205221851) do
     t.string   "lat"
     t.string   "lng"
     t.string   "foursquare_id"
-    t.string   "facebook_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

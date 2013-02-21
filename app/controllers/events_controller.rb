@@ -61,22 +61,9 @@ class EventsController < ApplicationController
 			end
 			
 			@event.validated = true
-			venueData = {}
-			if @event.fbevent
-				venueData = { :facebook_id=>@event.venue_id, :lat=>@event.lat, :lng=>@event.lng, :name=>@event.venue_name}
-			else 
-				foursquareVenue = reverse_venue_lookup(@event.venue_id)
-				venueData = { :name => foursquareVenue["name"],
-							  :foursquare_id => foursquareVenue["id"], 
-							  :address => foursquareVenue["location"]["address"],
-							  :city => foursquareVenue["location"]["city"],
-							  :state => foursquareVenue["location"]["state"],
-							  :zip => foursquareVenue["location"]["postalCode"],
-							  :country => foursquareVenue["location"]["country"],
-							  :lat=> foursquareVenue["location"]["lat"], 
-							  :lng=>foursquareVenue["location"]["lng"]}
-			end
-			Venue.add_venue_if_necessary(venueData)
+
+			# add the venue to our venues if it's not already in there.
+			Venue.add_venue_if_necessary(@event.venue_id)
 
 			# pull out our hashtags and save them
 			@event.media.scan(/\s(#[a-zA-Z0-9_]+)/) { |tag| 

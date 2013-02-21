@@ -126,47 +126,39 @@ class BoardController < ApplicationController
 		if params[:term].length < 2
 		      render :json=>[] and return
 		end
-
-		# if we're searching in a different location, override the session's location
-		if params[:ll]
-		  ll = params[:ll]
-		elsif params[:near]
-		  # convert the near to ll
-		  location = Geokit::Geocoders::MultiGeocoder.geocode(params[:near])
-		  ll = "#{location.lat}, #{location.lng}"
+		venues = {}
+		ourVenues = Venue.search( :name_contains => params[:term] )
+		if ourVenues.length == 0
+			# foursquare autocomplete endpoint
+			endpoint = 'https://api.foursquare.com/v2/venues/suggestcompletion'
+			response = RestClient.get endpoint, {:params=>{ :ll=>session[:ll],
+							      :v=>'20120411',
+							      :query=>params[:term],
+							      :limit=>15,
+							      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
+							      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
+							    }
+			venues = (ActiveSupport::JSON.decode(response))["response"]["minivenues"]
+			venues.map!{ |venue| { :name=>venue["name"],
+					       :cross_street=>venue["location"]["crossStreet"],
+					       :address=>venue["location"]["address"],
+					       :lat=>venue["location"]["lat"],
+					       :lng=>venue["location"]["lng"],
+					       :venue_id=>"fs:" + venue["id"],
+					     }
+				   }
 		else
-		  ll = session[:ll]
+			venues = ourVenues.all.map{ |venue| { :name=>venue["name"],
+											  :address=>venue["address"],
+											  :lat=>venue["lat"],
+											  :lng=>venue["lng"],
+											  :venue_id=>"lv:" + venue["id"].to_s
+											}
+								   }
 		end
-
-		# foursquare autocomplete endpoint
-		endpoint = 'https://api.foursquare.com/v2/venues/suggestcompletion'
-		response = RestClient.get endpoint, {:params=>{ :ll=>ll,
-						      :v=>'20120411',
-						      :query=>params[:term],
-						      :limit=>15,
-						      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
-						      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
-						    }
-		venues = (ActiveSupport::JSON.decode(response))["response"]["minivenues"]
-		venues.map!{ |venue| { :name=>venue["name"],
-				       :cross_street=>venue["location"]["crossStreet"],
-				       :address=>venue["location"]["address"],
-				       :lat=>venue["location"]["lat"],
-				       :lng=>venue["location"]["lng"],
-				       :venue_id=>venue["id"],
-				       :icon=> proc do
-						if venue["categories"][0]
-						      icon = venue["categories"][0]["icon"]["prefix"] + venue["categories"][0]["icon"]["sizes"][0].to_s + venue["categories"][0]["icon"]["name"]
-						else
-						      icon = nil
-						end
-				       end.call
-				     }
-			   }
 		respond_to do |format|
 		      format.json{render :json=> venues}
 		      format.html{render :json=> venues}
-
 		end
 	end
 

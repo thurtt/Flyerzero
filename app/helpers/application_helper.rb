@@ -11,94 +11,103 @@ module ApplicationHelper
 	end
 
 	def foursquare_venue( event, options = {} )
+		venue_info = {}
 		if not event or not event.venue_id
-		      venue_info = {
-			  :name=>"",
-			  :location=>"No Venue Chosen",
-			  :lat=>"",
-			  :lng=>"",
-			  :icon=>"",
-		      }
+			venue_info = {
+				:name=>"",
+				:location=>"No Venue Chosen",
+				:lat=>"",
+				:lng=>"",
+			}
 		else
-		      venue_id = event.venue_id
-		      venue_info = {}
-		      venue = reverse_venue_lookup( venue_id )
-		      if venue
-			      venue_info = {
-					      :name=>venue["name"],
-					      :lat=>venue["location"]["lat"],
-					      :lng=>venue["location"]["lng"],
-					      :venue_id=>venue["id"],
-					      :icon=> proc do
-						      if venue["categories"].length > 0
-							    icon_info = venue["categories"][0]["icon"]
-							    icon = icon_info["prefix"] + icon_info["sizes"][2].to_s + icon_info["name"]
-						      else
-							    icon = nil
-						      end
-					      end.call
-					    }
-			      # address if applicable
-			      venue_info[:location] = venue["location"].has_key?("address") ? venue["location"]["address"] : ""
+			venue_id = event.venue_id
+			type, id = venue_id.split(':')
+			if type == 'fs'
+				fs_venue = reverse_venue_lookup( id )
+				if fs_venue
+					venue_info = {
+						:name=>venue["name"],
+						:lat=>venue["location"]["lat"],
+						:lng=>venue["location"]["lng"],
+						:venue_id=>venue["id"],
+					}
+					# address if applicable
+					venue_info[:location] = venue["location"].has_key?("address") ? venue["location"]["address"] : ""
 
-			      # add cross street if necessary
-			      if ( venue["location"].has_key?("crossStreet") && options[:xstreet] != false)
-				    venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
-			      end
-		      else
-			      venue_info = {
-				  :name=>"",
-				  :location=>"Error retrieving venue name.",
-				  :lat=>event.lat,
-				  :lng=>event.lng,
-				  :venue_id=>event.venue_id,
-				  :icon=>""
-			    }
-		      end
+					# add cross street if necessary
+					if ( venue["location"].has_key?("crossStreet") && options[:xstreet] != false)
+						venue_info[:location] += " (#{venue["location"]["crossStreet"]})"
+					end
+				else
+					venue_info = {
+						:name=>"",
+						:location=>"",
+						:lat=>event.lat,
+						:lng=>event.lng,
+						:venue_id=>event.venue_id,
+					}
+				end
+			end
+
+			if type == 'lv'
+				lv_venue = Venue.find(id)
+				venue_info = {
+					:name=>lv_venue.name,
+					:lat=>lv_venue.lat,
+					:lng=>lv_venue.lng,
+					:venue_id=>venue.id
+				}
+			end
 		end
 		render :partial=>"board/venue", :locals=>{ :venue=>venue_info }
 	end
-end
 
-def foursquare_venue_name( venue_id )
-	venue_info = reverse_venue_lookup( venue_id )
-	if venue_info
-	  return venue_info["name"]
+	def foursquare_venue_name( venue_id )
+		type, id = venue_id.split(':')
+		if type == 'fs'
+			venue_info = reverse_venue_lookup( id )
+			if venue_info
+				return venue_info["name"]
+			end
+		end
+		if type == 'lv'
+			venue_info = Venue.find(id)
+			return venue_info.name
+		end
+		return ''
 	end
-	return ''
-end
 
-def reverse_venue_lookup( venue_id )
-	endpoint = 'https://api.foursquare.com/v2/venues/' + venue_id
-	response = RestClient.get endpoint, {:params=>{
-					      :v=>'20120411',
-					      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
-					      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
-					    }
-	if response.code != 200
-	  venue = nil
-	else
-	  venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
+	def reverse_venue_lookup( venue_id )
+		endpoint = 'https://api.foursquare.com/v2/venues/' + venue_id
+		response = RestClient.get endpoint, {:params=>{
+											 :v=>'20120411',
+											 :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
+											 :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}																			 }
+		if response.code != 200
+			venue = nil
+		else
+			venue = ActiveSupport::JSON.decode(response)["response"]["venue"]
+		end
+		return venue
 	end
-    return venue
-end
 
-def min_max_coordinates(point, distance)
-	# min and max longitude are easy peasy
-	lat_min = point[:lat] - distance
-	lat_max = point[:lat] + distance
-	lng_min = point[:lng] - Math.asin(Math.sin(distance)/Math.cos(point[:lat]))
-	lng_max = point[:lng] + Math.asin(Math.sin(distance)/Math.cos(point[:lat]))
+	def min_max_coordinates(point, distance)
+		# min and max longitude are easy peasy
+		lat_min = point[:lat] - distance
+		lat_max = point[:lat] + distance
+		lng_min = point[:lng] - Math.asin(Math.sin(distance)/Math.cos(point[:lat]))
+		lng_max = point[:lng] + Math.asin(Math.sin(distance)/Math.cos(point[:lat]))
 
-	return {:lat_min=>lat_min, :lat_max=>lat_max, :lng_min=>lng_max, :lng_max=>lng_min}
-end
+		return {:lat_min=>lat_min, :lat_max=>lat_max, :lng_min=>lng_max, :lng_max=>lng_min}
+	end
 
-def linkify_hashtags(text = "", event_id, outerClass, innerClass)
-	result = "<span href=\"/item/?event_id=#{event_id}\" class=\"#{outerClass}\">#{text}</span>"  
-	text.scan(/\s(#[a-zA-Z0-9_]+)/) { |tags| 
-		tags.each { |tag| 
-			result = result.sub(tag, "<span tag=\"#{tag}\" class=\"#{innerClass} hashtag\">#{tag}</span>")
+	def linkify_hashtags(text = "", event_id, outerClass, innerClass)
+		result = "<span href=\"/item/?event_id=#{event_id}\" class=\"#{outerClass}\">#{text}</span>"
+		text.scan(/\s(#[a-zA-Z0-9_]+)/) { |tags|
+			tags.each { |tag|
+				result = result.sub(tag, "<span tag=\"#{tag}\" class=\"#{innerClass} hashtag\">#{tag}</span>")
+			}
 		}
-	}
-	return result.html_safe
+		return result.html_safe
+	end
 end

@@ -1,27 +1,25 @@
 class Venue < ActiveRecord::Base
-	validates :name, :lat, :lng, :presence => true
-	scope :by_facebook_id_or_foursquare_id, lambda{|facebook_id, foursquare_id| where(['facebook_id = ? || foursquare_id <= ?', facebook_id, foursquare_id])}
+	validates :lat, :lng, :presence => true
+	acts_as_mappable
 
-	def self.add_venue_if_necessary(venueData)
-		# check to see if the venue already exists
-		venueItem = Venue.by_facebook_id_or_foursquare_id(venueData[:venue_id], venueData[:venue_id])
-		if venueItem.blank?
-			point = { :lat=>venueData[:lat].to_f, :lng=>venueData[:lng].to_f }
+	def self.add_venue_if_necessary(venueId)
+		type, id = venueId.split(':')
 
-			# get all nearby venues
-			area = min_max_coordinates(point, 0.003)
-			closeVenues = where('lat > ? && lat < ? && lng > ? && lng < ?', area[:lat_min], area[:lat_max], area[:lng_min], area[:lng_max])
+		if type == 'fs'
+			# check to see if the venue already exists
+			venueItem = Venue.find_by_foursquare_id(id)			
+			if venueItem.blank?
+				foursquareVenue = reverse_venue_lookup(id)
+				venueData = { :name => foursquareVenue["name"],
+							  :foursquare_id => foursquareVenue["id"], 
+							  :address => foursquareVenue["location"]["address"],
+							  :city => foursquareVenue["location"]["city"],
+							  :state => foursquareVenue["location"]["state"],
+							  :zip => foursquareVenue["location"]["postalCode"],
+							  :country => foursquareVenue["location"]["country"],
+							  :lat=> foursquareVenue["location"]["lat"], 
+							  :lng=>foursquareVenue["location"]["lng"]}
 
-			# do some sort of name match
-			matcher = FuzzyMatch.new(closeVenues.all, :read=>:name)
-
-			# if there is, just add the appropriate venue_id
-			matchedVenue = matcher.find(venueData[:name])
-			if matchedVenue	
-				matchedVenue.update_attributes(venueData)			
-				matchedVenue.save!
-			else
-				# if there isn't add the venue to our database
 				venue = Venue.new(venueData)
 				venue.save!
 			end
