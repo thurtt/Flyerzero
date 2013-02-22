@@ -41,7 +41,7 @@ function facebook_share(flyer_id){
 	   name: '',
 	   caption: '',
 	   description: '',
-	   link: 'https://www.flyerzero.com/item/?event_id=' + flyer_id,
+	   link: 'http://www.flyerzero.com/item/?event_id=' + flyer_id,
 	   picture: ''
 	  },
 	  function(response) {
