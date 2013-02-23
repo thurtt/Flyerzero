@@ -78,6 +78,18 @@ class EventsController < ApplicationController
 			end
 		end
 
+		if params[:send_to_facebook] == "on" && ENV['RAILS_ENV'] != 'development'
+			#Post to facebook!
+			
+			endpoint = 'https://graph.facebook.com/' + session[:user_id] + '/photos?access_token=' + session[:access_token] + '&message=' + URI.escape(@event.media)
+			imgURL = "http://www.flyerzero.com#{@event.photo.url(:large)}"
+			
+			response = RestClient.post endpoint, :url=>imgURL
+		
+			#fb_photo = (ActiveSupport::JSON.decode(response))
+		
+		end
+		
 		event_id = @event.id if not event_id
 		#EventMailer.verification_email(@event).deliver
 		respond_to do |format|

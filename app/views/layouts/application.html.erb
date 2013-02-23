@@ -93,7 +93,6 @@ window.fbAsyncInit = function() {
 
 	<div id="address_container">
 			<a href="" id="address" data-title="CHANGE YOUR LOCATION" style="display:none;"><%=image_tag "location.png", :size=>"25x25"%></a>
-			<!--<a href="https://www.facebook.com/FlyerZero" data-title="Like us on Facebook?"><%=image_tag "facebook.png", :size=>"25x25"%></a>-->
 			<%if session[:authenticated]%>
 			<a href="/profile/view/<%=session[:profile]%>" data-title="CHECK OUT YOUR PROFILE"><%=image_tag "happyface.png", :size=>"25x25"%></a>
 			<a href="/submit" data-title="SUBMIT A PICTURE"><%=image_tag "submit.png", :size=>"25x25"%></a>

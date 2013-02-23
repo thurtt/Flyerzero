@@ -20,21 +20,22 @@
 </head>
 <body class="primary body_profile">
 
-	<div id="address_container" style="display:none;">
-			<div id="address">Unknown.</div>
-			<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-			<strong>|</strong> 
+	<div id="address_container">
+			<a href="" id="address" data-title="CHANGE YOUR LOCATION" style="display:none;"><%=image_tag "location.png", :size=>"25x25"%></a>
 			<%if session[:authenticated]%>
-				<span class="acts_as_link" id="logout">Disconnect from FB</span>
-				<%else%>
-				<span class="acts_as_link" id="login">Connect with FB</span>
-				<%end%>
+			<!--<a href="/profile/view/<%=session[:profile]%>" data-title="CHECK OUT YOUR PROFILE"><%=image_tag "happyface.png", :size=>"25x25"%></a>-->
+			<a href="/submit" data-title="SUBMIT A PICTURE"><%=image_tag "submit.png", :size=>"25x25"%></a>
+			<span id="logout" class="acts_as_link" data-title="LOG OUT"><%=image_tag "shutdown.png", :size=>"25x25"%></span>
+			
+			<%else%>
+			<span id="login" class="acts_as_link" data-title="LOG IN WITH FACEBOOK"><%=image_tag "shutdown.png", :size=>"25x25"%></span>
+			<%end%>
 	</div>
+	
+	<div id="menu_help"></div>
 	<div id="header">
-		<a href="/">
-		<div style="color:white;">FLYER</div>
-		<div style="color:#f9e101; position:absolute;top:30px;left:48px;">ZERO</div>
-		</a>
+		<div><a href="/" style="color:white;">FLYER</a></div>
+		<div style="position:absolute;top:30px;left:48px;"><a href="/" style="color:#f9e101;">ZERO</a></div>
 	</div>
 	
 

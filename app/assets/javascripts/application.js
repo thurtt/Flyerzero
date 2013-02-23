@@ -98,6 +98,7 @@ $(document).ready(function() {
 		     marginTop:'0px'
 		  },'fast');
 		});
+	$( "#fbcheck" ).button();
 });
 
 // disable the default drag and drop behavior
@@ -235,9 +236,9 @@ function loadFlyerData(lat, lng) {
 				$('#temporalImg').show();
 			}
 		});
-		if ( $(".past:first").size() > 0 ) {
+		if ( $(".future:last").size() > 0 ) {
 			$(jQuery.browser.webkit ? "body": "html").animate({
-				 scrollTop: $(".past:first").offset().top
+				 scrollTop: $(".future:last").offset().top
 			}, 1);
 		}
 		registerEvents();

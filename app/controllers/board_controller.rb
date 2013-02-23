@@ -8,7 +8,7 @@ class BoardController < ApplicationController
 		
 		endpoint = 'https://graph.facebook.com/me?access_token=' + access_token
 		response = RestClient.get endpoint
-		
+		puts response
 		user = (ActiveSupport::JSON.decode(response))
 		
 		profile = Achievement.find_by_email(user["email"])
@@ -26,6 +26,8 @@ class BoardController < ApplicationController
 		session[:email] = user["email"]
 		session[:name] = user["name"]
 		session[:authenticated] = true
+		session[:access_token] = access_token
+		session[:user_id] = user["id"]
 		render :text=>"//AUTHENTICATED:" + session[:name]
 	end
 	
@@ -33,6 +35,8 @@ class BoardController < ApplicationController
 		session[:authenticated] = false
 		session[:profile] = 0
 		session[:email] = ''
+		session[:access_token] = ''
+		session[:user_id] = ''
 		
 		render :text=>"//DE-AUTHENTICATED"
 	end

@@ -59,6 +59,7 @@
 			      <%= foursquare_venue( @event ) %>
 			      
 			<br /><br /><br /><br />
+			<%if !@event.id%><label for="fbcheck" style="font-size:0.8em;font-style:italic;">Post to Facebook: </label> <input type="checkbox" name="send_to_facebook" value="on" id="fbcheck" checked><%end%>
 			</td>
 		</tr>
 		<!-- <tr>

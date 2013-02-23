@@ -46,7 +46,7 @@ function facebook_share(flyer_id){
 	  },
 	  function(response) {
 	    if (response && response.post_id) {
-	      alert('Post was published.');
+	      alert('Image was published to your facebook feed.');
 	    } 
 	  }
 	);
