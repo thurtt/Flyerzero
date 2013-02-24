@@ -119,6 +119,7 @@ class BoardController < ApplicationController
 							      :v=>'20120411',
 							      :query=>params[:term],
 							      :limit=>15,
+							      :radius=>16093,
 							      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
 							      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
 							    }
