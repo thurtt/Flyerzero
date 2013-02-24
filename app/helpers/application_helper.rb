@@ -110,4 +110,38 @@ module ApplicationHelper
 		}
 		return result.html_safe
 	end
+	def authenticate_token(access_token)
+		endpoint = 'https://graph.facebook.com/me?access_token=' + access_token
+		response = RestClient.get endpoint
+		puts response
+		user = (ActiveSupport::JSON.decode(response))
+		
+		profile = Achievement.find_by_email(user["email"])
+		
+		if profile.nil?
+			profile = Achievement.new()
+			profile.email = user["email"]
+			profile.points = 0
+			profile.currency = 0
+			profile.gravatar_hash = Digest::MD5.hexdigest(user["email"])
+			profile.save
+		end
+		
+		session[:profile] = profile.id
+		session[:email] = user["email"]
+		session[:name] = user["name"]
+		session[:authenticated] = true
+		session[:access_token] = access_token
+		session[:user_id] = user["id"]
+		return "//AUTHENTICATED:" + session[:name]
+	end
+	def deauthenticate_token
+		session[:authenticated] = false
+		session[:profile] = 0
+		session[:email] = ''
+		session[:access_token] = ''
+		session[:user_id] = ''
+		
+		return "//DE-AUTHENTICATED"
+	end
 end

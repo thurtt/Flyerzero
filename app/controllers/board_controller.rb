@@ -3,42 +3,14 @@ class BoardController < ApplicationController
 	before_filter :findme, :only=>[:index]
 	before_filter :updateme, :only=>[:flyers]
 
+	include ApplicationHelper
+	
 	def authenticateme
-		access_token = params[:v]
-		
-		endpoint = 'https://graph.facebook.com/me?access_token=' + access_token
-		response = RestClient.get endpoint
-		puts response
-		user = (ActiveSupport::JSON.decode(response))
-		
-		profile = Achievement.find_by_email(user["email"])
-		
-		if profile.nil?
-			profile = Achievement.new()
-			profile.email = user["email"]
-			profile.points = 0
-			profile.currency = 0
-			profile.gravatar_hash = Digest::MD5.hexdigest(user["email"])
-			profile.save
-		end
-		
-		session[:profile] = profile.id
-		session[:email] = user["email"]
-		session[:name] = user["name"]
-		session[:authenticated] = true
-		session[:access_token] = access_token
-		session[:user_id] = user["id"]
-		render :text=>"//AUTHENTICATED:" + session[:name]
+		render :text=>authenticate_token(params[:v])
 	end
 	
 	def deauthenticateme
-		session[:authenticated] = false
-		session[:profile] = 0
-		session[:email] = ''
-		session[:access_token] = ''
-		session[:user_id] = ''
-		
-		render :text=>"//DE-AUTHENTICATED"
+		render :text=>deauthenticate_token
 	end
 	
 	def findme
@@ -60,15 +32,22 @@ class BoardController < ApplicationController
 	end
 
 
-	def updateme
-		if params[:lat] != nil && params[:lat] != ''
-			res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [params[:lat], params[:lng]]
+	def set_ll_from_latlng(lat,lng)
+		res = Geokit::Geocoders::GoogleGeocoder.reverse_geocode [lat, lng]
 			set_session_location(res)
 
 			#@origin = Geokit::Geocoders::MultiGeocoder.geocode(session[:origin])
-			@origin = Geokit::LatLng.new(params[:lat], params[:lng])
+			@origin = Geokit::LatLng.new(lat, lng)
 
 			session[:ll] = @origin.ll
+	end
+	
+	def updateme
+		if params[:lat] != nil && params[:lat] != ''
+			
+			set_ll_from_latlng(params[:lat],params[:lng])
+			
+			
 			return true
 
 		end
@@ -83,11 +62,7 @@ class BoardController < ApplicationController
 		end
 	end
 
-	def authenticate
-		flyer = Event.find_by_verification_hash(params[:v]) if params[:v]
-		session[:email] = flyer.email if flyer != nil
-		redirect_to :action=>"index"
-	end
+
 
 	def flyers
 		ll = session[:ll]
@@ -130,6 +105,11 @@ class BoardController < ApplicationController
 		if params[:term].length < 2
 		      render :json=>[] and return
 		end
+		
+		if params[:lat] != nil && params[:lat] != '' && !session[:ll]
+			set_ll_from_latlng(params[:lat],params[:lng])
+		end
+		
 		venues = {}
 		ourVenues = Venue.search( :name_contains => params[:term] )
 		if ourVenues.length == 0

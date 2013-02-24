@@ -2,6 +2,8 @@ class EventsController < ApplicationController
 	before_filter :authenticate, :except=>[ :view ]
 	protect_from_forgery :except => [ :create, :update ]
 	
+	include ApplicationHelper
+	
 	def index
 	end
 	
@@ -145,6 +147,10 @@ class EventsController < ApplicationController
 
 	def authenticate
 	      	@authenticated = false
+	      	
+	      	if params[:access_token]
+	      		authenticate_token(params[:access_token])
+	      	end
 	      	
 	      	if session[:authenticated] == true
 	      		@authenticated = true
