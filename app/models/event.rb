@@ -19,6 +19,7 @@ class Event < ActiveRecord::Base
 			:medium => "400x",
 			:large =>   "600x" },
 		:convert_options => { 
+			:all => "-colorspace RGB",
 			:cropped => "-gravity north -thumbnail 200x200^ -extent 200x200"}
 
 	attr_accessor :distance_from_object
