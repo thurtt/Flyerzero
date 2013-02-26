@@ -62,7 +62,7 @@ module ApplicationHelper
 					:name=>lv_venue.name,
 					:lat=>lv_venue.lat,
 					:lng=>lv_venue.lng,
-					:venue_id=>venue.id
+					:venue_id=>lv_venue.id
 				}
 			end
 		end
