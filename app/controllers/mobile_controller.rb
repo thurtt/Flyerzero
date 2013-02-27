@@ -33,7 +33,7 @@ class MobileController < ApplicationController
 		hashtags=[]
 		for f in @now
 			f.distance_from_object = ll
-			hashtags << f.tag_list if f.tag_list.count > 0
+			hashtags += f.tag_list if f.tag_list.count > 0
 		end
 		
 		hashtags = hashtags.inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }.to_a.sort{|a, b| a[1] <=> b[1]}
