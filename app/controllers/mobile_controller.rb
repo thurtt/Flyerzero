@@ -30,12 +30,17 @@ class MobileController < ApplicationController
 
 		
 
+		hashtags=[]
 		for f in @now
 			f.distance_from_object = ll
+			hashtags << f.tag_list if f.tag_list.count > 0
 		end
+		
+		hashtags = hashtags.inject(Hash.new(0)) { |h, e| h[e] += 1 ; h }.to_a.sort{|a, b| a[1] <=> b[1]}
 		
 		if _version != "1.0"
 			responseArray = { :events => JSON.parse(@now.to_json(:only => [:id,:lat,:lng,:expiry, :media, :fbevent, :venue_id], :methods => [:map_photo, :map_photo_info, :get_distance_from])),
+				:hashtags=>hashtags,
 				:total_pages=> (@count.size / pageSize.to_f).ceil, 
 				:current_page => _page, 
 				:per_page=>pageSize,
