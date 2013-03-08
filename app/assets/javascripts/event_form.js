@@ -181,8 +181,8 @@ function processResponse( text ){
 // **** Form Validation ****
 function validateForm(){
 
-    validated = true;
-
+    validated = true;	    
+    
     // check to see if an image has been selected
     if ( !uploadData.submit && !editFlyer ){
 	//$('#dragdrop_text').addClass( 'error_text' );
@@ -210,9 +210,9 @@ function validateForm(){
     }
 
     // check for a valid location
-    if( $('#event_venue_id').val().length <= 0 ) {
-	addError( $('#event_loc') );
-	validated = false;
+    if( $('#event_lat').val().length <= 0 ) {
+    	    $('#event_lat').val(latitude);
+    	    $('#event_lng').val(longitude);
     }
 
     return validated;

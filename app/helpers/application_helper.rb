@@ -15,9 +15,9 @@ module ApplicationHelper
 		if not event or not event.venue_id
 			venue_info = {
 				:name=>"",
-				:location=>"No Venue Chosen",
-				:lat=>"",
-				:lng=>"",
+				:location=>"Right Here.",
+				:lat=>"", #session[:ll].split(',')[0],
+				:lng=>"" #session[:ll].split(',')[1],
 			}
 		else
 			venue_id = event.venue_id

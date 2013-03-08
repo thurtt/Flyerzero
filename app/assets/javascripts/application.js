@@ -247,7 +247,7 @@ function loadFlyerData(lat, lng) {
 }
 
 function getUserLocation() {
-
+	
 	var timeoutVal = 10 * 1000;
 	navigator.geolocation.getCurrentPosition(foundLocation, noLocation,{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 });
 }
@@ -259,6 +259,7 @@ function reloadLocation(){
 }
 
 function foundLocation(position) {
+
 	user_latitude = position.coords.latitude;
 	user_longitude = position.coords.longitude;
 	findCountry(user_latitude, user_longitude);

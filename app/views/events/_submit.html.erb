@@ -32,7 +32,7 @@
 		
 		<tr>
 			<td>
-				<%=f.text_field :expiry, :placeholder=>"Now? In a month?", :class=>"input_text"%>
+				<%=f.text_field :expiry, :placeholder=>"Now? In a month?", :class=>"input_text", :value=>Time.now().strftime("%a, %d %b %Y")%>
 				<br /><br /><br /><br />
 			</td>
 		</tr>
@@ -46,7 +46,7 @@
 		</tr>
 		<tr>
 			<td>
-				<input class="input_text" id="event_loc" placeholder="Search for venues">
+				<input class="input_text" id="event_loc" placeholder="Search for nearby venues">
 				<%= image_tag "cycle-small.gif", :id=>"search_wait", :size=>"20x20" %>
 				<br /><br />
 			</td>
