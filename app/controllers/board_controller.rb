@@ -4,6 +4,10 @@ class BoardController < ApplicationController
 	before_filter :updateme, :only=>[:flyers]
 
 	include ApplicationHelper
+
+	# The minimum number of results before we
+	# resort to foursquare
+	VENUE_THRESHOLD = 10
 	
 	def authenticateme
 		render :text=>authenticate_token(params[:v])
@@ -102,6 +106,9 @@ class BoardController < ApplicationController
 	end
 
 	def venue
+
+		venue = {}
+
 		if params[:term].length < 2
 		      render :json=>[] and return
 		end
@@ -110,9 +117,20 @@ class BoardController < ApplicationController
 			set_ll_from_latlng(params[:lat],params[:lng])
 		end
 		
-		venues = {}
+		# Search our local venue database first
 		ourVenues = Venue.search( :name_contains => params[:term] )
-		if ourVenues.length == 0
+
+		venues = ourVenues.all.map{ |venue| { :name=>venue["name"],
+					  :address=>venue["address"],
+					  :lat=>venue["lat"],
+					  :lng=>venue["lng"],
+					  :venue_id=>"lv:" + venue["id"].to_s,
+					  :foursquare_id=>venue["foursquare_id"]
+					}
+		}
+
+		# If the results fall below our threshold, search foursquare too
+		if venues.length < VENUE_THRESHOLD
 			# foursquare autocomplete endpoint
 			endpoint = 'https://api.foursquare.com/v2/venues/suggestcompletion'
 			response = RestClient.get endpoint, {:params=>{ :ll=>session[:ll],
@@ -123,24 +141,22 @@ class BoardController < ApplicationController
 							      :client_id=>'PD1MFQUHYFZKOWIND0L3AU3HEZ2FHUP1MVJ2BZG0NZXRJ14G',
 							      :client_secret=>'UUSATLQWYXAGCOICODDAS1YFUPTHNS4FSFYWONA2SA4VRU0H'}
 							    }
-			venues = (ActiveSupport::JSON.decode(response))["response"]["minivenues"]
-			venues.map!{ |venue| { :name=>venue["name"],
+			fsVenues = (ActiveSupport::JSON.decode(response))["response"]["minivenues"]
+
+			# remove any duplicate entries
+			fsVenues = fsVenues.delete_if{ |venue1| venues.find_all { |venue2| venue2[:foursquare_id] == venue1["id"] }.length > 0 }
+
+			venues += fsVenues.map{ |venue| { :name=>venue["name"],
 					       :cross_street=>venue["location"]["crossStreet"],
 					       :address=>venue["location"]["address"],
 					       :lat=>venue["location"]["lat"],
 					       :lng=>venue["location"]["lng"],
 					       :venue_id=>"fs:" + venue["id"],
-					     }
-				   }
-		else
-			venues = ourVenues.all.map{ |venue| { :name=>venue["name"],
-											  :address=>venue["address"],
-											  :lat=>venue["lat"],
-											  :lng=>venue["lng"],
-											  :venue_id=>"lv:" + venue["id"].to_s
-											}
-								   }
+					       :foursquare_id=>venue["id"]
+					    }
+				    }
 		end
+
 		respond_to do |format|
 		      format.json{render :json=> venues}
 		      format.html{render :json=> venues}
