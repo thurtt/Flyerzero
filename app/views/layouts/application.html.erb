@@ -1,67 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# flyerzeromobile: http://ogp.me/ns/fb/flyerzeromobile#">
-  <title>Flyer Zero</title>
+  <title>Flyer Zero API | Developers</title>
 
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
+
   
-  <!--
-  <script src="http://maps.google.com/maps/api/js?key=AIzaSyDgDc6rdIUKqZlIPRZFbCveT1QWTncTDzE&sensor=false"></script>
-  <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker.js"></script>
-  //-->
-  
-  <meta property="og:title" content="Flyer Zero"/>
-  <meta property="og:description" content="1 part Flyer. 1 part Foursquare. 1 part Google Maps. 2 parts Kung Fu." />
+  <meta property="og:title" content="Flyer Zero API"/>
+  <meta property="og:description" content="Geolocation driven photo storage API for web and mobile platforms." />
   <meta property="og:url" content="http://www.flyerzero.com/"/>
   <meta property="og:image" content="http://www.flyerzero.com/assets/Icon0_512.png"/>
   <meta name="google-site-verification" content="ZT5zfsirjSt9UFCOg_XcbTvceY4BKmxrdFkFbG7X-UM" />
   <meta property="og:type" content="website" />
   <meta property="fb:app_id" content="288588701253698" /> 
 
-<script>
-  
-
-  var isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i) ? true : false;
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i) ? true : false;
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i) ? true : false;
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
-    }
-};
-
-  <%if session[:authenticated]%>
-  	var init_login = true;
-  <%else%>
-  	var init_login = false;
-  <%end%>
-  </script>
-
 </head>
 <body>
-<script>
-  <!-- load intent -->
-  if( isMobile.any() ){
-  ifrm = document.createElement("IFRAME");
-   ifrm.setAttribute("src", "flyerzero://event/<%=params[:flyer]%>");
-   ifrm.style.width = "0px";
-   ifrm.style.height = "0px";
-   ifrm.style.display = "none";
-   document.body.appendChild(ifrm);
-   }
-  </script>
+
 <div id="fb-root"></div>
 <script>
 window.fbAsyncInit = function() {
@@ -87,41 +44,10 @@ window.fbAsyncInit = function() {
    }(document, /*debug*/ false));
 </script>
 
-<script>
-  var hashtag = '<%= params[:hashtag] %>';
-</script>
-
-	<div id="address_container">
-			<a href="" id="address" data-title="CHANGE YOUR LOCATION" style="display:none;"><%=image_tag "location.png", :size=>"25x25"%></a>
-			<%if session[:authenticated]%>
-			<a href="/profile/view/<%=session[:profile]%>" data-title="CHECK OUT YOUR PROFILE"><%=image_tag "happyface.png", :size=>"25x25"%></a>
-			<a href="/submit" data-title="SUBMIT A PICTURE"><%=image_tag "submit.png", :size=>"25x25"%></a>
-			<span id="logout" class="acts_as_link" data-title="LOG OUT"><%=image_tag "shutdown.png", :size=>"25x25"%></span>
-			
-			<%else%>
-			<span id="login" class="acts_as_link" data-title="LOG IN WITH FACEBOOK"><%=image_tag "shutdown.png", :size=>"25x25"%></span>
-			<%end%>
-	</div>
-	
-	<div id="menu_help"></div>
-	<div id="header">
-		<div><a href="/" style="color:white;">FLYER</a></div>
-		<div style="position:absolute;top:30px;left:48px;"><a href="/" style="color:#f9e101;">ZERO</a></div>
-	</div>
-	<div id="map_image_container" style="display:none;"><img class="map_image" src=''/><br/>
-	<div class="physical_address"></div>
-	<span id="change_location"><input id='new_location' placeholder='Want to look at another location?'><button class='change_location'>Take a Look!</button></span></span>
-	</div>
 	
 	<%= yield %>
 
-	<div id="footer">
-		<a href="/">Flyer Zero</a> is a kickass <a href="http://www.openformfoundation.org/">Open Form Foundation</a> joint. &copy;2012
-		<span id="fb_likie" class="fb-like" data-href="https://www.facebook.com/FlyerZero" data-send="false" data-layout="button_count" data-width="80" data-show-faces="true"></span>
-		Flyer Zero proudly uses <a href="http://www.webalys.com/minicons/icons-free-pack.php">Minicons</a>.
-	</div>
-	<div id="response_dump" style="display:none;"></div>
-
+		
 <!-- Google Analytics -->
 <%= render :partial => "layouts/ga" if Rails.env == "production" %>
 
